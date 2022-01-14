@@ -1,0 +1,15 @@
+name        = "lace_bullet"
+description = "Provides a thin Ada binding to the 'bullet' C++ project."
+version     = "0.1.0"
+
+authors            = ["Rod Kay"]
+maintainers        = ["Rod Kay <rodakay5@gmail.com>"]
+maintainers-logins = ["charlie5"]
+
+licenses = "ISC"
+
+project-files = ["library/bullet_thin.gpr"]
+
+[[depends-on]]
+lace_c_math = "~0.1"
+libbullet   = "*"
