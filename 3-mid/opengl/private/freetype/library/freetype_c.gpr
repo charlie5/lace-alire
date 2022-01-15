@@ -15,8 +15,7 @@ is
    end Naming;
 
    package Compiler is
-      for Default_Switches ("c") use ("-g", "-I/usr/include/freetype2", 
-                                            "-I/usr/local/include/freetype2");
+      for Default_Switches ("c") use ("-g", "-I/usr/include/freetype2");
    end Compiler;
 
    package Linker is

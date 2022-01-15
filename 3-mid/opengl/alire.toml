@@ -19,3 +19,6 @@ libfreetype = "^2"
 [gpr-set-externals."case(os)"]
 "linux|macos" = {FreeType_Linker_Param = "-lfreetype"}
 "windows"     = {FreeType_Linker_Param = "-lfreetype-6"}
+
+[environment.'case(distribution)'.msys2.C_INCLUDE_PATH]
+append = "${DISTRIB_ROOT}/mingw64/include/freetype2"
