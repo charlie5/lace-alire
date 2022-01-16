@@ -11,12 +11,12 @@ struct light
 };
 
 
-uniform mat4           model_Transform;
-uniform mat3           inverse_model_Rotation;
-uniform vec3           camera_Site;
-uniform vec3           specular_Color;    // The materials specular color.
-uniform int            light_Count;
-uniform struct light   Lights [10];
+uniform mat4    model_Transform;
+uniform mat3    inverse_model_Rotation;
+uniform vec3    camera_Site;
+uniform vec3    specular_Color;    // The materials specular color.
+uniform int     light_Count;
+uniform light   Lights [10];
 
 
 in  vec3   frag_Site;
