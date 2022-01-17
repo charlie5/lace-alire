@@ -24,7 +24,10 @@ is
       for Default_Switches ("c++") use ("-g",
                                         "-Wno-return-type-c-linkage",
                                         "-I/usr/include/bullet",
-                                        "-I/mingw64/include/bullet");
+                                        "-I" & External ("LIBRARY_PATH", "/usr/include") & "/../include/bullet");
+      --
+      -- TODO: Find out why Alires 'C_INCLUDE_PATH' append is not working on Windows, so that
+      --       the above  'External ("LIBRARY_PATH")'  workaround can be removed.
    end Compiler;
 
    package Linker is
