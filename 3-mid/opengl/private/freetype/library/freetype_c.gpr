@@ -1,7 +1,5 @@
 project FreeType_C
 is
-   FreeTypeLib := external ("FreeType_Linker_Param", "-lfreetype");
-
    for Languages       use ("C");
    for Source_Dirs     use ("../source/**");
    for Object_Dir      use "build";
@@ -19,7 +17,7 @@ is
    end Compiler;
 
    package Linker is
-      for Linker_Options use ("-g", FreeTypeLib);
+      for Linker_Options use ("-g", "-lfreetype");
    end Linker;
 
 end FreeType_C;
