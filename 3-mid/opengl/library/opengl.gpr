@@ -58,7 +58,7 @@ is
    
    package Linker
    is
-      for Linker_Options use ("-g", "-lEGL", "-lGL", "-lSDL2");   
+      for Linker_Options use ("-g", "-lEGL", "-lGLESv2", "-lSDL2");   
    end Linker;
 
 end Opengl;
