@@ -7,6 +7,8 @@ maintainers        = ["Rod Kay <rodakay5@gmail.com>"]
 maintainers-logins = ["charlie5"]
 
 licenses = "ISC"
+website  = "https://github.com/charlie5/lace-alire"
+tags     = ["event", "response", "subject", "observer", "pool", "text"]
 
 long-description = "\nContains:\n\n   - lace.Events    : Provides a 'subject/oberver' 'event/response' facility.\n   - lace.Any       : Provides an interface to allow heterogenous containers.\n   - lace.fast_Pool : Provides a generic which allows fast allocation/deallocation.\n   - lace.Text      : Provides a DSA friendly set of text operations.\n\n"
 

@@ -7,5 +7,7 @@ maintainers        = ["Rod Kay <rodakay5@gmail.com>"]
 maintainers-logins = ["charlie5"]
 
 licenses = "ISC"
+website  = "https://github.com/charlie5/lace-alire"
+tags     = ["binding", "c", "c++"]
 
 project-files = ["library/swig.gpr"]

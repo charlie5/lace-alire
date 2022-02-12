@@ -7,9 +7,9 @@ maintainers        = ["Rod Kay <rodakay5@gmail.com>"]
 maintainers-logins = ["charlie5"]
 
 licenses = "ISC"
+website  = "https://github.com/charlie5/lace-alire"
 
-executables = ["launch_full_demo"]
-
+executables   = ["launch_full_demo"]
 project-files = ["full_demo.gpr"]
 
 [[depends-on]]

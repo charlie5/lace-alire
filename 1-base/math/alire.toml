@@ -7,6 +7,8 @@ maintainers        = ["Rod Kay <rodakay5@gmail.com>"]
 maintainers-logins = ["charlie5"]
 
 licenses = "ISC"
+website  = "https://github.com/charlie5/lace-alire"
+tags     = ["math", "arithmetic", "algebra", "geometry"]
 
 long-description = "\nContains:\n\n   - Pure\n      - Arithmetic (covers quantity)\n      - Algebra    (covers structure)\n      - Geometry   (covers space)\n      - Analysis   (covers change)\n\n   - Applied\n      - Statistics\n      - Computational\n\n"
 

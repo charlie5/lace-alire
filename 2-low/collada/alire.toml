@@ -7,6 +7,8 @@ maintainers        = ["Rod Kay <rodakay5@gmail.com>"]
 maintainers-logins = ["charlie5"]
 
 licenses = "ISC"
+website  = "https://github.com/charlie5/lace-alire"
+tags     = ["model", "3d"]
 
 project-files = ["library/collada.gpr"]
 
