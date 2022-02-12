@@ -8,6 +8,6 @@ maintainers-logins = ["charlie5"]
 
 licenses = "ISC"
 website  = "https://github.com/charlie5/lace-alire"
-tags     = ["binding", "c", "c++"]
+tags     = ["binding", "c", "cxx"]
 
 project-files = ["library/swig.gpr"]
