@@ -1,6 +1,6 @@
 name        = "lace_opengl"
 description = "Provides an openGL engine."
-version     = "0.1.0"
+version     = "0.1.1"
 
 authors            = ["Rod Kay"]
 maintainers        = ["Rod Kay <rodakay5@gmail.com>"]
@@ -8,7 +8,7 @@ maintainers-logins = ["charlie5"]
 
 licenses = "ISC"
 website  = "https://github.com/charlie5/lace-alire"
-tags     = ["graphics"]
+tags     = ["graphics", "3d"]
 
 project-files = ["library/opengl.gpr"]
 
