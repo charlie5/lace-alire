@@ -581,4 +581,96 @@ is
    end Image;
 
 
+
+   -----------
+   -- Hexagons
+   --
+
+   function R (Self : in Hexagon) return Real
+   is
+   begin
+      return Self.circumRadius;
+   end R;
+
+
+
+   function Area (Self : in Hexagon) return Real
+   is
+   begin
+      return 3.0 * R (Self) * inRadius (Self);
+   end Area;
+
+
+
+   function Perimeter (Self : in Hexagon) return Real
+   is
+   begin
+      return 6.0 * side_Length (Self);
+   end Perimeter;
+
+
+
+   function Angle (Self      : in Hexagon           with Unreferenced;
+                   at_Vertex : in hexagon_Vertex_Id with Unreferenced) return Radians
+   is
+   begin
+      return to_Radians (120.0);
+   end Angle;
+
+
+
+   function prior_Vertex (to_Vertex : in hexagon_Vertex_Id) return hexagon_Vertex_Id
+   is
+   begin
+      if To_Vertex = 1
+      then   return 6;
+      else   return to_Vertex - 1;
+      end if;
+   end prior_Vertex;
+
+
+
+   function next_Vertex (to_Vertex : in hexagon_Vertex_Id) return hexagon_Vertex_Id
+   is
+   begin
+      if to_Vertex = 6
+      then   return 1;
+      else   return to_Vertex + 1;
+      end if;
+   end next_Vertex;
+
+
+
+   function minimal_Diameter (Self : in Hexagon) return Real
+   is
+   begin
+      return 2.0 * inRadius (Self);
+   end minimal_Diameter;
+
+
+
+   function maximal_Diameter (Self : in Hexagon) return Real
+   is
+   begin
+      return 2.0 * Self.circumRadius;
+   end maximal_Diameter;
+
+
+
+   function inRadius (Self : in Hexagon) return Real
+   is
+      use Functions;
+   begin
+      return cos (to_Radians (30.0)) * R (Self);
+   end inRadius;
+
+
+
+   function side_Length (Self : in Hexagon) return Real
+   is
+   begin
+      return Self.circumRadius;
+   end side_Length;
+
+
 end any_Math.any_Geometry.any_d2;

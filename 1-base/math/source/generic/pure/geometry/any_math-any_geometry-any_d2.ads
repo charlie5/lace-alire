@@ -154,6 +154,40 @@ is
 
 
 
+   -----------
+   -- Hexagons
+   --
+
+   subtype hexagon_Vertex_Id is Index range 1 .. 6;
+
+
+   function prior_Vertex (to_Vertex : in hexagon_Vertex_Id) return hexagon_Vertex_Id;
+   function  next_Vertex (to_Vertex : in hexagon_Vertex_Id) return hexagon_Vertex_Id;
+
+
+   type Hexagon is
+      record
+         circumRadius : Real;     -- 'R'
+      end record;
+
+   function R (Self : in Hexagon) return Real;
+
+   function Area         (Self : in Hexagon) return Real;
+   function Perimeter    (Self : in Hexagon) return Real;
+
+   function Angle        (Self : in Hexagon;   at_Vertex : in hexagon_Vertex_Id) return Radians;
+
+   function minimal_Diameter (Self : in Hexagon) return Real;     -- 'd'
+   function maximal_Diameter (Self : in Hexagon) return Real;
+   function D                (Self : in Hexagon) return Real renames maximal_Diameter;
+
+   function inRadius    (Self : in Hexagon) return Real;          -- 'r'
+
+   function side_Length (Self : in Hexagon) return Real;
+   function t           (Self : in Hexagon) return Real renames side_Length;
+
+
+
 private
 
    type Line_Format is (anchored_Gradient, two_Points);
