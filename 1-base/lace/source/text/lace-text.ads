@@ -124,6 +124,16 @@ is
    function  mono_Spaced  (Self : in Item) return Item;
 
 
+   procedure append (Self : in out Item;   Extra : in String);
+   --
+   -- Raises an Error if capacity is exceeded.
+
+
+   function  delete (Self : in     Text.item;   From    : Positive;
+                                                Through : Natural := Natural'Last) return Text.item;
+   procedure delete (Self : in out Text.item;   From    : Positive;
+                                                Through : Natural := Natural'Last);
+
 
 private
 

@@ -154,6 +154,61 @@ is
    end mono_Spaced;
 
 
+
+   procedure append (Self : in out Item;   Extra : in String)
+   is
+      First : constant Positive := Self.Length + 1;
+      Last  : constant Positive := First + Extra'Length - 1;
+   begin
+      Self.Length               := Last;
+      Self.Data (First .. Last) := Extra;
+
+   exception
+      when constraint_Error =>
+         raise Error with "Appending '" & Extra & "' to '" & to_String (Self) & "' exceeds capacity of" & Self.Capacity'Image & ".";
+   end append;
+
+
+
+   function delete (Self : in Text.item;   From    : Positive;
+                                           Through : Natural := Natural'Last) return Text.item
+   is
+      Result : Text.item (Self.Capacity);
+   begin
+      delete (Result, From, Through);
+      return Result;
+   end delete;
+
+
+
+   procedure delete (Self : in out Text.item;   From    : Positive;
+                                                Through : Natural := Natural'Last)
+   is
+      Thru : constant Natural := Natural'Min (Through, Self.Length);
+      Tail : constant String  := Self.Data (Thru + 1 .. Self.Length);
+   begin
+      Self.Data (From .. From + Tail'Length - 1) := Tail;
+      Self.Length                                :=   Self.Length
+                                                    - (Natural'Min (Thru,
+                                                                    Self.Length) - From + 1);
+   end delete;
+
+
+
+   --  procedure delete (Self : in out Text.item;   From    : Positive;
+   --                                               Through : Natural := Natural'Last)
+   --  is
+   --     Thru : constant Natural := Natural'Min (Through, Self.Length)
+   --     Tail : constant String  := Self.Data (Through + 1 .. Self.Length);
+   --  begin
+   --     Self.Data (From .. From + Tail'Length - 1) := Tail;
+   --     Self.Length                                :=   Self.Length
+   --                                                   - (Natural'Min (Through,
+   --                                                                   Self.Length) - From + 1);
+   --  end delete;
+
+
+
    ----------
    -- Streams
    --
