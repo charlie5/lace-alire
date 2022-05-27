@@ -1,9 +1,19 @@
 with
-     lace.Text.all_Tokens;
+     lace.Text.all_Tokens,
+     ada.Strings.fixed;
 
 
 package body lace.Text.utility
 is
+
+   function Contains (Self : in Text.item;   Pattern : in String) return Boolean
+   is
+      use ada.Strings.fixed;
+   begin
+      return Index (+Self, Pattern) /= 0;
+   end Contains;
+
+
 
    function replace (Self : in Text.item;   Pattern : in String;
                                             By      : in String) return Text.item
