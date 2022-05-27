@@ -1,6 +1,6 @@
 package lace.Text.all_Tokens
 is
-   default_Max : constant := 4 * 1024;
+   default_Max : constant := 8 * 1024;
 
 
    ----------------------

@@ -57,13 +57,13 @@ is
 
    function any_Tokens_chr (Self : in Item;   Delimiter  : in Character := ' ';
                                               Trim       : in Boolean   := False;
-                                              max_Tokens : in Positive  := 4 * 1024) return Array_type;
+                                              max_Tokens : in Positive  := 8 * 1024) return Array_type;
 
 
 
    function any_Tokens_chr (Self : in Item;   Delimiter  : in Character := ' ';
                                               Trim       : in Boolean   := False;
-                                              max_Tokens : in Positive  := 4 * 1024) return Array_type
+                                              max_Tokens : in Positive  := 8 * 1024) return Array_type
    is
       the_Tokens : Array_type (1 .. max_Tokens);
       Count      : Natural  := 0;
