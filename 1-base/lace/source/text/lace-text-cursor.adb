@@ -1,7 +1,8 @@
 with
      ada.Characters.latin_1,
+     ada.Characters.handling,
      ada.Strings.fixed,
-     ada.strings.Maps;
+     ada.Strings.Maps;
 
 package body lace.text.Cursor
 is
@@ -11,6 +12,7 @@ is
    Float_Numerals   : constant maps.character_Set := maps.to_Set ("+-0123456789.");
 
 
+   --------
    -- Forge
    --
 
@@ -22,6 +24,7 @@ is
    end First;
 
 
+   -------------
    -- Attributes
    --
 
@@ -42,17 +45,27 @@ is
 
    procedure advance (Self : in out Item;   Delimiter      : in String  := " ";
                                             Repeat         : in Natural := 0;
-                                            skip_Delimiter : in Boolean := True)
+                                            skip_Delimiter : in Boolean := True;
+                                            Case_sensitive : in Boolean := True)
    is
    begin
       for Count in 1 .. Repeat + 1
       loop
          declare
+            use ada.Characters.handling;
             delimiter_Position : Natural;
          begin
-            delimiter_Position := fixed.Index (Self.Target.Data,
-                                               Delimiter,
-                                               from => Self.Current);
+            if Case_sensitive
+            then
+               delimiter_Position := fixed.Index (Self.Target.Data (1 .. Self.Target.Length),
+                                                  Delimiter,
+                                                  From => Self.Current);
+            else
+               delimiter_Position := fixed.Index (to_Lower (Self.Target.Data (1 .. Self.Target.Length)),
+                                                  to_Lower (Delimiter),
+                                                  From => Self.Current);
+            end if;
+
             if delimiter_Position = 0
             then
                Self.Current := 0;
@@ -79,6 +92,7 @@ is
    end advance;
 
 
+
    procedure skip_White (Self : in out Item)
    is
    begin
@@ -91,6 +105,16 @@ is
          Self.Current := Self.Current + 1;
       end loop;
    end skip_White;
+
+
+
+   procedure skip_Line (Self : in out Item)
+   is
+      Line : String := next_Line (Self) with Unreferenced;
+   begin
+      null;
+   end skip_Line;
+
 
 
    function next_Token (Self      : in out Item;
@@ -131,6 +155,17 @@ is
          end return;
       end;
    end next_Token;
+
+
+
+   function next_Line (Self : in out item;   Trim : in Boolean := False) return String
+   is
+      use ada.Characters;
+   begin
+      return next_Token (Self, Delimiter => latin_1.CR & latin_1.LF,
+                               Trim      => Trim);
+   end next_Line;
+
 
 
    procedure skip_Token (Self : in out Item;   Delimiter : in String := " ")
@@ -190,7 +225,8 @@ is
    end Length;
 
 
-   function Peek (Self : in Item;   Length : in Natural := Remaining) return String
+
+   function peek (Self : in Item;   Length : in Natural := Remaining) return String
    is
       Last : constant Natural := (if Length = Natural'Last then Self.Target.Length
                                                            else Self.Current + Length - 1);
@@ -201,6 +237,16 @@ is
       end if;
 
       return Self.Target.Data (Self.Current .. Last);
-   end Peek;
+   end peek;
+
+
+
+   function peek_Line (Self : in Item) return String
+   is
+      C : Cursor.item := Self;
+   begin
+      return next_Line (C);
+   end peek_Line;
+
 
 end lace.text.Cursor;
