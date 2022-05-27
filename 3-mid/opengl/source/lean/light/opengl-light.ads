@@ -54,13 +54,13 @@ private
          Id   : light.Id_t   := null_Id;
          Kind : light.Kind_t := Direct;
          On   : Boolean      := True;
-         Site : openGL.Site  := (0.0, 0.0, 1.0);     -- The GL default.
+         Site : openGL.Site  := [0.0, 0.0, 1.0];     -- The GL default.
 
          Color               : openGL.Color := Palette.White;
          Attenuation         : Real         :=  0.1;
          ambient_Coefficient : Real         :=  0.1;
          cone_Angle          : Degrees      :=  2.0;
-         cone_Direction      : Vector_3     := (0.0, 0.0, -1.0);
+         cone_Direction      : Vector_3     := [0.0, 0.0, -1.0];
       end record;
 
 end openGL.Light;

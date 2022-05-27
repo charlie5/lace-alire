@@ -84,7 +84,7 @@ is
 
       Camera.define;
       Camera.Renderer_is (Renderer'unchecked_Access);
-      Camera.Position_is ((0.0, 0.0, 5.0),
+      Camera.Position_is ([0.0, 0.0, 5.0],
                           y_Rotation_from (to_Radians (0.0)));
 
       Camera.Viewport_is (width  => Width,
@@ -112,7 +112,7 @@ is
                                               Size => 12);
 
       the_arrow_Model : constant Model.arrow.colored.view
-        := Model.arrow.colored.new_Arrow (End_2 => (0.0, 1.0, 0.0));
+        := Model.arrow.colored.new_Arrow (End_2 => [0.0, 1.0, 0.0]);
 
       the_ball_1_Model : constant Model.sphere.colored.view
         := Model.sphere.colored.new_Sphere (Radius => 0.5, Color => (Red, Opaque));
@@ -136,23 +136,23 @@ is
 
       the_box_1_Model : constant Model.box.colored.view
         := Model.box.colored.new_Box
-             (Size => (1.0, 2.0, 3.0),
-              Faces => (Front => (Colors => (others => (Blue,     Opaque))),
-                        Rear  => (Colors => (others => (Blue,     Opaque))),
-                        Upper => (Colors => (others => (Green,    Opaque))),
-                        Lower => (Colors => (others => (Green,    Opaque))),
-                        Left  => (Colors => (others => (Dark_Red, Opaque))),
-                        Right => (Colors => (others => (Red,      Opaque)))));
+             (Size => [1.0, 2.0, 3.0],
+              Faces => [Front => (Colors => [others => (Blue,     Opaque)]),
+                        Rear  => (Colors => [others => (Blue,     Opaque)]),
+                        Upper => (Colors => [others => (Green,    Opaque)]),
+                        Lower => (Colors => [others => (Green,    Opaque)]),
+                        Left  => (Colors => [others => (Dark_Red, Opaque)]),
+                        Right => (Colors => [others => (Red,      Opaque)])]);
 
       the_box_2_Model : constant Model.box.lit_textured.view
         := Model.box.lit_textured.new_Box
-             (Size  => (1.0, 2.0, 1.0),
-              Faces => (others => (texture_Name => the_Texture)));
+             (Size  => [1.0, 2.0, 1.0],
+              Faces => [others => (texture_Name => the_Texture)]);
 
       the_box_3_Model : constant Model.box.textured.view
         := Model.box.textured.new_Box
-             (Size  => (1.0, 2.0, 3.0),
-              Faces => (others => (texture_Name => the_Texture)));
+             (Size  => [1.0, 2.0, 3.0],
+              Faces => [others => (texture_Name => the_Texture)]);
 
       the_capsule_Model : constant Model.capsule.lit_textured.view
         := Model.capsule.lit_textured.new_Capsule (Radius => 0.5,
@@ -166,28 +166,28 @@ is
       the_hexagon_Model : constant Model.hexagon.lit_colored.view
         := Model.hexagon.lit_colored.new_Hexagon (Radius => 0.25,
                                                   Face   => (center_Color => (Green, Opaque),
-                                                             Colors       => (others => (Red, Opaque))));
+                                                             Colors       => [others => (Red, Opaque)]));
 
       the_faceted_hexagon_column_Model : constant Model.hexagon_Column.lit_colored_faceted.view
         := Model.hexagon_Column.lit_colored_faceted.new_hexagon_Column
              (Radius => 0.25,
               Height => 1.0,
-              Upper => (center_Color => (Green, Opaque),   Colors => (others => (Red, Opaque))),
-              Lower => (center_Color => (Green, Opaque),   Colors => (others => (Red, Opaque))),
+              Upper => (center_Color => (Green, Opaque),   Colors => [others => (Red, Opaque)]),
+              Lower => (center_Color => (Green, Opaque),   Colors => [others => (Red, Opaque)]),
               Shaft => (Color        => (Green, Opaque)));
 
       the_rounded_hexagon_column_Model : constant Model.hexagon_Column.lit_colored_rounded.view
         := Model.hexagon_Column.lit_colored_rounded.new_hexagon_Column
              (Radius => 0.25,
               Height => 1.0,
-              Upper => (center_Color => (Green, Opaque),   Colors => (others => (Red, Opaque))),
-              Lower => (center_Color => (Green, Opaque),   Colors => (others => (Red, Opaque))),
+              Upper => (center_Color => (Green, Opaque),   Colors => [others => (Red, Opaque)]),
+              Lower => (center_Color => (Green, Opaque),   Colors => [others => (Red, Opaque)]),
               Shaft => (Color        => (White, Opaque)));
 
       the_line_Model : constant Model.line.colored.view
         := Model.line.colored.new_line_Model (Color  => Red,
-                                              End_1 => (0.0, 0.0, 0.0),
-                                              End_2 => (5.0, 5.0, 0.0));
+                                              End_1 => [0.0, 0.0, 0.0],
+                                              End_2 => [5.0, 5.0, 0.0]);
 
       the_collada_Model : constant Model.any.view
         := Model.any.new_Model (--Scale            => (1.0, 1.0, 1.0),
@@ -202,7 +202,7 @@ is
                                 Texture_is_lucid => False);
 
       the_polygon_Model : constant Model.polygon.lit_colored.view
-        := Model.polygon.lit_colored.new_Polygon (Vertices => (Origin_2D, (1.0, 0.0), (1.0, 1.0), (-1.0, 0.5)),
+        := Model.polygon.lit_colored.new_Polygon (Vertices => [Origin_2D, [1.0, 0.0], [1.0, 1.0], [-1.0, 0.5]],
                                                   Color    => (Red, Opaque));
 
       the_text_Model : constant Model.Text.lit_colored.view
@@ -232,13 +232,13 @@ is
    begin
       Demo.Renderer.add_Font (the_font_Id);
 
-      the_segment_line_Model.add_1st_Segment (start_Site => (0.0, 0.0, 0.0),
-                                              end_Site   => (1.0, 1.0, 0.0));
-      the_segment_line_Model.add_Segment     (end_Site   => (0.0, 1.0, 0.0));
-      the_segment_line_Model.add_Segment     (end_Site   => (2.0, 2.0, 0.0));
-      the_segment_line_Model.add_Segment     (end_Site   => (0.0, 2.0, 0.0));
+      the_segment_line_Model.add_1st_Segment (start_Site => [0.0, 0.0, 0.0],
+                                              end_Site   => [1.0, 1.0, 0.0]);
+      the_segment_line_Model.add_Segment     (end_Site   => [0.0, 1.0, 0.0]);
+      the_segment_line_Model.add_Segment     (end_Site   => [2.0, 2.0, 0.0]);
+      the_segment_line_Model.add_Segment     (end_Site   => [0.0, 2.0, 0.0]);
 
-      return (           the_ground_Model.all'Access,
+      return [           the_ground_Model.all'Access,
                         the_polygon_Model.all'Access,
                            the_text_Model.all'Access,
                           the_arrow_Model.all'Access,
@@ -263,7 +263,7 @@ is
                              the_collada_Model.all'Access,
                            the_wavefront_Model.all'Access,
 
-                        the_segment_line_Model.all'Access);
+                        the_segment_line_Model.all'Access];
    end Models;
 
 
@@ -280,7 +280,7 @@ is
       procedure set_next_Visual_Site
       is
       begin
-         the_Visuals (i).Site_is ((X, Y, 0.0));
+         the_Visuals (i).Site_is ([X, Y, 0.0]);
 
          i := i + 1;
          X := X + Pad;

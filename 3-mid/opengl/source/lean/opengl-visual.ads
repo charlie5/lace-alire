@@ -22,7 +22,7 @@ is
    package Forge
    is
       function new_Visual (Model      : in openGL.Model.view;
-                           Scale      : in Vector_3 := (1.0, 1.0, 1.0);
+                           Scale      : in Vector_3 := [1.0, 1.0, 1.0];
                            is_Terrain : in Boolean  := False) return Visual.view;
    end Forge;
 
@@ -74,7 +74,7 @@ private
    type Item is tagged
       record
          Model              : openGL.Model.view;
-         Scale              : Vector_3 := (1.0, 1.0, 1.0);
+         Scale              : Vector_3 := [1.0, 1.0, 1.0];
 
          model_Transform    : Matrix_4x4;
          camera_Transform   : Matrix_4x4;

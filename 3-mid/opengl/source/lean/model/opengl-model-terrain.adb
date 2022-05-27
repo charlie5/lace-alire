@@ -70,11 +70,11 @@ is
       indices_Count : constant long_Index_t :=   (2 * (long_Index_t (Heights'Length (2)) + 1)) * (long_Index_t (row_Count) - 1)
                                                +  2 * (long_Index_t (Heights'Length (2)));
 
-      the_Sites     : aliased  Sites         := (1 .. vertex_Count => <>);
+      the_Sites     : aliased  Sites         := [1 .. vertex_Count => <>];
       the_Bounds    :          openGL.Bounds := null_Bounds;
 
-      the_Vertices  : aliased  Geometry.lit_textured.Vertex_array := (1 .. vertex_Count  => <>);
-      the_Indices   : aliased  Indices                            := (1 .. indices_Count => <>);
+      the_Vertices  : aliased  Geometry.lit_textured.Vertex_array := [1 .. vertex_Count  => <>];
+      the_Indices   : aliased  Indices                            := [1 .. indices_Count => <>];
 
       the_Geometry  : constant Geometry.lit_textured.view := Geometry.lit_textured.new_Geometry;
 
@@ -93,9 +93,9 @@ is
                vert_Id     := vert_Id + 1;
                flipped_Row := 2 + row_Count - Row;     -- Flipping the row simplifies building the triangle strip below.
 
-               the_Sites (vert_Id) := (Real (Col)                 - Real (col_Count) / 2.0 - 1.0,
+               the_Sites (vert_Id) := [Real (Col)                 - Real (col_Count) / 2.0 - 1.0,
                                        Heights (flipped_Row, Col) - Middle,
-                                       Real (Row)                 - Real (row_Count) / 2.0 - 1.0);
+                                       Real (Row)                 - Real (row_Count) / 2.0 - 1.0];
 
                the_Bounds.Box.Lower (1) := Real'Min (the_Bounds.Box.Lower (1),  the_Sites (vert_Id) (1));
                the_Bounds.Box.Lower (2) := Real'Min (the_Bounds.Box.Lower (2),  the_Sites (vert_Id) (2));
@@ -226,7 +226,7 @@ is
          the_Geometry.add (Primitive.view (the_Primitive));
       end;
 
-      return (1 => Geometry.view (the_Geometry));
+      return [1 => Geometry.view (the_Geometry)];
    end to_GL_Geometries;
 
 
@@ -241,7 +241,7 @@ is
 
       vertex_Count : constant Index_t  := Heights'Length (1) * Heights'Length (2);
 
-      the_Sites    : aliased  Sites         := (1 .. vertex_Count => <>);
+      the_Sites    : aliased  Sites         := [1 .. vertex_Count => <>];
       the_Bounds   :          openGL.Bounds := null_Bounds;
 
    begin
@@ -258,9 +258,9 @@ is
             loop
                vert_Id := vert_Id + 1;
 
-               the_Sites (vert_Id) := (Real (Col)         - Real (col_Count) / 2.0 - 1.0,
+               the_Sites (vert_Id) := [Real (Col)         - Real (col_Count) / 2.0 - 1.0,
                                        Heights (Row, Col) - Middle,
-                                       Real (Row)         - Real (row_Count) / 2.0 - 1.0);
+                                       Real (Row)         - Real (row_Count) / 2.0 - 1.0];
 
                the_Bounds.Box.Lower (1) := Real'Min (the_Bounds.Box.Lower (1),  the_Sites (vert_Id) (1));
                the_Bounds.Box.Lower (2) := Real'Min (the_Bounds.Box.Lower (2),  the_Sites (vert_Id) (2));

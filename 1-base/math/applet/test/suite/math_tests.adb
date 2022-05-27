@@ -136,8 +136,8 @@ is
    begin
       --- Sum & Average
       --
-      assert (Sum     ((0.0, 1.0, 2.0, 3.0))  =  6.0,   "Sum     () ... failed ! ... " & Image (Sum     ((0.0, 1.0, 2.0, 3.0))));
-      assert (Average ((0.0, 1.0, 2.0, 3.0))  =  1.5,   "Average () ... failed ! ... " & Image (Average ((0.0, 1.0, 2.0, 3.0))));
+      assert (Sum     ([0.0, 1.0, 2.0, 3.0])  =  6.0,   "Sum     () ... failed ! ... " & Image (Sum     ([0.0, 1.0, 2.0, 3.0])));
+      assert (Average ([0.0, 1.0, 2.0, 3.0])  =  1.5,   "Average () ... failed ! ... " & Image (Average ([0.0, 1.0, 2.0, 3.0])));
 
    end vector_Test;
 

@@ -124,14 +124,14 @@ is
                         Coords       => From (i).Coords,
                         Shine        => From (i).Shine,
                         Color        => (+White, opaque_Value),
-                        bone_Ids     => (1 => Real (From (i).Bones (1).Bone),
+                        bone_Ids     => [1 => Real (From (i).Bones (1).Bone),
                                          2 => Real (From (i).Bones (2).Bone),
                                          3 => Real (From (i).Bones (3).Bone),
-                                         4 => Real (From (i).Bones (4).Bone)),
-                        bone_Weights => (1 =>       From (i).Bones (1).Weight,
+                                         4 => Real (From (i).Bones (4).Bone)],
+                        bone_Weights => [1 =>       From (i).Bones (1).Weight,
                                          2 =>       From (i).Bones (2).Weight,
                                          3 =>       From (i).Bones (3).Weight,
-                                         4 =>       From (i).Bones (4).Weight));
+                                         4 =>       From (i).Bones (4).Weight]);
       end loop;
 
       return Result;
@@ -146,7 +146,7 @@ is
       pragma unreferenced (Textures, Fonts);
    begin
       Self.build_GL_Geometries;
-      return (1 => Self.Geometry);
+      return [1 => Self.Geometry];
    end to_GL_Geometries;
 
 
@@ -234,7 +234,7 @@ is
                            then   the_gl_Vertex.Normal := the_Model.Normals (the_io_Vertex.normal_Id);
                                   the_gl_Vertex.Shine  := default_Shine;
                                   normals_Known        := True;
-                           else   the_gl_Vertex.Normal := (0.0, 0.0, 0.0);
+                           else   the_gl_Vertex.Normal := [0.0, 0.0, 0.0];
                            end if;
 
                            if    the_Model.Weights        /= null
@@ -265,18 +265,18 @@ is
                                     end if;
 
                                  else
-                                    the_gl_Vertex.Bones := (1 => (0, 0.0),
+                                    the_gl_Vertex.Bones := [1 => (0, 0.0),
                                                             2 => (0, 0.0),
                                                             3 => (0, 0.0),
-                                                            4 => (0, 0.0));
+                                                            4 => (0, 0.0)];
                                  end if;
                               end;
 
                            else
-                              the_gl_Vertex.Bones := (1 => (0, 0.0),
+                              the_gl_Vertex.Bones := [1 => (0, 0.0),
                                                       2 => (0, 0.0),
                                                       3 => (0, 0.0),
-                                                      4 => (0, 0.0));
+                                                      4 => (0, 0.0)];
                            end if;
 
                            the_Map.insert (the_io_Vertex, vertex_Count);   --  'vertex_Count' provides the index of the current vertex.
@@ -362,7 +362,7 @@ is
 
                      function get_Sites return Sites
                      is
-                        Result : Sites := (1 .. my_Vertices'Length => <>);
+                        Result : Sites := [1 .. my_Vertices'Length => <>];
                      begin
                         for i in Result'Range
                         loop

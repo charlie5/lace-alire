@@ -25,14 +25,14 @@ is
                                                              of_mass      => 1.0,
                                                              friction     => 0.5,
                                                              restitution  => 0.5,
-                                                             at_site      => (0.0,  10.0, 0.0),
+                                                             at_site      => [0.0, 10.0, 0.0],
                                                              is_kinematic => False);
 
    the_Ground : constant physics.Object.view := the_Space.new_Object (of_shape     => the_Box,
                                                              of_mass      => 0.0,
                                                              friction     => 0.5,
                                                              restitution  => 0.5,
-                                                             at_site      => (0.0, 0.0, 0.0),
+                                                             at_site      => [0.0, 0.0, 0.0],
                                                              is_kinematic => False);
    the_Engine : aliased physics.Engine.item;
 

@@ -363,8 +363,8 @@ private
    null_Asset    : constant asset_Name := (others => ' ');
    null_model_Id : constant model_Id   := 0;
    null_Bounds   : constant Bounds     := (ball => 0.0,
-                                           box  => (lower => (Real'Last,  Real'Last,  Real'Last),
-                                                    upper => (Real'First, Real'First, Real'First)));
+                                           box  => (lower => [Real'Last,  Real'Last,  Real'Last],
+                                                    upper => [Real'First, Real'First, Real'First]));
    -----------
    --  Opacity
    --

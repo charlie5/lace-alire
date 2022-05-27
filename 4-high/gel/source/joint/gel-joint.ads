@@ -119,6 +119,6 @@ private
          local_Anchor_on_B : Vector_3;
       end record;
 
-   null_Joints : constant Joint.views (1 .. 0) := (others => null);
+   null_Joints : constant Joint.views (1 .. 0) := [others => null];
 
 end gel.Joint;

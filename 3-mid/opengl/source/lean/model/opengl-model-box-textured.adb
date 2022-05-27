@@ -37,7 +37,7 @@ is
           Texture;
 
       the_Sites    : constant box.Sites := Self.vertex_Sites;
-      the_Indices  : aliased  Indices   := (1, 2, 3, 4);
+      the_Indices  : aliased  Indices   := [1, 2, 3, 4];
 
 
       function new_Face (Vertices : in Geometry.textured.Vertex_array) return Geometry.textured.view
@@ -65,17 +65,17 @@ is
    begin
       if Self.is_Skybox
       then
-         the_Indices := (4, 3, 2, 1);
+         the_Indices := [4, 3, 2, 1];
       end if;
 
       --  Front
       --
       declare
          the_Vertices : constant Geometry.textured.Vertex_array
-           := (1 => (Site => the_Sites ( left_lower_front),   Coords => (0.0, 0.0)),
+           := [1 => (Site => the_Sites ( left_lower_front),   Coords => (0.0, 0.0)),
                2 => (Site => the_Sites (right_lower_front),   Coords => (1.0, 0.0)),
                3 => (Site => the_Sites (right_upper_front),   Coords => (1.0, 1.0)),
-               4 => (Site => the_Sites ( left_upper_front),   Coords => (0.0, 1.0)));
+               4 => (Site => the_Sites ( left_upper_front),   Coords => (0.0, 1.0))];
       begin
          front_Face := new_Face (Vertices => the_Vertices);
 
@@ -91,10 +91,10 @@ is
       --
       declare
          the_Vertices : constant Geometry.textured.Vertex_array
-           := (1 => (Site => the_Sites (Right_Lower_Rear),   Coords => (0.0, 0.0)),
+           := [1 => (Site => the_Sites (Right_Lower_Rear),   Coords => (0.0, 0.0)),
                2 => (Site => the_Sites ( Left_Lower_Rear),   Coords => (1.0, 0.0)),
                3 => (Site => the_Sites ( Left_Upper_Rear),   Coords => (1.0, 1.0)),
-               4 => (Site => the_Sites (Right_Upper_Rear),   Coords => (0.0, 1.0)));
+               4 => (Site => the_Sites (Right_Upper_Rear),   Coords => (0.0, 1.0))];
       begin
          rear_Face := new_Face (Vertices => the_Vertices);
 
@@ -110,10 +110,10 @@ is
       --
       declare
          the_Vertices : constant Geometry.textured.Vertex_array
-           := (1 => (Site => the_Sites ( Left_Upper_Front),    Coords => (0.0, 0.0)),
+           := [1 => (Site => the_Sites ( Left_Upper_Front),    Coords => (0.0, 0.0)),
                2 => (Site => the_Sites (Right_Upper_Front),   Coords => (1.0, 0.0)),
                3 => (Site => the_Sites (Right_Upper_Rear),    Coords => (1.0, 1.0)),
-               4 => (Site => the_Sites ( Left_Upper_Rear),     Coords => (0.0, 1.0)));
+               4 => (Site => the_Sites ( Left_Upper_Rear),     Coords => (0.0, 1.0))];
       begin
          upper_Face := new_Face (Vertices => the_Vertices);
 
@@ -129,10 +129,10 @@ is
       --
       declare
          the_Vertices : constant Geometry.textured.Vertex_array
-           := (1 => (Site => the_Sites (Right_Lower_Front),   Coords => (0.0, 0.0)),
+           := [1 => (Site => the_Sites (Right_Lower_Front),   Coords => (0.0, 0.0)),
                2 => (Site => the_Sites ( Left_Lower_Front),   Coords => (1.0, 0.0)),
                3 => (Site => the_Sites ( Left_Lower_Rear),    Coords => (1.0, 1.0)),
-               4 => (Site => the_Sites (Right_Lower_Rear),    Coords => (0.0, 1.0)));
+               4 => (Site => the_Sites (Right_Lower_Rear),    Coords => (0.0, 1.0))];
       begin
          lower_Face := new_Face (Vertices => the_Vertices);
 
@@ -148,10 +148,10 @@ is
       --
       declare
          the_Vertices : constant Geometry.textured.Vertex_array
-           := (1 => (Site => the_Sites (Left_Lower_Rear),    Coords => (0.0, 0.0)),
+           := [1 => (Site => the_Sites (Left_Lower_Rear),    Coords => (0.0, 0.0)),
                2 => (Site => the_Sites (Left_Lower_Front),   Coords => (1.0, 0.0)),
                3 => (Site => the_Sites (Left_Upper_Front),   Coords => (1.0, 1.0)),
-               4 => (Site => the_Sites (Left_Upper_Rear),    Coords => (0.0, 1.0)));
+               4 => (Site => the_Sites (Left_Upper_Rear),    Coords => (0.0, 1.0))];
       begin
          left_Face := new_Face (Vertices => the_Vertices);
 
@@ -167,10 +167,10 @@ is
       --
       declare
          the_Vertices : constant Geometry.textured.Vertex_array
-           := (1 => (Site => the_Sites (Right_Lower_Front),   Coords => (0.0, 0.0)),
+           := [1 => (Site => the_Sites (Right_Lower_Front),   Coords => (0.0, 0.0)),
                2 => (Site => the_Sites (Right_Lower_Rear),    Coords => (1.0, 0.0)),
                3 => (Site => the_Sites (Right_Upper_Rear),    Coords => (1.0, 1.0)),
-               4 => (Site => the_Sites (Right_Upper_Front),   Coords => (0.0, 1.0)));
+               4 => (Site => the_Sites (Right_Upper_Front),   Coords => (0.0, 1.0))];
       begin
          right_Face := new_Face (Vertices => the_Vertices);
 
@@ -182,12 +182,12 @@ is
       end;
 
 
-      return (1 => front_Face.all'Access,
+      return [1 => front_Face.all'Access,
               2 =>  rear_Face.all'Access,
               3 => upper_Face.all'Access,
               4 => lower_Face.all'Access,
               5 =>  left_Face.all'Access,
-              6 => right_Face.all'Access);
+              6 => right_Face.all'Access];
    end to_GL_Geometries;
 
 

@@ -213,7 +213,7 @@ is
                return my_Observers;
             end;
          else
-            return (1 .. 0 => <>);
+            return [1 .. 0 => <>];
          end if;
       end fetch_Observers;
 

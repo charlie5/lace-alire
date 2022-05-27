@@ -4,9 +4,9 @@ is
    function refined (Self : in coarse_Vector_3) return math.Vector_3
    is
    begin
-      return (math.Real (Self (1)),
+      return [math.Real (Self (1)),
               math.Real (Self (2)),
-              math.Real (Self (3)));
+              math.Real (Self (3))];
    end refined;
 
 
@@ -57,9 +57,9 @@ is
    is
    begin
       return (R =>  math.Real (Self (1)),
-              V => (math.Real (Self (2)),
+              V => [math.Real (Self (2)),
                     math.Real (Self (3)),
-                    math.Real (Self (4))));
+                    math.Real (Self (4))]);
    end refined;
 
 

@@ -61,8 +61,8 @@ is
 
       indices_Count  : constant long_Index_t := long_Index_t (Num_lat_strips * (long_Count + 1) * 2);
 
-      the_Vertices   : aliased  Geometry.textured.Vertex_array := (1 .. vertex_Count  => <>);
-      the_Indices    : aliased  Indices                        := (1 .. indices_Count => <>);
+      the_Vertices   : aliased  Geometry.textured.Vertex_array := [1 .. vertex_Count  => <>];
+      the_Indices    : aliased  Indices                        := [1 .. indices_Count => <>];
 
       the_Geometry   : constant Geometry.textured.view := Geometry.textured.new_Geometry;
 
@@ -71,8 +71,8 @@ is
       declare
          use linear_Algebra_3d;
 
-         north_Pole : constant Site := (0.0,  0.5,  0.0);
-         south_Pole : constant Site := (0.0, -0.5,  0.0);
+         north_Pole : constant Site := [0.0,  0.5,  0.0];
+         south_Pole : constant Site := [0.0, -0.5,  0.0];
 
          the_Site : Site    := north_Pole;
          vert_Id  : Index_t := 1;            -- Start at '1' (not '0')to account for north pole.
@@ -196,7 +196,7 @@ is
          the_Geometry.add (Primitive.view (the_Primitive));
       end;
 
-      return (1 => Geometry.view (the_Geometry));
+      return [1 => Geometry.view (the_Geometry)];
    end to_GL_Geometries;
 
 

@@ -38,8 +38,8 @@ is
       Self.Width  := Width;
       Self.Height := Height;
       Self.Bounds := (Ball => <>,
-                      Box  => (lower => (-half_Width, -half_Height, -0.01),
-                               upper => ( half_Width,  half_Height,  0.01)));
+                      Box  => (lower => [-half_Width, -half_Height, -0.01],
+                               upper => [ half_Width,  half_Height,  0.01]));
       set_Ball_from_Box (Self.Bounds);
 
       Self.Vertices := new Geometry.colored.Vertex_array (1 .. Index_t (vertex_Count));
@@ -112,16 +112,16 @@ is
             end if;
 
             vertex_Count                       := vertex_Count + 1;
-            Self.Vertices (vertex_Count).Site  := (-half_Width,
+            Self.Vertices (vertex_Count).Site  := [-half_Width,
                                                    Real (Row - 1) - half_Height + y_Adjust,
-                                                   0.16);
+                                                   0.16];
             Self.Vertices (vertex_Count).Color := (primary => Color,
                                                    Alpha => opaque_Value);
 
             vertex_Count                       := vertex_Count + 1;
-            Self.Vertices (vertex_Count).Site  := (half_Width,
+            Self.Vertices (vertex_Count).Site  := [half_Width,
                                                    Real (Row - 1) - half_Height + y_Adjust,
-                                                   0.16);
+                                                   0.16];
             Self.Vertices (vertex_Count).Color := (primary => Color,
                                                    Alpha   => opaque_Value);
             if Row = row_Count / 2 + 1
@@ -138,16 +138,16 @@ is
             end if;
 
             vertex_Count                       := vertex_Count + 1;
-            Self.Vertices (vertex_Count).Site  := (Real (Col - 1) - half_Width + x_Adjust,
+            Self.Vertices (vertex_Count).Site  := [Real (Col - 1) - half_Width + x_Adjust,
                                                    -half_Height,
-                                                   0.16);
+                                                   0.16];
             Self.Vertices (vertex_Count).Color := (primary => Color,
                                                    Alpha   => opaque_Value);
 
             vertex_Count                       := vertex_Count + 1;
-            Self.Vertices (vertex_Count).Site  := (Real (Col - 1) - half_Width + x_Adjust,
+            Self.Vertices (vertex_Count).Site  := [Real (Col - 1) - half_Width + x_Adjust,
                                                    half_Height,
-                                                   0.16);
+                                                   0.16];
             Self.Vertices (vertex_Count).Color := (primary => Color,
                                                    Alpha => opaque_Value);
             if Col = col_Count / 2 + 1
@@ -165,7 +165,7 @@ is
                                                             Self.Vertices'Length);
       Self.Geometry.add (Primitive.view (the_Primitive));
 
-      return (1 => Self.Geometry.all'Access);
+      return [1 => Self.Geometry.all'Access];
    end to_GL_Geometries;
 
 

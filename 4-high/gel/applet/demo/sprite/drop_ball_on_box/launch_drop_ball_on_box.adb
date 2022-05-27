@@ -44,18 +44,18 @@ is
    the_Ball : constant gel.Sprite.view := gel.Forge.new_ball_Sprite (gui_World);
    the_Box  : constant gel.Sprite.view := gel.Forge.new_box_Sprite  (gui_World,
                                                                      Mass => 0.0,
-                                                                     Size => (20.0, 1.0, 20.0));
+                                                                     Size => [20.0, 1.0, 20.0]);
 begin
    new_Line;
    put_Line ("Use arrow keys and PgUp/PgDn to move the camera.");
    new_Line;
 
-   gui_Camera.Site_is ((0.0, 2.0, 20.0));                         -- Position the camera.
+   gui_Camera.Site_is ([0.0, 2.0, 20.0]);                         -- Position the camera.
    the_Applet.enable_simple_Dolly (in_World => gui_world_Id);     -- Enable user camera control via keyboards.
 
-   the_Ball.Site_is ((0.0, 10.0, 0.0));
+   the_Ball.Site_is ([0.0, 10.0, 0.0]);
 
-   gui_World.Gravity_is ((0.0, -9.8, 0.0));
+   gui_World.Gravity_is ([0.0, -9.8, 0.0]);
    gui_World.add (the_Ball);                                      -- Add ball.
    gui_World.add (the_Box);                                       -- Add box.
 

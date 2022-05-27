@@ -137,10 +137,9 @@ is
    function to_Matrix (Row_1, Row_2, Row_3 : in Vector_3) return Matrix_3x3
    is
    begin
-      return ((Row_1 (1), Row_1 (2), Row_1 (3)),
-              (Row_2 (1), Row_2 (2), Row_2 (3)),
-              (Row_3 (1), Row_3 (2), Row_3 (3)));
-
+      return [[Row_1 (1), Row_1 (2), Row_1 (3)],
+              [Row_2 (1), Row_2 (2), Row_2 (3)],
+              [Row_3 (1), Row_3 (2), Row_3 (3)]];
    end to_Matrix;
 
 
@@ -198,7 +197,7 @@ is
 
       for Row in self'Range (1)
       loop
-         add ((1 => ada.Characters.latin_1.LF));
+         add ([1 => ada.Characters.latin_1.LF]);
 
          if Row /= self'First (1)
          then
@@ -338,7 +337,7 @@ is
          end;
       else
          Result.R := L;
-         Result.V := (0.0, 0.0, 0.0);
+         Result.V := [0.0, 0.0, 0.0];
       end if;
 
       return Result;
@@ -378,9 +377,9 @@ is
 
    begin
       return (R =>  AtBt - AxBx - AyBy - AzBz,
-              V => (AtBx + AxBt + AyBz - AzBy,
+              V => [AtBx + AxBt + AyBz - AzBy,
                     AtBy - AxBz + AyBt + AzBx,
-                    AtBz + AxBy - AyBx + AzBt));
+                    AtBz + AxBy - AyBx + AzBt]);
    end "*";
 
 

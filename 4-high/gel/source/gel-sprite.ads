@@ -370,9 +370,9 @@ private
       Safe : Interpolation := (Site    => (Initial => Origin_3D,
                                            Desired => Origin_3D),
                                Spin    => (Initial => (R =>  0.0,
-                                                       V => (0.0, 1.0, 0.0)),
+                                                       V => [0.0, 1.0, 0.0]),
                                            Desired => (R =>  0.0,
-                                                       V => (0.0, 1.0, 0.0))),
+                                                       V => [0.0, 1.0, 0.0])),
                                Percent => 0.0);
    end safe_Interpolation;
 
@@ -411,6 +411,6 @@ private
       end record;
 
 
-   null_Sprites : constant Sprite.views (1 .. 0) := (others => null);
+   null_Sprites : constant Sprite.views (1 .. 0) := [others => null];
 
 end gel.Sprite;

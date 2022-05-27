@@ -183,7 +183,7 @@ is
 
       declare
          use GL.Pointers;
-         info_Log     : aliased  C.char_array        := C.char_array' (1 .. C.size_t (info_log_Length) => <>);
+         info_Log     : aliased  C.char_array        := C.char_array' [1 .. C.size_t (info_log_Length) => <>];
          info_Log_ptr : constant C.strings.chars_ptr := C.strings.to_chars_ptr (info_Log'unchecked_Access);
       begin
          glGetProgramInfoLog (Self.gl_Program,

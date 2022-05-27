@@ -19,7 +19,7 @@ is
 begin
    Demo.print_Usage ("Use space ' ' to cycle through models.");
    Demo.define ("openGL 'Render Models' Demo");
-   Demo.Camera.Position_is ((0.0, 2.0, 10.0),
+   Demo.Camera.Position_is ([0.0, 2.0, 10.0],
                             y_Rotation_from (to_Radians (0.0)));
 
    declare
@@ -28,7 +28,7 @@ begin
    begin
 --        the_Light.Kind_is (Diffuse);
 --        the_Light.Site_is ((0.0, 0.0, 5.0));
-      the_Light.Site_is ((5_000.0, 2_000.0, 5_000.0));
+      the_Light.Site_is ([5_000.0, 2_000.0, 5_000.0]);
 --        the_Light.Site_is ((000.0, 5_000.0, 000.0));
 
           the_Light.Color_is (White);
@@ -78,7 +78,7 @@ begin
          the_Visuals (i) := new_Visual (the_Models (i));
       end loop;
 
-      the_Visuals (3).Site_is ((0.0, 0.0, -50.0));
+      the_Visuals (3).Site_is ([0.0, 0.0, -50.0]);
 
       --  Main loop.
       --
@@ -111,7 +111,7 @@ begin
 
          --  Render all visuals.
          --
-         Demo.Camera.render ((1 => the_Visuals (Current)));
+         Demo.Camera.render ([1 => the_Visuals (Current)]);
 
          while not Demo.Camera.cull_Completed
          loop

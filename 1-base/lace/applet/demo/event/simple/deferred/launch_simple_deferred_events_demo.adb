@@ -52,9 +52,9 @@ is
    the_Subject  :          Subject.local.view;
    the_Observer : constant Observer.deferred.view := Observer.deferred.forge.new_Observer ("demo.Observer");
    the_Response : aliased  key_Response          := (Response.item with
-                                                     key_to_message_Map => ('a'    => to_unbounded_String ("'a' was received from demo keyboard."),
+                                                     key_to_message_Map => ['a'    => to_unbounded_String ("'a' was received from demo keyboard."),
                                                                             'b'    => to_unbounded_String ("'b' was received from demo keyboard."),
-                                                                            others => to_unbounded_String ("Unhandled key was received from demo keyboard.")));
+                                                                            others => to_unbounded_String ("Unhandled key was received from demo keyboard.")]);
    Now : ada.real_Time.Time := ada.real_Time.Clock;
 
 begin

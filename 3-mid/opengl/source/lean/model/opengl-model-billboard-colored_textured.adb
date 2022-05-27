@@ -42,7 +42,7 @@ is
           Geometry.colored_textured,
           Texture;
 
-      the_Indices  : aliased constant Indices         := (1, 2, 3, 4);
+      the_Indices  : aliased constant Indices         := [1, 2, 3, 4];
       the_Sites    :         constant billboard.Sites := vertex_Sites (Self.Plane,
                                                                        Self.Width,
                                                                        Self.Height);
@@ -90,7 +90,7 @@ is
 
       Self.Geometry := the_Face;
 
-      return (1 => Geometry.view (the_Face));
+      return [1 => Geometry.view (the_Face)];
    end to_GL_Geometries;
 
 

@@ -128,18 +128,18 @@ is
             when std_SDL.Events.Mice.Button_Down =>
                Self.Mouse.emit_button_press_Event (Button    => gel.mouse.button_Id (std_SDL.Events.Mice.Buttons'Pos (Event.mouse_Button.Button) + 1),
                                                    Modifiers => Self.Keyboard.Modifiers,
-                                                   Site      => (Integer (Event.mouse_Button.X),
-                                                                 Integer (Event.mouse_Button.Y)));
+                                                   Site      => [Integer (Event.mouse_Button.X),
+                                                                 Integer (Event.mouse_Button.Y)]);
 
             when std_SDL.Events.Mice.Button_Up =>
                Self.Mouse.emit_button_release_Event (Button    => gel.mouse.button_Id (std_SDL.Events.Mice.Buttons'Pos (Event.Mouse_Button.Button) + 1),
                                                      Modifiers => Self.Keyboard.Modifiers,
-                                                     Site      => (Integer (Event.mouse_Button.X),
-                                                                   Integer (Event.mouse_Button.Y)));
+                                                     Site      => [Integer (Event.mouse_Button.X),
+                                                                   Integer (Event.mouse_Button.Y)]);
 
             when std_SDL.Events.Mice.Motion =>
-               Self.Mouse.emit_motion_Event (Site => (Integer (Event.Mouse_Motion.x),
-                                                      Integer (Event.Mouse_Motion.y)));
+               Self.Mouse.emit_motion_Event (Site => [Integer (Event.Mouse_Motion.x),
+                                                      Integer (Event.Mouse_Motion.y)]);
 
 
             when std_SDL.Events.Mice.Wheel =>     -- TODO

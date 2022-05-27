@@ -212,13 +212,13 @@ is
 
 private
 
-   z_Up_to_y_Up : constant Matrix_3x3 := ((1.0,  0.0,  0.0),
-                                          (0.0,  0.0,  1.0),
-                                          (0.0, -1.0,  0.0));
+   z_Up_to_y_Up : constant Matrix_3x3 := [[1.0,  0.0,  0.0],
+                                          [0.0,  0.0,  1.0],
+                                          [0.0, -1.0,  0.0]];
 
-   y_Up_to_z_Up : constant Matrix_3x3 := ((1.0,  0.0,  0.0),
-                                          (0.0,  0.0, -1.0),
-                                          (0.0,  1.0,  0.0));
+   y_Up_to_z_Up : constant Matrix_3x3 := [[1.0,  0.0,  0.0],
+                                          [0.0,  0.0, -1.0],
+                                          [0.0,  1.0,  0.0]];
    pragma Inline ("+");
    pragma Inline ("-");
    pragma Inline ("*");

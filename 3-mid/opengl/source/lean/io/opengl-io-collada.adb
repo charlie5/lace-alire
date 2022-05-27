@@ -60,16 +60,16 @@ is
 
       for i in 1 .. Integer (site_Count)
       loop
-         the_Sites (long_Index_t (i)) := (collada_Positions (3 * (i - 1) + 1),
+         the_Sites (long_Index_t (i)) := [collada_Positions (3 * (i - 1) + 1),
                                           collada_Positions (3 * (i - 1) + 2),
-                                          collada_Positions (3 * (i - 1) + 3));
+                                          collada_Positions (3 * (i - 1) + 3)];
       end loop;
 
       for i in 1 .. Integer (normal_Count)
       loop
-         the_Normals (long_Index_t (i)) := (collada_Normals (3 * (i - 1) + 1),
+         the_Normals (long_Index_t (i)) := [collada_Normals (3 * (i - 1) + 1),
                                             collada_Normals (3 * (i - 1) + 2),
-                                            collada_Normals (3 * (i - 1) + 3));
+                                            collada_Normals (3 * (i - 1) + 3)];
       end loop;
 
       if collada_Coords /= null

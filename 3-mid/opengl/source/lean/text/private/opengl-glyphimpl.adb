@@ -21,12 +21,12 @@ is
                            bBox'unchecked_Access);
 
       the_Bounds := (Ball => <>,
-                     Box  => (Lower => (1 => Real (bbox.xMin) / 64.0,
+                     Box  => (Lower => [1 => Real (bbox.xMin) / 64.0,
                                         2 => Real (bbox.yMin) / 64.0,
-                                        3 => 0.0),
-                              Upper => (1 => Real (bbox.xMax) / 64.0,
+                                        3 => 0.0],
+                              Upper => [1 => Real (bbox.xMax) / 64.0,
                                         2 => Real (bbox.yMax) / 64.0,
-                                        3 => 0.0)));
+                                        3 => 0.0]));
       set_Ball_from_Box (the_Bounds);
 
       return the_Bounds;
@@ -51,9 +51,9 @@ is
             use freetype_c.Binding;
             the_Advance : constant freetype_c.FT_Vector.item := FT_GlyphSlot_Get_Advance (glyth_Slot);
          begin
-            Self.Advance := (Real (the_Advance.x) / 64.0,
+            Self.Advance := [Real (the_Advance.x) / 64.0,
                              Real (the_Advance.y) / 64.0,
-                             0.0);
+                             0.0];
          end;
       end if;
    end define;

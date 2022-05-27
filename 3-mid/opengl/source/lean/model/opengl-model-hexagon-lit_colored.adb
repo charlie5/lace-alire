@@ -34,7 +34,7 @@ is
       use Geometry.lit_colored;
 
       the_Sites    :         constant hexagon.Sites := vertex_Sites (Self.Radius);
-      the_Indices  : aliased constant Indices       := (1, 2, 3, 4, 5, 6, 7, 2);
+      the_Indices  : aliased constant Indices       := [1, 2, 3, 4, 5, 6, 7, 2];
 
 
       function new_Face (Vertices : in geometry.lit_colored.Vertex_array) return Geometry.lit_colored.view
@@ -61,18 +61,18 @@ is
       --
       declare
          the_Vertices : constant Geometry.lit_colored.Vertex_array
-           := (1 => (Site => (0.0, 0.0, 0.0),  Normal => Normal,  Color => +Self.Face.center_Color, Shine => default_Shine),
+           := [1 => (Site => [0.0, 0.0, 0.0],  Normal => Normal,  Color => +Self.Face.center_Color, Shine => default_Shine),
                2 => (Site =>   the_Sites (1),  Normal => Normal,  Color => +Self.Face.Colors (1),   Shine => default_Shine),
                3 => (Site =>   the_Sites (2),  Normal => Normal,  Color => +Self.Face.Colors (2),   Shine => default_Shine),
                4 => (Site =>   the_Sites (3),  Normal => Normal,  Color => +Self.Face.Colors (3),   Shine => default_Shine),
                5 => (Site =>   the_Sites (4),  Normal => Normal,  Color => +Self.Face.Colors (4),   Shine => default_Shine),
                6 => (Site =>   the_Sites (5),  Normal => Normal,  Color => +Self.Face.Colors (5),   Shine => default_Shine),
-               7 => (Site =>   the_Sites (6),  Normal => Normal,  Color => +Self.Face.Colors (6),   Shine => default_Shine));
+               7 => (Site =>   the_Sites (6),  Normal => Normal,  Color => +Self.Face.Colors (6),   Shine => default_Shine)];
       begin
          upper_Face := new_Face (Vertices => the_Vertices);
       end;
 
-      return (1 => upper_Face.all'Access);
+      return [1 => upper_Face.all'Access];
    end to_GL_Geometries;
 
 

@@ -250,7 +250,7 @@ is
 
       the_Camera.Viewport_is (Self.Window.Width, Self.Window.Height);
       the_Camera.Renderer_is (Self.Renderer);
-      the_Camera.Site_is     ((0.0, 5.0, 50.0));
+      the_Camera.Site_is     ([0.0, 5.0, 50.0]);
 
       the_world_Info.Cameras.append (the_Camera);
 
@@ -790,7 +790,9 @@ is
 
             the_Camera : constant gel.Camera.view := the_world_Info.Cameras.first_Element;
 
-            Site_window_space : constant Vector_3 := (Real (the_Event.Site (1)),  Real (the_Event.Site (2)),  1.0);
+            Site_window_space : constant Vector_3 := [Real (the_Event.Site (1)),
+                                                      Real (the_Event.Site (2)),
+                                                      1.0];
             Site_world_space  : constant Vector_3 := the_Camera.to_world_Site (Site_window_space);
 
             the_Context : constant access button_press_raycast_Context := new button_press_raycast_Context;
@@ -832,7 +834,7 @@ is
          declare
             the_Camera : constant gel.Camera.view := the_world_Info.Cameras.first_Element;
 
-            Site_window_space : constant Vector_3 := (Real (the_Event.Site (1)),  Real (the_Event.Site (2)),  1.0);
+            Site_window_space : constant Vector_3 := [Real (the_Event.Site (1)),  Real (the_Event.Site (2)),  1.0];
             Site_world_space  : constant Vector_3 := the_Camera.to_world_Site (Site_window_space);
 
             the_Context : constant access button_press_raycast_Context := new button_press_raycast_Context;
@@ -873,7 +875,7 @@ is
          declare
             the_Camera : constant gel.Camera.view := the_world_Info.Cameras.first_Element;
 
-            Site_window_space : constant Vector_3 := (Real (the_Event.Site (1)),  Real (the_Event.Site (2)),  1.0);
+            Site_window_space : constant Vector_3 := [Real (the_Event.Site (1)),  Real (the_Event.Site (2)),  1.0];
             Site_world_space  : constant Vector_3 := the_Camera.to_world_Site (Site_window_space);
             pragma Unreferenced (Site_world_space);
 

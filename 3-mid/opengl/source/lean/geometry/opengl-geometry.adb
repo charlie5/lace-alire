@@ -316,14 +316,14 @@ is
                is
                   when Triangles
                      | triangle_Fan =>
-                     the_Facets (Count) := (P1, P2, P3);
+                     the_Facets (Count) := [P1, P2, P3];
 
                   when triangle_Strip =>
                      if Each mod 2 = 0
                      then   -- Is an even facet.
-                        the_Facets (Count) := (P1, P3, P2);
+                        the_Facets (Count) := [P1, P3, P2];
                      else
-                        the_Facets (Count) := (P1, P2, P3);
+                        the_Facets (Count) := [P1, P2, P3];
                      end if;
 
                   when others =>
@@ -422,7 +422,7 @@ is
             Length := abs (the_Normals (p));
 
             if almost_Zero (Length)
-            then   the_Normals (p) := (0.0, -1.0, 0.0);
+            then   the_Normals (p) := [0.0, -1.0, 0.0];
             else   the_Normals (p) := (1.0 / Length) * the_Normals (p);
             end if;
          end loop;

@@ -114,7 +114,7 @@ private
          attribute_Count : Natural := 0;
 
          mvp_Transform   : Matrix_4x4;
-         Scale           : Vector_3 := (1.0, 1.0, 1.0);
+         Scale           : Vector_3 := [1.0, 1.0, 1.0];
       end record;
 
 

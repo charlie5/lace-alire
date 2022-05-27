@@ -94,9 +94,9 @@ private
    end impostor_load_Balancer;
 
 
-   default_Slots : aliased impostor_load_Balancer.Slots := (1 => (max_Faces =>  100,          max_Updates =>  20, others => <>),
+   default_Slots : aliased impostor_load_Balancer.Slots := [1 => (max_Faces =>  100,          max_Updates =>  20, others => <>),
                                                             2 => (max_Faces => 1000,          max_Updates =>  15, others => <>),
-                                                            3 => (max_Faces => Positive'Last, max_Updates =>  12, others => <>));
+                                                            3 => (max_Faces => Positive'Last, max_Updates =>  12, others => <>)];
    -- Impostorer
    --
    type   Camera_view is access all openGL.Camera       .item'Class;

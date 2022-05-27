@@ -464,7 +464,7 @@ is
                               (Max_Length     => Max_Length,
                                Current_Length => 0,
                                Data           =>
-                                 (1 .. Max_Length => ASCII.NUL));
+                                 [1 .. Max_Length => ASCII.NUL]);
 
       pragma Inline (To_Bounded_String);
 

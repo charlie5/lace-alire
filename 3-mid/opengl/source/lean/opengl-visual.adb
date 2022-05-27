@@ -7,7 +7,7 @@ is
    package body Forge
    is
       function new_Visual (Model      : in openGL.Model.view;
-                           Scale      : in Vector_3 := (1.0, 1.0, 1.0);
+                           Scale      : in Vector_3 := [1.0, 1.0, 1.0];
                            is_Terrain : in Boolean  := False) return openGL.Visual.view
       is
       begin

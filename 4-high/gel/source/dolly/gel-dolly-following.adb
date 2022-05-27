@@ -82,11 +82,11 @@ is
       --
       if Self.allow_linear_Motion
       then
-         if Self.Motion (Forward)  then   Self.sprite_Offset := Self.sprite_Offset - the_Camera.Spin * (0.0, 0.0, 0.1 * Speed);   end if;
-         if Self.Motion (Backward) then   Self.sprite_Offset := Self.sprite_Offset + the_Camera.Spin * (0.0, 0.0, 0.1 * Speed);   end if;
+         if Self.Motion (Forward)  then   Self.sprite_Offset := Self.sprite_Offset - the_Camera.Spin * [0.0, 0.0, 0.1 * Speed];   end if;
+         if Self.Motion (Backward) then   Self.sprite_Offset := Self.sprite_Offset + the_Camera.Spin * [0.0, 0.0, 0.1 * Speed];   end if;
 
-         if Self.Motion (Up)       then   Self.sprite_Offset := Self.sprite_Offset + the_Camera.Spin * (0.0, 0.1 * Speed, 0.0);   end if;
-         if Self.Motion (Down)     then   Self.sprite_Offset := Self.sprite_Offset - the_Camera.Spin * (0.0, 0.1 * Speed, 0.0);   end if;
+         if Self.Motion (Up)       then   Self.sprite_Offset := Self.sprite_Offset + the_Camera.Spin * [0.0, 0.1 * Speed, 0.0];   end if;
+         if Self.Motion (Down)     then   Self.sprite_Offset := Self.sprite_Offset - the_Camera.Spin * [0.0, 0.1 * Speed, 0.0];   end if;
       end if;
 
       --  Orbit.

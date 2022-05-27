@@ -50,7 +50,7 @@ private
    function vertex_Sites (for_Plane     : in Plane;
                           Width, Height : in Real) return Sites;
 
-   Normal       : constant Vector_3 := (0.0,  0.0,  1.0);
+   Normal       : constant Vector_3 := [0.0,  0.0,  1.0];
    default_Size : constant Size_t   := (Width  => 1.0,
                                         Height => 1.0);
 

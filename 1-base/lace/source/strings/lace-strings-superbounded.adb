@@ -821,7 +821,7 @@ is
       elsif Count <= Max_Length then
          Result.Current_Length := Count;
          Result.Data (1 .. Slen) := Source.Data (1 .. Slen);
-         Result.Data (Slen + 1 .. Count) := (others => Pad);
+         Result.Data (Slen + 1 .. Count) := [others => Pad];
 
       else
          Result.Current_Length := Max_Length;
@@ -829,17 +829,17 @@ is
          case Drop is
             when ada.Strings.Right =>
                Result.Data (1 .. Slen) := Source.Data (1 .. Slen);
-               Result.Data (Slen + 1 .. Max_Length) := (others => Pad);
+               Result.Data (Slen + 1 .. Max_Length) := [others => Pad];
 
             when ada.Strings.Left =>
                if Npad >= Max_Length then
-                  Result.Data := (others => Pad);
+                  Result.Data := [others => Pad];
 
                else
                   Result.Data (1 .. Max_Length - Npad) :=
                     Source.Data (Count - Max_Length + 1 .. Slen);
                   Result.Data (Max_Length - Npad + 1 .. Max_Length) :=
-                    (others => Pad);
+                    [others => Pad];
                end if;
 
             when ada.Strings.Error =>
@@ -867,18 +867,18 @@ is
 
       elsif Count <= Max_Length then
          Source.Current_Length := Count;
-         Source.Data (Slen + 1 .. Count) := (others => Pad);
+         Source.Data (Slen + 1 .. Count) := [others => Pad];
 
       else
          Source.Current_Length := Max_Length;
 
          case Drop is
             when ada.Strings.Right =>
-               Source.Data (Slen + 1 .. Max_Length) := (others => Pad);
+               Source.Data (Slen + 1 .. Max_Length) := [others => Pad];
 
             when ada.Strings.Left =>
                if Npad > Max_Length then
-                  Source.Data := (others => Pad);
+                  Source.Data := [others => Pad];
 
                else
                   Temp := Source.Data;
@@ -1353,7 +1353,7 @@ is
          Result.Current_Length := Max_Length;
       end if;
 
-      Result.Data (1 .. Result.Current_Length) := (others => Item);
+      Result.Data (1 .. Result.Current_Length) := [others => Item];
       return Result;
    end Super_Replicate;
 
@@ -1509,7 +1509,7 @@ is
 
       elsif Count <= Max_Length then
          Result.Current_Length := Count;
-         Result.Data (1 .. Npad) := (others => Pad);
+         Result.Data (1 .. Npad) := [others => Pad];
          Result.Data (Npad + 1 .. Count) := Source.Data (1 .. Slen);
 
       else
@@ -1518,16 +1518,16 @@ is
          case Drop is
             when ada.Strings.Right =>
                if Npad >= Max_Length then
-                  Result.Data := (others => Pad);
+                  Result.Data := [others => Pad];
 
                else
-                  Result.Data (1 .. Npad) := (others => Pad);
+                  Result.Data (1 .. Npad) := [others => Pad];
                   Result.Data (Npad + 1 .. Max_Length) :=
                     Source.Data (1 .. Max_Length - Npad);
                end if;
 
             when ada.Strings.Left =>
-               Result.Data (1 .. Max_Length - Slen) := (others => Pad);
+               Result.Data (1 .. Max_Length - Slen) := [others => Pad];
                Result.Data (Max_Length - Slen + 1 .. Max_Length) :=
                  Source.Data (1 .. Slen);
 
@@ -1559,7 +1559,7 @@ is
 
       elsif Count <= Max_Length then
          Source.Current_Length := Count;
-         Source.Data (1 .. Npad) := (others => Pad);
+         Source.Data (1 .. Npad) := [others => Pad];
          Source.Data (Npad + 1 .. Count) := Temp (1 .. Slen);
 
       else
@@ -1568,10 +1568,10 @@ is
          case Drop is
             when ada.Strings.Right =>
                if Npad >= Max_Length then
-                  Source.Data := (others => Pad);
+                  Source.Data := [others => Pad];
 
                else
-                  Source.Data (1 .. Npad) := (others => Pad);
+                  Source.Data (1 .. Npad) := [others => Pad];
                   Source.Data (Npad + 1 .. Max_Length) :=
                     Temp (1 .. Max_Length - Npad);
                end if;
@@ -1711,7 +1711,7 @@ is
          end loop;
       end if;
 
-      Source.Data := (others => ASCII.NUL);
+      Source.Data := [others => ASCII.NUL];
       Source.Current_Length := Last - First + 1;
       Source.Data (1 .. Source.Current_Length) := Temp (First .. Last);
    end Super_Trim;

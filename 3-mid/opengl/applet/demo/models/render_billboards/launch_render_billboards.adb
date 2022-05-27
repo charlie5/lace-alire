@@ -19,7 +19,7 @@ is
 begin
    Demo.print_Usage;
    Demo.define ("openGL 'Render Billboards' Demo");
-   Demo.Camera.Position_is ((0.0, 0.0, 10.0),
+   Demo.Camera.Position_is ([0.0, 0.0, 10.0],
                             y_Rotation_from (to_Radians (0.0)));
    declare
       --  The Models.
@@ -38,10 +38,10 @@ begin
       --
       use openGL.Visual.Forge;
 
-      the_Sprites : constant openGL.Visual.views := (new_Visual (        the_Billboard_Model.all'Access),
-                                                     new_Visual (the_colored_Billboard_Model.all'Access));
+      the_Sprites : constant openGL.Visual.views := [new_Visual (        the_Billboard_Model.all'Access),
+                                                     new_Visual (the_colored_Billboard_Model.all'Access)];
    begin
-      the_Sprites (2).Site_is ((3.0, 0.0, 0.0));
+      the_Sprites (2).Site_is ([3.0, 0.0, 0.0]);
 
       --  Main loop.
       --

@@ -48,8 +48,8 @@ is
       Cycle            : ada.Containers.Count_type := 0;
       next_render_Time : ada.Calendar.Time;
 
-      max_joint_Force,
-      max_joint_Torque : Real := 0.0;
+      --  max_joint_Force,
+      --  max_joint_Torque : Real := 0.0;
 
 
       procedure free_Objects
@@ -83,7 +83,7 @@ is
             the_Commands  : Commands;
             Count         : Natural;
 
-            command_Count : array (command_Kind) of Natural := (others => 0);
+            command_Count : array (command_Kind) of Natural := [others => 0];
 
          begin
             Self.Commands.fetch (the_Commands, Count);

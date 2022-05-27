@@ -37,7 +37,7 @@ is
 
       --  Setup.
       --
-      the_Applet.client_Camera.Site_is ((0.0, 0.0, 20.0));
+      the_Applet.client_Camera.Site_is ([0.0, 0.0, 20.0]);
       the_Applet.enable_simple_Dolly (1);
 
       next_render_Time := ada.Calendar.clock;

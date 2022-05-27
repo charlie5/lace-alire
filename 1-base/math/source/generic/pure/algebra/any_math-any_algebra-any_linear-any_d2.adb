@@ -22,8 +22,8 @@ is
    function Midpoint (From, To : in Vector_2) return Vector_2
    is
    begin
-      return ((From (1) + To (1)) * 0.5,
-              (From (2) + To (2)) * 0.5);
+      return [(From (1) + To (1)) * 0.5,
+              (From (2) + To (2)) * 0.5];
    end Midpoint;
 
 
@@ -42,8 +42,8 @@ is
       P : constant Real := to_Real (Percent);
       S : constant Real := 1.0 - P;
    begin
-      return (S * From (1) + P * To (1),
-              S * From (2) + P * To (2));
+      return [S * From (1) + P * To (1),
+              S * From (2) + P * To (2)];
    end Interpolated;
 
 
@@ -55,8 +55,8 @@ is
    function to_Matrix (Row_1, Row_2 : in Vector_2) return Matrix_2x2
    is
    begin
-      return ((Row_1 (1), Row_1 (2)),
-              (Row_2 (1), Row_2 (2)));
+      return [[Row_1 (1), Row_1 (2)],
+              [Row_2 (1), Row_2 (2)]];
    end to_Matrix;
 
 
@@ -65,8 +65,8 @@ is
    is
       use Functions;
    begin
-      return (( cos (Angle),  sin (Angle)),
-              (-sin (Angle),  cos (Angle)));
+      return [[ cos (Angle),  sin (Angle)],
+              [-sin (Angle),  cos (Angle)]];
    end to_rotation_Matrix;
 
 
@@ -90,9 +90,9 @@ is
    function to_rotation_Transform (Rotation : in Matrix_2x2) return Matrix_3x3
    is
    begin
-      return ((Rotation (1, 1), Rotation (1, 2),  0.0),
-              (Rotation (2, 1), Rotation (2, 2),  0.0),
-              (            0.0,             0.0,  1.0));
+      return [[Rotation (1, 1), Rotation (1, 2),  0.0],
+              [Rotation (2, 1), Rotation (2, 2),  0.0],
+              [            0.0,             0.0,  1.0]];
    end to_rotation_Transform;
 
 
@@ -121,9 +121,9 @@ is
    function to_translation_Transform (Translation : Vector_2) return Matrix_3x3
    is
    begin
-      return ((            1.0,             0.0,  0.0),
-              (            0.0,             1.0,  0.0),
-              (Translation (1), Translation (2),  1.0));
+      return [[            1.0,             0.0,  0.0],
+              [            0.0,             1.0,  0.0],
+              [Translation (1), Translation (2),  1.0]];
    end to_translation_Transform;
 
 
@@ -132,9 +132,9 @@ is
    is
       use Functions;
    begin
-      return (( cos (Angle),  sin (Angle),  0.0),
-              (-sin (Angle),  cos (Angle),  0.0),
-              (         0.0,          0.0,  1.0));
+      return [[ cos (Angle),  sin (Angle),  0.0],
+              [-sin (Angle),  cos (Angle),  0.0],
+              [         0.0,          0.0,  1.0]];
    end to_rotation_Transform;
 
 
@@ -142,9 +142,9 @@ is
    function to_scale_Transform (Scale : in Vector_2) return Matrix_3x3
    is
    begin
-      return ((Scale (1),        0.0,    0.0),
-              (      0.0,  Scale (2),    0.0),
-              (      0.0,        0.0,    1.0));
+      return [[Scale (1),        0.0,    0.0],
+              [      0.0,  Scale (2),    0.0],
+              [      0.0,        0.0,    1.0]];
    end to_scale_Transform;
 
 
@@ -153,9 +153,9 @@ is
                           Translation : in Vector_2) return Matrix_3x3
    is
    begin
-      return ((Rotation (1, 1),  Rotation (1, 2),   0.0),
-              (Rotation (2, 1),  Rotation (2, 2),   0.0),
-              (Translation (1),  Translation (2),   1.0));
+      return [[Rotation (1, 1),  Rotation (1, 2),   0.0],
+              [Rotation (2, 1),  Rotation (2, 2),   0.0],
+              [Translation (1),  Translation (2),   1.0]];
    end to_Transform;
 
 
@@ -172,7 +172,7 @@ is
 
    function "*" (Left : in Vector_2;   Right : in Transform_2d) return Vector_2
    is
-      Pad    : constant Vector_3 := (Left (1),  Left (2),  1.0);
+      Pad    : constant Vector_3 := [Left (1),  Left (2),  1.0];
       Result : constant Vector_3 := Pad * to_Transform (Right);
    begin
       return Vector_2 (Result (1 .. 2));
@@ -212,8 +212,8 @@ is
    function get_Rotation (Transform : in Matrix_3x3) return Matrix_2x2
    is
    begin
-      return ((Transform (1, 1),  Transform (1, 2)),
-              (Transform (2, 1),  Transform (2, 2)));
+      return [[Transform (1, 1),  Transform (1, 2)],
+              [Transform (2, 1),  Transform (2, 2)]];
    end get_Rotation;
 
 
@@ -235,8 +235,8 @@ is
    function get_Translation (Transform : in Matrix_3x3) return Vector_2
    is
    begin
-      return (Transform (3, 1),
-              Transform (3, 2));
+      return [Transform (3, 1),
+              Transform (3, 2)];
    end get_Translation;
 
 

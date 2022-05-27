@@ -60,8 +60,8 @@ is
    function "+" (Self : in c_math_c.Vector_2.item) return math.Vector_2
    is
    begin
-      return (math.Real (Self.x),
-              math.Real (Self.y));
+      return [math.Real (Self.x),
+              math.Real (Self.y)];
    end "+";
 
 
@@ -106,7 +106,7 @@ is
    function "+" (Self : in c_math_c.Vector_3.item) return math.Vector_3
    is
    begin
-      return (math.Real (Self.x),  math.Real (Self.y),  math.Real (Self.z));
+      return [math.Real (Self.x),  math.Real (Self.y),  math.Real (Self.z)];
    end "+";
 
 
@@ -122,9 +122,9 @@ is
    function "+" (Self : in c_math_c.Matrix_3x3.item) return math.Matrix_3x3
    is
    begin
-      return (1 => (math.Real (Self.m00), math.Real (Self.m01), math.Real (Self.m02)),
-              2 => (math.Real (Self.m10), math.Real (Self.m11), math.Real (Self.m12)),
-              3 => (math.Real (Self.m20), math.Real (Self.m21), math.Real (Self.m22)));
+      return [1 => [math.Real (Self.m00), math.Real (Self.m01), math.Real (Self.m02)],
+              2 => [math.Real (Self.m10), math.Real (Self.m11), math.Real (Self.m12)],
+              3 => [math.Real (Self.m20), math.Real (Self.m21), math.Real (Self.m22)]];
    end "+";
 
 
@@ -141,10 +141,10 @@ is
    function "+" (Self : in c_math_c.Matrix_4x4.item) return math.Matrix_4x4
    is
    begin
-      return (1 => (math.Real (Self.m00), math.Real (Self.m01), math.Real (Self.m02), math.Real (Self.m03)),
-              2 => (math.Real (Self.m10), math.Real (Self.m11), math.Real (Self.m12), math.Real (Self.m13)),
-              3 => (math.Real (Self.m20), math.Real (Self.m21), math.Real (Self.m22), math.Real (Self.m23)),
-              4 => (math.Real (Self.m30), math.Real (Self.m31), math.Real (Self.m32), math.Real (Self.m33)));
+      return [1 => [math.Real (Self.m00), math.Real (Self.m01), math.Real (Self.m02), math.Real (Self.m03)],
+              2 => [math.Real (Self.m10), math.Real (Self.m11), math.Real (Self.m12), math.Real (Self.m13)],
+              3 => [math.Real (Self.m20), math.Real (Self.m21), math.Real (Self.m22), math.Real (Self.m23)],
+              4 => [math.Real (Self.m30), math.Real (Self.m31), math.Real (Self.m32), math.Real (Self.m33)]];
 
    end "+";
 

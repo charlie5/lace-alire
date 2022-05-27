@@ -18,7 +18,7 @@ is
 begin
    Demo.print_Usage;
    Demo.define ("openGL 'Render Capsules' Demo");
-   Demo.Camera.Position_is ((0.0, 3.0, 10.0),
+   Demo.Camera.Position_is ([0.0, 3.0, 10.0],
                             y_Rotation_from (to_Radians (-0.0)));
    Demo.Dolly.Speed_is (0.1);
 
@@ -39,9 +39,9 @@ begin
       --
       use openGL.Visual.Forge;
 
-      the_Visuals : constant openGL.Visual.views := (1 => new_Visual (the_Capsule_Model.all'Access));
+      the_Visuals : constant openGL.Visual.views := [1 => new_Visual (the_Capsule_Model.all'Access)];
    begin
-      the_Light.Site_is ((0.0, 5.0, 10.0));
+      the_Light.Site_is ([0.0, 5.0, 10.0]);
       Demo.Renderer.set (the_Light);
 
       --  Main loop.

@@ -205,6 +205,6 @@ private
       end record;
 
 
-   null_Bounds : constant bounding_Box := (lower => (Real'Last,  Real'Last),
-                                           upper => (Real'First, Real'First));
+   null_Bounds : constant bounding_Box := (lower => [Real'Last,  Real'Last],
+                                           upper => [Real'First, Real'First]);
 end any_Math.any_Geometry.any_d2;

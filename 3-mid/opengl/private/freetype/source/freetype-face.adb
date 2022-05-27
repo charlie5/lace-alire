@@ -225,7 +225,7 @@ is
         or Index1 = 0
         or Index2 = 0
       then
-         return (0.0, 0.0, 0.0);
+         return [0.0, 0.0, 0.0];
       end if;
 
       if    Self.kerningCache /= null
@@ -238,7 +238,7 @@ is
             X := Float (Self.kerningCache (C.size_t (2 * (Index2 * max_Precomputed + Index1))));
             Y := Float (Self.kerningCache (C.size_t (2 * (Index2 * max_Precomputed + Index1) + 1)));
 
-            return (X, Y, 0.0);
+            return [X, Y, 0.0];
          end;
       end if;
 
@@ -252,13 +252,13 @@ is
                                   kernAdvance'unchecked_Access);
       if Self.Err /= 0
       then
-         return (0.0, 0.0, 0.0);
+         return [0.0, 0.0, 0.0];
       end if;
 
       X := Float (kernAdvance.x) / 64.0;
       Y := Float (kernAdvance.y) / 64.0;
 
-      return (X, Y, 0.0);
+      return [X, Y, 0.0];
    end KernAdvance;
 
 

@@ -73,6 +73,6 @@ is
 
 private
 
-   null_Bounds : constant bounding_Box := (Lower => (Real'Last,  Real'Last,  Real'Last),
-                                           Upper => (Real'First, Real'First, Real'First));
+   null_Bounds : constant bounding_Box := (Lower => [Real'Last,  Real'Last,  Real'Last],
+                                           Upper => [Real'First, Real'First, Real'First]);
 end any_Math.any_Geometry.any_d3;

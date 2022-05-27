@@ -303,7 +303,7 @@ private
    type Transform is
       record
          Rotation    : Quaternion := linear_Algebra_3D.to_Quaternion (linear_Algebra_3D.x_Rotation_from (0.0));
-         Translation : Vector_3   := (0.0, 0.0, 0.0);
+         Translation : Vector_3   := [0.0, 0.0, 0.0];
       end record;
 
    type Transforms      is array (Positive range <>) of Transform;
@@ -377,7 +377,7 @@ private
          Channels                : channel_id_Map_of_animation_Channel;
          start_Time              : Duration := 0.0;
 
-         overall_Site            : Vector_3 := (0.0, 0.0, 0.0);
+         overall_Site            : Vector_3 := [0.0, 0.0, 0.0];
 
          Model                   : openGL.Model.view;
          program_Parameters      : aliased skin_program_Parameters;

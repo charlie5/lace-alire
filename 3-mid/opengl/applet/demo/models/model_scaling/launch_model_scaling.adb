@@ -15,7 +15,7 @@ is
 begin
    Demo.print_Usage;
    Demo.define ("openGL 'Model Scaling' Demo");
-   Demo.Camera.Position_is ((0.0, 0.0, 20.0),
+   Demo.Camera.Position_is ([0.0, 0.0, 20.0],
                             y_Rotation_from (to_Radians (0.0)));
    declare
       --  The models.
@@ -30,7 +30,7 @@ begin
       --  Scaling
       --
       scaling_Up  : Boolean       := True;
-      Scale       : math.Vector_3 := (1.0, 1.0, 1.0);
+      Scale       : math.Vector_3 := [1.0, 1.0, 1.0];
 
    begin
       for i in the_Visuals'Range
@@ -44,15 +44,15 @@ begin
       end loop;
 
       Demo.layout (the_Visuals);
-      the_Visuals (ground_Id).Site_is (the_Visuals (ground_Id).Site_of + (0.0, -15.0, 0.0));
+      the_Visuals (ground_Id).Site_is (the_Visuals (ground_Id).Site_of + [0.0, -15.0, 0.0]);
 
 
       --  Main loop.
       --
       while not Demo.Done
       loop
-         if scaling_Up then Scale := Scale + (0.001, 0.001, 0.001);
-                       else Scale := Scale - (0.001, 0.001, 0.001);
+         if scaling_Up then Scale := Scale + [0.001, 0.001, 0.001];
+                       else Scale := Scale - [0.001, 0.001, 0.001];
          end if;
 
          if    Scale (1) > 2.0   then scaling_Up := False;

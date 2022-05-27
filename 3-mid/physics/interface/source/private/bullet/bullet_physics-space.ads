@@ -89,7 +89,7 @@ private
    overriding
    function       new_sphere_Shape (Self : access Item;   Radius       : in Real     := 0.5)                 return physics.Shape.view;
    overriding
-   function          new_box_Shape (Self : access Item;   half_Extents : in Vector_3 := (0.5, 0.5, 0.5))     return physics.Shape.view;
+   function          new_box_Shape (Self : access Item;   half_Extents : in Vector_3 := [0.5, 0.5, 0.5])     return physics.Shape.view;
    overriding
    function      new_capsule_Shape (Self : access Item;   Radius       : in Real     :=  0.5;
                                                           Height       : in Real)                            return physics.Shape.view;
@@ -97,7 +97,7 @@ private
    function         new_cone_Shape (Self : access Item;   Radius       : in Real     :=  0.5;
                                                           Height       : in Real     := 1.0)                 return physics.Shape.view;
    overriding
-   function     new_cylinder_Shape (Self : access Item;   half_Extents : in Vector_3 := (0.5, 0.5, 0.5))     return physics.Shape.view;
+   function     new_cylinder_Shape (Self : access Item;   half_Extents : in Vector_3 := [0.5, 0.5, 0.5])     return physics.Shape.view;
    overriding
    function  new_heightfield_Shape (Self : access Item;   Heightfield  : in out physics.Heightfield;
                                                           Scale        : in     Vector_3)                    return physics.Shape.view;
@@ -105,7 +105,7 @@ private
    function  new_multisphere_Shape (Self : access Item;   Sites        : in physics.Vector_3_array;
                                                           Radii        : in Vector)                          return physics.Shape.view;
    overriding
-   function        new_plane_Shape (Self : access Item;   Normal       : in Vector_3 := (0.0, 1.0, 0.0);
+   function        new_plane_Shape (Self : access Item;   Normal       : in Vector_3 := [0.0, 1.0, 0.0];
                                                           Offset       : in Real     :=  0.0)                return physics.Shape.view;
    overriding
    function  new_convex_hull_Shape (Self : access Item;   Points       : in physics.Vector_3_array)          return physics.Shape.view;

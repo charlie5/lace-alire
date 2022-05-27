@@ -11,7 +11,7 @@ is
    is
       function new_physics_Model (Id          : in model_Id := null_model_Id;
                                   shape_Info  : in a_Shape;
-                                  Scale       : in Vector_3 := (1.0, 1.0, 1.0);
+                                  Scale       : in Vector_3 := [1.0, 1.0, 1.0];
                                   Mass        : in Real     := 0.0;
                                   Friction    : in Real     := 0.1;
                                   Restitution : in Real     := 0.1;

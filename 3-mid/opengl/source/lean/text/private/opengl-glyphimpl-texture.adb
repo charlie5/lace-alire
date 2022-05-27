@@ -109,12 +109,12 @@ is
       Self.UV (2).S := Real (GLint (xOffset) + Self.destWidth)  / Real (Width);
       Self.UV (2).T := Real (GLint (yOffset) + Self.destHeight) / Real (Height);
 
-      Self.Corner   := (Real (FT_GlyphSlot_Get_bitmap_left (glyth_Slot)),
+      Self.Corner   := [Real (FT_GlyphSlot_Get_bitmap_left (glyth_Slot)),
                         Real (FT_GlyphSlot_Get_bitmap_top  (glyth_Slot)),
-                        0.0);
+                        0.0];
       declare
          use openGL.Primitive;
-         the_Indices : constant openGL.Indices := (1, 2, 3, 4);
+         the_Indices : constant openGL.Indices := [1, 2, 3, 4];
       begin
          Self.Primitive := Primitive.indexed.new_Primitive (triangle_Fan, the_Indices);
       end;
@@ -132,29 +132,30 @@ is
       dx : constant Real := Real'Floor (Pen (1) + Self.Corner (1));
       dy : constant Real := Real'Floor (Pen (2) + Self.Corner (2));
 
-      the_Quad : aliased constant Quad_t := (NW => (Site   => (dx,
+      the_Quad : aliased constant Quad_t := (NW => (Site   => [dx,
                                                                dy,
-                                                               0.0),
-                                                    Coords => (S => Self.UV (1).S,
-                                                               T => Self.UV (1).T)),
+                                                               0.0],
+                                                    Coords => [S => Self.UV (1).S,
+                                                               T => Self.UV (1).T]),
 
-                                             SW => (Site   => (dx,
+                                             SW => (Site   => [dx,
                                                                dy - Real (Self.destHeight),
-                                                               0.0),
-                                                    Coords => (S => Self.UV (1).S,
-                                                               T => Self.UV (2).T)),
+                                                               0.0],
+                                                    Coords => [S => Self.UV (1).S,
+                                                               T => Self.UV (2).T]),
 
-                                             SE => (Site   => (dx + Real (Self.destWidth),
+                                             SE => (Site   => [dx + Real (Self.destWidth),
                                                                dy - Real (Self.destHeight),
-                                                               0.0),
-                                                    Coords => (S => Self.UV (2).S,
-                                                               T => Self.UV (2).T)),
+                                                               0.0],
+                                                    Coords => [S => Self.UV (2).S,
+                                                               T => Self.UV (2).T]),
 
-                                             NE => (Site   => (dx + Real (Self.destWidth),
+                                             NE => (Site   => [dx + Real (Self.destWidth),
                                                                dy,
-                                                               0.0),
-                                                    Coords => (S => Self.UV (2).S,
-                                                               T => Self.UV (1).T)),
+                                                               0.0],
+                                                    Coords => [S => Self.UV (2).S,
+                                                               T => Self.UV (1).T]),
+
                                              Advance => Self.Advance);
    begin
       return the_Quad;

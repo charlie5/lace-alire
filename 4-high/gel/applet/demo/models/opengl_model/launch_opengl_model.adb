@@ -38,7 +38,7 @@ is
 
    the_human_physics_Model : constant physics.Model.view
      := physics.Model.Forge.new_physics_Model (shape_Info => (Kind         => physics.Model.Cube,
-                                                              half_Extents => (4.0, 1.0, 2.0)),
+                                                              half_Extents => [4.0, 1.0, 2.0]),
                                                Mass       => 1.0);
    the_Human : constant gel.Sprite.view
      := gel.Sprite.forge.new_Sprite (Name           => "Clarence",
@@ -56,7 +56,7 @@ is
 
    the_cobra_physics_Model : constant physics.Model.view
      := physics.Model.Forge.new_physics_Model (shape_Info => (Kind         => physics.Model.Cube,
-                                                              half_Extents => (4.0, 1.0, 2.0)),
+                                                              half_Extents => [4.0, 1.0, 2.0]),
                                                Mass       => 0.0);
    the_Cobra : constant gel.Sprite.view
      := gel.Sprite.forge.new_Sprite (Name           => "Cobra",
@@ -70,21 +70,21 @@ is
 
    the_Ground : constant gel.Sprite.view := gel.Forge.new_box_Sprite (the_Applet.gui_World,
                                                                       Mass => 0.0,
-                                                                      Size => (50.0, 1.0, 50.0));
+                                                                      Size => [50.0, 1.0, 50.0]);
    next_render_Time : ada.calendar.Time;
 
 begin
-   the_Applet.gui_World.Gravity_is ((0.0, -9.8, 0.0));
+   the_Applet.gui_World.Gravity_is ([0.0, -9.8, 0.0]);
 
    the_Applet.gui_World.add (the_Ground);                  -- Add ground.
 
    the_Applet.gui_World.add (the_Human);                   -- Add human.
-   the_Human.Site_is ((0.0, 5.0, 0.0));                    --
+   the_Human.Site_is ([0.0, 5.0, 0.0]);                    --
 
    --  the_Applet.gui_World.add (the_Cobra);               -- Add cobra.
    --  the_Cobra.Site_is ((0.0,  5.0,  0.0));              --
 
-   the_Applet.gui_Camera.Site_is ((0.0, 1.5, 2.6));        -- Position the camera.
+   the_Applet.gui_Camera.Site_is ([0.0, 1.5, 2.6]);        -- Position the camera.
    --  the_Applet.gui_Camera.Site_is ((0.0, 100.0, 0.0));    -- Position the camera.
    the_Applet.enable_simple_Dolly (in_World => 1);         -- Enable user camera control via keyboards.
    the_Applet.Dolly.Speed_is (0.1);                        -- Slow down the rate at which the dolly moves.
@@ -95,7 +95,7 @@ begin
    declare
       Light : openGL.Light.item := the_Applet.Renderer.new_Light;
    begin
-      Light.Site_is ((0.0, 1000.0, 1000.0));
+      Light.Site_is ([0.0, 1000.0, 1000.0]);
       the_Applet.Renderer.set (Light);
    end;
 

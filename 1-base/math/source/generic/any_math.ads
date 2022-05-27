@@ -298,29 +298,29 @@ is
 private
    Infinity     : constant Real := Real'Last;
 
-   Origin_2D    : constant Vector_2 := (0.0, 0.0);
-   Origin_3D    : constant Vector_3 := (0.0, 0.0, 0.0);
+   Origin_2D    : constant Vector_2 := [0.0, 0.0];
+   Origin_3D    : constant Vector_3 := [0.0, 0.0, 0.0];
 
-   Identity_2x2 : aliased constant Matrix_2x2 := ((1.0, 0.0),
-                                                  (0.0, 1.0));
+   Identity_2x2 : aliased constant Matrix_2x2 := [[1.0, 0.0],
+                                                  [0.0, 1.0]];
 
-   Identity_3x3 : constant Matrix_3x3 := ((1.0, 0.0, 0.0),
-                                          (0.0, 1.0, 0.0),
-                                          (0.0, 0.0, 1.0));
+   Identity_3x3 : constant Matrix_3x3 := [[1.0, 0.0, 0.0],
+                                          [0.0, 1.0, 0.0],
+                                          [0.0, 0.0, 1.0]];
 
-   Identity_4x4 : constant Matrix_4x4 := ((1.0, 0.0, 0.0, 0.0),
-                                          (0.0, 1.0, 0.0, 0.0),
-                                          (0.0, 0.0, 1.0, 0.0),
-                                          (0.0, 0.0, 0.0, 1.0));
+   Identity_4x4 : constant Matrix_4x4 := [[1.0, 0.0, 0.0, 0.0],
+                                          [0.0, 1.0, 0.0, 0.0],
+                                          [0.0, 0.0, 1.0, 0.0],
+                                          [0.0, 0.0, 0.0, 1.0]];
 
-   null_Transform_2d : constant Transform_2d := (translation =>  (0.0, 0.0),
-                                                 rotation    => ((1.0, 0.0),
-                                                                 (0.0, 1.0)));
+   null_Transform_2d : constant Transform_2d := (Translation =>  [0.0, 0.0],
+                                                 Rotation    => [[1.0, 0.0],
+                                                                 [0.0, 1.0]]);
 
-   null_Transform_3d : constant Transform_3d := (translation =>  (0.0, 0.0, 0.0),
-                                                 rotation    => ((1.0, 0.0, 0.0),
-                                                                 (0.0, 1.0, 0.0),
-                                                                 (0.0, 0.0, 1.0)));
+   null_Transform_3d : constant Transform_3d := (Translation =>  [0.0, 0.0, 0.0],
+                                                 Rotation    => [[1.0, 0.0, 0.0],
+                                                                 [0.0, 1.0, 0.0],
+                                                                 [0.0, 0.0, 1.0]]);
    pragma Inline_Always (increment);
    pragma Inline_Always (decrement);
    pragma Inline_Always (Clamped);

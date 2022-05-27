@@ -29,12 +29,12 @@ private
    type Sites is array (site_Id) of Site;
 
 
-   front_Normal : constant Vector_3 := ( 0.0,  0.0,  1.0);
-   rear_Normal  : constant Vector_3 := ( 0.0,  0.0, -1.0);
-   upper_Normal : constant Vector_3 := ( 0.0,  1.0,  0.0);
-   lower_Normal : constant Vector_3 := ( 0.0, -1.0,  0.0);
-   left_Normal  : constant Vector_3 := (-1.0,  0.0,  0.0);
-   right_Normal : constant Vector_3 := ( 1.0,  0.0,  0.0);
+   front_Normal : constant Vector_3 := [ 0.0,  0.0,  1.0];
+   rear_Normal  : constant Vector_3 := [ 0.0,  0.0, -1.0];
+   upper_Normal : constant Vector_3 := [ 0.0,  1.0,  0.0];
+   lower_Normal : constant Vector_3 := [ 0.0, -1.0,  0.0];
+   left_Normal  : constant Vector_3 := [-1.0,  0.0,  0.0];
+   right_Normal : constant Vector_3 := [ 1.0,  0.0,  0.0];
 
    function vertex_Sites (Self : in Item'Class) return Sites;
 

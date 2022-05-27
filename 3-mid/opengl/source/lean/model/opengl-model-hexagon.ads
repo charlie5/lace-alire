@@ -20,6 +20,6 @@ private
          Radius : Real := 1.0;
       end record;
 
-   Normal : constant Vector_3 := (0.0, 0.0, 1.0);
+   Normal : constant Vector_3 := [0.0, 0.0, 1.0];
 
 end openGL.Model.Hexagon;

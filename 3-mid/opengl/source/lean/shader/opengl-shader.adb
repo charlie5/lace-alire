@@ -35,7 +35,7 @@ is
       the_Source       : aliased  C.char_array    := read_text_File (source_Filename);
       the_Source_ptr   : aliased
                          constant chars_ptr       := to_chars_ptr (the_Source'unchecked_Access);
-      the_Source_Array : aliased  chars_ptr_array := (1 => the_Source_ptr);
+      the_Source_Array : aliased  chars_ptr_array := [1 => the_Source_ptr];
    begin
       Tasks.check;
 
@@ -110,7 +110,7 @@ is
 
       declare
          use gl.Pointers;
-         info_Log     : aliased  C.char_array        := C.char_array' (1 .. C.size_t (info_log_Length) => <>);
+         info_Log     : aliased  C.char_array        := C.char_array' [1 .. C.size_t (info_log_Length) => <>];
          info_Log_ptr : constant C.Strings.chars_Ptr := C.Strings.to_chars_ptr (info_Log'unchecked_Access);
       begin
          glGetShaderInfoLog (self.gl_Shader,

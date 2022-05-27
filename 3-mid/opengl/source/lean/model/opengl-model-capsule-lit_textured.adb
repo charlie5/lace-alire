@@ -81,8 +81,8 @@ is
          vertex_Count  : constant      Index_t :=      Index_t (sides_Count * 2 + 2);   -- 2 triangles per side plus 2 since we cannot share the first and last edge.
          indices_Count : constant long_Index_t := long_Index_t (sides_Count * 2 * 3);   -- 2 triangles per side with 3 vertices per triangle.
 
-         the_Vertices  : aliased Geometry.lit_textured.Vertex_array := (1 .. vertex_Count  => <>);
-         the_Indices   : aliased Indices                            := (1 .. indices_Count => <>);
+         the_Vertices  : aliased Geometry.lit_textured.Vertex_array := [1 .. vertex_Count  => <>];
+         the_Indices   : aliased Indices                            := [1 .. indices_Count => <>];
 
       begin
          ny := 1.0;
@@ -116,9 +116,9 @@ is
 
                the_Vertices (i).Site   := the_Edges (Each).Fore;
                the_Vertices (i).Shine  := 0.5;
-               the_Vertices (i).Normal := Normalised ((the_Vertices (i).Site (1),
+               the_Vertices (i).Normal := Normalised ([the_Vertices (i).Site (1),
                                                        the_Vertices (i).Site (2),
-                                                       0.0));
+                                                       0.0]);
                the_Vertices (i).Coords := (s => S,
                                            t => 1.0);
                i := i + 1;
@@ -135,9 +135,9 @@ is
 
             the_Vertices (i).Site   := the_Edges (1).Fore;
             the_Vertices (i).Shine  := 0.5;
-            the_Vertices (i).Normal := Normalised ((the_Vertices (i).Site (1),
+            the_Vertices (i).Normal := Normalised ([the_Vertices (i).Site (1),
                                                     the_Vertices (i).Site (2),
-                                                    0.0));
+                                                    0.0]);
             the_Vertices (i).Coords := (s => S,
                                         t => 1.0);
             i := i + 1;
@@ -206,14 +206,14 @@ is
             indices_Count : constant long_Index_t := long_Index_t (  (hoop_count - 1) * sides_Count * 2 * 3    -- For each hoop, 2 triangles per side with 3 vertices per triangle
                                                                    + sides_Count * 3);                         -- plus the extra indices for the pole triangles.
 
-            the_Vertices  : aliased Geometry.lit_textured.Vertex_array := (1 ..  vertex_Count => <>);
-            the_Indices   : aliased Indices                            := (1 .. indices_Count => <>);
+            the_Vertices  : aliased Geometry.lit_textured.Vertex_array := [1 ..  vertex_Count => <>];
+            the_Indices   : aliased Indices                            := [1 .. indices_Count => <>];
 
             the_arch_Edges : arch_Edges;
             i              : Index_t   := 1;
 
-            pole_Site      : constant Site := (if is_Fore then (0.0, 0.0,  L + Radius)
-                                                          else (0.0, 0.0, -L - Radius));
+            pole_Site      : constant Site := (if is_Fore then [0.0, 0.0,  L + Radius]
+                                                          else [0.0, 0.0, -L - Radius]);
 
             Degrees_90        : constant := Pi / 2.0;
             Degrees_360       : constant := Pi * 2.0;
@@ -258,10 +258,10 @@ is
 
                   the_Vertices (i).Site   := the_arch_Edges (each_Hoop) (Each);
                   the_Vertices (i).Shine  := 0.5;
-                  the_Vertices (i).Normal := Normalised ((the_Vertices (i).Site (1),
+                  the_Vertices (i).Normal := Normalised ([the_Vertices (i).Site (1),
                                                           the_Vertices (i).Site (2),
                                                           (if is_Fore then the_Vertices (i).Site (3) - L
-                                                                      else the_Vertices (i).Site (3) + L)));
+                                                                      else the_Vertices (i).Site (3) + L)]);
                   the_Vertices (i).Coords :=  (s => a / Degrees_360,
                                                t => b / Degrees_90);
                   i := i + 1;
@@ -394,9 +394,9 @@ is
          cap_2_Geometry := new_Cap (is_Fore => False);
       end;
 
-      return (1 => the_shaft_Geometry.all'Access,
+      return [1 => the_shaft_Geometry.all'Access,
               2 =>     cap_1_Geometry.all'Access,
-              3 =>     cap_2_Geometry.all'Access);
+              3 =>     cap_2_Geometry.all'Access];
    end to_GL_Geometries;
 
 

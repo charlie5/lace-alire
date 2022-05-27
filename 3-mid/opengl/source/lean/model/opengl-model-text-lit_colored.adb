@@ -79,13 +79,13 @@ is
    is
       pragma unreferenced (Textures);
 
-      text_Scale : constant Vector_3 := (2.0 * 4.0 / 78.0,                -- TODO: Fix scaling.
+      text_Scale : constant Vector_3 := [2.0 * 4.0 / 78.0,                -- TODO: Fix scaling.
                                          2.0 * 4.0 / 95.0,
-                                         1.0 / 1.0);
+                                         1.0 / 1.0];
    begin
       if Self.Text.all = ""
       then
-         return (1 .. 0 => <>);
+         return [1 .. 0 => <>];
       end if;
 
       declare
@@ -98,7 +98,7 @@ is
          num_Vertices   : constant      Index_t :=      Index_t (num_Characters) * 4;       -- For each character, 2 triangles sharing 4 vertices.
 
          the_Indices    : aliased Indices (1 .. num_Indices);
-         the_Vertices   : aliased Geometry.lit_colored_textured.Vertex_array := (1 .. num_Vertices => <>);
+         the_Vertices   : aliased Geometry.lit_colored_textured.Vertex_array := [1 .. num_Vertices => <>];
 
          --- Procedure to 'add' a character.
          --
@@ -168,7 +168,7 @@ is
                the_Vertex : Geometry.lit_colored_textured.Vertex renames the_Vertices (vertex_Count);
             begin
                the_Vertex.Site   := pen_Site + the_Quad.NW.Site;
-               the_Vertex.Normal := (0.0, 0.0, 1.0);
+               the_Vertex.Normal := [0.0, 0.0, 1.0];
                the_Vertex.Shine  := 0.5;
                the_Vertex.Color  := Self.Color;
                the_Vertex.Coords := the_Quad.NW.Coords;
@@ -183,7 +183,7 @@ is
                the_Vertex : Geometry.lit_colored_textured.Vertex renames the_Vertices (vertex_Count);
             begin
                the_Vertex.Site   := pen_Site + the_Quad.SW.Site;
-               the_Vertex.Normal := (0.0, 0.0, 1.0);
+               the_Vertex.Normal := [0.0, 0.0, 1.0];
                the_Vertex.Shine  := 0.5;
                the_Vertex.Color  := Self.Color;
                the_Vertex.Coords := the_Quad.SW.Coords;
@@ -198,7 +198,7 @@ is
                the_Vertex : Geometry.lit_colored_textured.Vertex renames the_Vertices (vertex_Count);
             begin
                the_Vertex.Site   := pen_Site + the_Quad.SE.Site;
-               the_Vertex.Normal := (0.0, 0.0, 1.0);
+               the_Vertex.Normal := [0.0, 0.0, 1.0];
                the_Vertex.Shine  := 0.5;
                the_Vertex.Color  := Self.Color;
                the_Vertex.Coords := the_Quad.SE.Coords;
@@ -213,7 +213,7 @@ is
                the_Vertex : Geometry.lit_colored_textured.Vertex renames the_Vertices (vertex_Count);
             begin
                the_Vertex.Site   := pen_Site + the_Quad.NE.Site;
-               the_Vertex.Normal := (0.0, 0.0, 1.0);
+               the_Vertex.Normal := [0.0, 0.0, 1.0];
                the_Vertex.Shine  := 0.5;
                the_Vertex.Color  := Self.Color;
                the_Vertex.Coords := the_Quad.NE.Coords;
@@ -282,7 +282,7 @@ is
          the_Geometry.Texture_is   (Texture.Forge.to_Texture (Self.Font.gl_Texture));
          the_Geometry.is_Transparent;
 
-         return (1 => Geometry.view (the_Geometry));
+         return [1 => Geometry.view (the_Geometry)];
       end;
    end to_GL_Geometries;
 

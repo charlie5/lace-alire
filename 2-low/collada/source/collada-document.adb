@@ -56,7 +56,7 @@ is
    begin
       if Cursor = 0
       then
-         return (1 => Integer'Value (From));
+         return [1 => Integer'Value (From)];
       end if;
 
       loop
@@ -104,7 +104,7 @@ is
       begin
          if Cursor = 0
          then
-            return (1 => math.Real'Value (From));
+            return [1 => math.Real'Value (From)];
          end if;
 
          loop
@@ -153,7 +153,7 @@ is
       begin
          if Cursor = 0
          then
-            return (1 => +From);
+            return [1 => +From];
          end if;
 
          loop

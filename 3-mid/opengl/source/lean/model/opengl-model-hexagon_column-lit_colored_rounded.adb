@@ -43,7 +43,7 @@ is
           Model.hexagon;
 
       shaft_Height  : constant Real     := Self.Height;
-      height_Offset : constant Vector_3 := (0.0,  shaft_Height / 2.0,  0.0);
+      height_Offset : constant Vector_3 := [0.0,  shaft_Height / 2.0,  0.0];
 
       mid_Sites     : constant hexagon.Sites   := vertex_Sites (Self.Radius);
       upper_Sites   :          hexagon.Sites   := mid_Sites;
@@ -59,8 +59,8 @@ is
          is
          begin
             if Flip
-            then   return (1, 7, 6, 5, 4, 3, 2, 7);
-            else   return (1, 2, 3, 4, 5, 6, 7, 2);
+            then   return [1, 7, 6, 5, 4, 3, 2, 7];
+            else   return [1, 2, 3, 4, 5, 6, 7, 2];
             end if;
          end the_Indices;
 
@@ -85,7 +85,7 @@ is
       is
          use Primitive;
 
-         the_Indices   : constant Indices := (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2);
+         the_Indices   : constant Indices := [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2];
 
          the_Geometry  : constant Geometry.lit_colored.view
            := Geometry.lit_colored.new_Geometry;
@@ -116,13 +116,13 @@ is
       --
       declare
          the_Vertices : constant Geometry.lit_colored.Vertex_array
-           := (1 => (Site => height_Offset,    Normal => Normal,  Color => +Self.upper_Face.center_Color,  Shine => default_Shine),
+           := [1 => (Site => height_Offset,    Normal => Normal,  Color => +Self.upper_Face.center_Color,  Shine => default_Shine),
                2 => (Site => upper_Sites (1),  Normal => Normal,  Color => +Self.upper_Face.Colors (1),    Shine => default_Shine),
                3 => (Site => upper_Sites (2),  Normal => Normal,  Color => +Self.upper_Face.Colors (2),    Shine => default_Shine),
                4 => (Site => upper_Sites (3),  Normal => Normal,  Color => +Self.upper_Face.Colors (3),    Shine => default_Shine),
                5 => (Site => upper_Sites (4),  Normal => Normal,  Color => +Self.upper_Face.Colors (4),    Shine => default_Shine),
                6 => (Site => upper_Sites (5),  Normal => Normal,  Color => +Self.upper_Face.Colors (5),    Shine => default_Shine),
-               7 => (Site => upper_Sites (6),  Normal => Normal,  Color => +Self.upper_Face.Colors (6),    Shine => default_Shine));
+               7 => (Site => upper_Sites (6),  Normal => Normal,  Color => +Self.upper_Face.Colors (6),    Shine => default_Shine)];
       begin
          upper_Face := new_hexagon_Face (Vertices => the_Vertices);
       end;
@@ -131,13 +131,13 @@ is
       --
       declare
          the_Vertices : constant Geometry.lit_colored.Vertex_array
-           := (1 => (Site => -height_Offset,     Normal => -Normal,   Color => +Self.lower_Face.center_Color,   Shine => default_Shine),
+           := [1 => (Site => -height_Offset,     Normal => -Normal,   Color => +Self.lower_Face.center_Color,   Shine => default_Shine),
                2 => (Site =>  lower_Sites (1),   Normal => -Normal,   Color => +Self.lower_Face.Colors (1),     Shine => default_Shine),
                3 => (Site =>  lower_Sites (2),   Normal => -Normal,   Color => +Self.lower_Face.Colors (2),     Shine => default_Shine),
                4 => (Site =>  lower_Sites (3),   Normal => -Normal,   Color => +Self.lower_Face.Colors (3),     Shine => default_Shine),
                5 => (Site =>  lower_Sites (4),   Normal => -Normal,   Color => +Self.lower_Face.Colors (4),     Shine => default_Shine),
                6 => (Site =>  lower_Sites (5),   Normal => -Normal,   Color => +Self.lower_Face.Colors (5),     Shine => default_Shine),
-               7 => (Site =>  lower_Sites (6),   Normal => -Normal,   Color => +Self.lower_Face.Colors (6),     Shine => default_Shine));
+               7 => (Site =>  lower_Sites (6),   Normal => -Normal,   Color => +Self.lower_Face.Colors (6),     Shine => default_Shine)];
       begin
          lower_Face := new_hexagon_Face (Vertices => the_Vertices,
                                          Flip     => True);
@@ -153,7 +153,7 @@ is
             use linear_Algebra_3D;
 
             Rotation   : constant Matrix_3x3 := y_Rotation_from (-math.to_Radians (60.0));
-            the_Normal :          Vector_3   := (1.0, 0.0, 0.0);
+            the_Normal :          Vector_3   := [1.0, 0.0, 0.0];
             Result     :          shaft_Normals;
          begin
             Result (1) := the_Normal;
@@ -164,7 +164,7 @@ is
             the_Normal := Rotation * the_Normal;
             Result (3) := the_Normal;
 
-            the_Normal := (0.0, 0.0, 1.0);
+            the_Normal := [0.0, 0.0, 1.0];
             Result (4) := the_Normal;
 
             the_Normal := Rotation * the_Normal;
@@ -180,7 +180,7 @@ is
          shaft_Color  : constant rgba_Color    := +Self.Shaft.Color;
 
          the_Vertices : constant Geometry.lit_colored.Vertex_array
-           := ( 1 => (Site => upper_Sites (1),   Normal => Normals (1),   Color => shaft_Color,   Shine => default_Shine),
+           := [ 1 => (Site => upper_Sites (1),   Normal => Normals (1),   Color => shaft_Color,   Shine => default_Shine),
                 2 => (Site => lower_Sites (1),   Normal => Normals (1),   Color => shaft_Color,   Shine => default_Shine),
                 3 => (Site => upper_Sites (2),   Normal => Normals (2),   Color => shaft_Color,   Shine => default_Shine),
                 4 => (Site => lower_Sites (2),   Normal => Normals (2),   Color => shaft_Color,   Shine => default_Shine),
@@ -191,14 +191,14 @@ is
                 9 => (Site => upper_Sites (5),   Normal => Normals (5),   Color => shaft_Color,   Shine => default_Shine),
                10 => (Site => lower_Sites (5),   Normal => Normals (5),   Color => shaft_Color,   Shine => default_Shine),
                11 => (Site => upper_Sites (6),   Normal => Normals (6),   Color => shaft_Color,   Shine => default_Shine),
-               12 => (Site => lower_Sites (6),   Normal => Normals (6),   Color => shaft_Color,   Shine => default_Shine));
+               12 => (Site => lower_Sites (6),   Normal => Normals (6),   Color => shaft_Color,   Shine => default_Shine)];
       begin
          shaft_Face := new_shaft_Face (Vertices => the_Vertices);
       end;
 
-      return (1 => upper_Face.all'Access,
+      return [1 => upper_Face.all'Access,
               2 => lower_Face.all'Access,
-              3 => shaft_Face.all'Access);
+              3 => shaft_Face.all'Access];
    end to_GL_Geometries;
 
 

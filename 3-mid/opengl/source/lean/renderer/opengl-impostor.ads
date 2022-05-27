@@ -57,9 +57,9 @@ is
          prior_Height_pixels   : gl.glSizei   := 0;
 
          prior_target_Rotation : Matrix_3x3   := Identity_3x3;
-         prior_target_Position : Vector_3     := (0.0,  0.0,  0.0);
+         prior_target_Position : Vector_3     := [0.0,  0.0,  0.0];
 
-         prior_camera_Position : Vector_3     := (1.0,  1.0,  1.0);
+         prior_camera_Position : Vector_3     := [1.0,  1.0,  1.0];
 
          is_Terrain            : Boolean      := False;
       end record;

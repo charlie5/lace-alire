@@ -33,8 +33,8 @@ is
       vertex_Count  : constant      Index_t :=      Index_t (Self.vertex_Count);
       indices_Count : constant long_Index_t := long_Index_t (Self.vertex_Count);
 
-      the_Vertices  : aliased  Geometry.lit_colored.Vertex_array := (1 .. vertex_Count  => <>);
-      the_Indices   : aliased  Indices                           := (1 .. indices_Count => <>);
+      the_Vertices  : aliased  Geometry.lit_colored.Vertex_array := [1 .. vertex_Count  => <>];
+      the_Indices   : aliased  Indices                           := [1 .. indices_Count => <>];
 
       Color         : constant rgba_Color                := +Self.Color;
       the_Geometry  : constant Geometry.lit_colored.view := Geometry.lit_colored.new_Geometry;
@@ -45,7 +45,7 @@ is
          for i in 1 .. vertex_Count
          loop
             the_Vertices (i).Site   := Vector_3 (Self.Vertices (Integer (i)) & 0.0);
-            the_Vertices (i).Normal := (0.0, 0.0, 1.0);
+            the_Vertices (i).Normal := [0.0, 0.0, 1.0];
             the_Vertices (i).Color  := Color;
             the_Vertices (i).Shine  := 0.5;
          end loop;
@@ -69,7 +69,7 @@ is
          the_Geometry.add (Primitive.view (the_Primitive));
       end;
 
-      return (1 => Geometry.view (the_Geometry));
+      return [1 => Geometry.view (the_Geometry)];
    end to_GL_Geometries;
 
 

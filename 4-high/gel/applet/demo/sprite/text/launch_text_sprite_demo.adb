@@ -37,13 +37,13 @@ is
    text_1_Model : constant openGL.Model.text.lit_colored.view
                                          := openGL.Model.text.lit_colored.view (the_Text_1.graphics_Model);
 begin
-   the_Applet.gui_Camera.Site_is ((0.0, 0.0, 50.0));      -- Position the camera.
+   the_Applet.gui_Camera.Site_is ([0.0, 0.0, 50.0]);      -- Position the camera.
    the_Applet.enable_simple_Dolly (1);                    -- Enable user camera control via keyboards.
 
    the_Applet.gui_World.add (the_Text_1);
    the_Applet.gui_World.add (the_Text_2);
 
-   the_Text_2.Site_is ((0.0, 10.0, 0.0));
+   the_Text_2.Site_is ([0.0, 10.0, 0.0]);
 
    while the_Applet.is_open
    loop

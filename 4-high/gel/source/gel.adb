@@ -6,7 +6,7 @@ is
       the_Name : String (asset_Name'Range);
    begin
       the_Name (1               .. Self'Length)   := Self;
-      the_Name (Self'Length + 1 .. the_Name'Last) := (others => ' ');
+      the_Name (Self'Length + 1 .. the_Name'Last) := [others => ' '];
 
       return asset_Name (the_Name);
    end to_Asset;

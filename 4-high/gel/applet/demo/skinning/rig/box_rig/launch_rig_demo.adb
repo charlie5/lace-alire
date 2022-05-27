@@ -39,7 +39,7 @@ is
 
    the_Ground    : constant gel.Sprite.view           := gel.Forge.new_box_Sprite (the_Applet.gui_World,
                                                                                    Mass => 0.0,
-                                                                                   Size => (50.0, 1.0, 50.0));
+                                                                                   Size => [50.0, 1.0, 50.0]);
 
    the_rig_Model : aliased constant openGL.Model.any.view := openGL.Model.any.new_Model (--Scale            => (1.0, 1.0, 1.0),
                                                                                          --  Model            => openGL.to_Asset ("./tarantula-rigged.dae"),
@@ -52,14 +52,14 @@ is
    next_render_Time : ada.calendar.Time;
 
 begin
-   the_Applet.gui_Camera.Site_is ((0.0, 0.0, 10.0));     -- Position the camera
+   the_Applet.gui_Camera.Site_is ([0.0, 0.0, 10.0]);     -- Position the camera
 
    the_Applet.enable_simple_Dolly (1);                   -- Enable user camera control via keyboards
    the_Applet.Dolly.Speed_is (0.05);
 
    the_Applet.enable_Mouse (detect_Motion => False);     -- Enable mouse events.
 
-   the_Applet.gui_World.Gravity_is ((0.0, -0.0, 0.0));
+   the_Applet.gui_World.Gravity_is ([0.0, -0.0, 0.0]);
 
    -- Set the lights position and ambient color.
    --
@@ -67,7 +67,7 @@ begin
       Light : openGL.Light.item := the_Applet.Renderer.new_Light;
    begin
       Light.Color_is ((0.5, 0.9, 0.5));
-      Light. Site_is ((1000.0, 1000.0, 1000.0));
+      Light. Site_is ([1000.0, 1000.0, 1000.0]);
 
       the_Applet.Renderer.set (Light);
    end;
@@ -110,7 +110,7 @@ begin
                       is_Kinematic => False);
    --  end;
 
-   the_Ground.Site_is ((0.0,  -4.0,  0.0));
+   the_Ground.Site_is ([0.0,  -4.0,  0.0]);
    --  the_Rig   .Spin_is (x_Rotation_from (to_Radians (-90.0)));
 
    the_Applet.gui_World.add (the_Rig.base_Sprite, and_Children => True);     -- Add the rigs armature sprite.

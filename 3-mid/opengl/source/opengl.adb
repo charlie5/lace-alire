@@ -19,9 +19,9 @@ is
    function Scaled (Self : in Vector_3;   By : in Vector_3) return Vector_3
    is
    begin
-      return (Self (1) * By (1),
+      return [Self (1) * By (1),
               Self (2) * By (2),
-              Self (3) * By (3));
+              Self (3) * By (3)];
    end Scaled;
 
 
@@ -170,7 +170,7 @@ is
          end loop;
       end loop;
 
-      return (Min, Max);
+      return [Min, Max];
    end height_Extent;
 
 
@@ -205,7 +205,7 @@ is
       the_Name : String (asset_Name'Range);
    begin
       the_Name (1               .. Self'Length)   := Self;
-      the_Name (Self'Length + 1 .. the_Name'Last) := (others => ' ');
+      the_Name (Self'Length + 1 .. the_Name'Last) := [others => ' '];
 
       return asset_Name (the_Name);
    end to_Asset;

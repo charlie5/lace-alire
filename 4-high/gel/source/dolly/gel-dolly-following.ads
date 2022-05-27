@@ -49,7 +49,7 @@ private
    type Item is new gel.Dolly.item with
       record
          Sprite               : gel.Sprite.view;
-         sprite_Offset        : math.Vector_3 := (0.0, 30.0, 0.0);
+         sprite_Offset        : math.Vector_3 := [0.0, 30.0, 0.0];
 
          allow_linear_Motion  : Boolean       := True;
          allow_orbital_Motion : Boolean       := True;

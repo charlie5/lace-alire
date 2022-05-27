@@ -17,7 +17,7 @@ is
                                            line_Width : in Real)
    is
       use openGL.Buffer.indices.Forge;
-      buffer_Indices : aliased openGL.Indices := (Indices'Range => <>);
+      buffer_Indices : aliased openGL.Indices := [Indices'Range => <>];
 
    begin
       for Each in buffer_Indices'Range
@@ -38,7 +38,7 @@ is
                                            line_Width : in Real)
    is
       use openGL.Buffer.indices.Forge;
-      buffer_Indices : aliased openGL.Indices := (Indices'Range => <>);
+      buffer_Indices : aliased openGL.Indices := [Indices'Range => <>];
 
    begin
       for Each in buffer_Indices'Range
@@ -95,7 +95,7 @@ is
    procedure Indices_are  (Self : in out Item;   Now : in Indices)
    is
       use Buffer.indices;
-      buffer_Indices : aliased Indices := (Now'Range => <>);
+      buffer_Indices : aliased Indices := [Now'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop
@@ -110,7 +110,7 @@ is
    procedure Indices_are  (Self : in out Item;   Now : in long_Indices)
    is
       use Buffer.indices;
-      buffer_Indices : aliased Indices := (Now'Range => <>);
+      buffer_Indices : aliased Indices := [Now'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop

@@ -46,7 +46,7 @@ is
       use Geometry.colored;
 
       indices_Count : constant long_Index_t := 2;
-      the_Indices   : aliased  Indices      := (1 .. indices_Count => <>);
+      the_Indices   : aliased  Indices      := [1 .. indices_Count => <>];
       the_Primitive :          Primitive.indexed.view;
 
    begin
@@ -61,7 +61,7 @@ is
          Self.Vertices (2).Color := (Primary => Self.Color,  Alpha => opaque_Value);
       end set_Sites;
 
-      the_Indices := (1, 2);
+      the_Indices := [1, 2];
 
       Self.Geometry.is_Transparent (False);
       Self.Geometry.Vertices_are   (Self.Vertices);
@@ -69,7 +69,7 @@ is
       the_Primitive := Primitive.indexed.new_Primitive (Primitive.Lines, the_Indices);
       Self.Geometry.add (Primitive.view (the_Primitive));
 
-      return (1 => Self.Geometry);
+      return [1 => Self.Geometry];
    end to_GL_Geometries;
 
 

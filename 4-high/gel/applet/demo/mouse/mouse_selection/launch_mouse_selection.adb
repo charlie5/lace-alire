@@ -51,7 +51,7 @@ begin
          use float_Math;
       begin
          put_Line ("retreat_Sprite");
-         Self.Sprite.Site_is (self.Sprite.Site - the_Applet.gui_Camera.Spin * (0.0, 0.0, 1.0));
+         Self.Sprite.Site_is (self.Sprite.Site - the_Applet.gui_Camera.Spin * [0.0, 0.0, 1.0]);
       end respond;
 
       retreat_Sprite_Response : aliased retreat_Sprite := (lace.Response.item with sprite => the_Ball);
@@ -68,7 +68,7 @@ begin
          use float_Math;
       begin
          put_Line ("advance_Sprite");
-         Self.Sprite.Site_is (self.Sprite.Site + the_Applet.gui_Camera.Spin * (0.0, 0.0, 1.0));
+         Self.Sprite.Site_is (self.Sprite.Site + the_Applet.gui_Camera.Spin * [0.0, 0.0, 1.0]);
       end respond;
 
       advance_Sprite_Response : aliased advance_Sprite := (lace.Response.Item with sprite => the_Ball);
@@ -86,7 +86,7 @@ begin
                     the_Applet.Name);
 
       the_Applet.gui_world .add      (the_Ball, and_Children => False);
-      the_Applet.gui_Camera.Site_is  ((0.0, 0.0, 5.0));
+      the_Applet.gui_Camera.Site_is  ([0.0, 0.0, 5.0]);
       the_Applet.enable_simple_Dolly (in_World => 1);
       the_Applet.enable_Mouse        (detect_Motion => False);
 

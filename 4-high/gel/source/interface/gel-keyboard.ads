@@ -158,6 +158,6 @@ is
 
 private
 
-   no_Modifiers : constant modifier_Set := (others => False);
+   no_Modifiers : constant modifier_Set := [others => False];
 
 end gel.Keyboard;

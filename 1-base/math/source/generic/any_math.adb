@@ -220,54 +220,54 @@ is
    function Row (Self : in Matrix_2x2;   row_Id : in Index) return Vector_2
    is
    begin
-      return (Self (row_Id, 1),
-              Self (row_Id, 2));
+      return [Self (row_Id, 1),
+              Self (row_Id, 2)];
    end Row;
 
 
    function Col (Self : in Matrix_2x2;   col_Id : in Index) return Vector_2
    is
    begin
-      return (Self (1, col_Id),
-              Self (2, col_Id));
+      return [Self (1, col_Id),
+              Self (2, col_Id)];
    end Col;
 
 
    function Row (Self : in Matrix_3x3;   row_Id : in Index) return Vector_3
    is
    begin
-      return (Self (row_Id, 1),
+      return [Self (row_Id, 1),
               Self (row_Id, 2),
-              Self (row_Id, 3));
+              Self (row_Id, 3)];
    end Row;
 
 
    function Col (Self : in Matrix_3x3;   col_Id : in Index) return Vector_3
    is
    begin
-      return (Self (1, col_Id),
+      return [Self (1, col_Id),
               Self (2, col_Id),
-              Self (3, col_Id));
+              Self (3, col_Id)];
    end Col;
 
 
    function Row (Self : in Matrix_4x4;   row_Id : in Index) return Vector_4
    is
    begin
-      return (Self (row_Id, 1),
+      return [Self (row_Id, 1),
               Self (row_Id, 2),
               Self (row_Id, 3),
-              Self (row_Id, 4));
+              Self (row_Id, 4)];
    end Row;
 
 
    function Col (Self : in Matrix_4x4;   col_Id : in Index) return Vector_4
    is
    begin
-      return (Self (1, col_Id),
+      return [Self (1, col_Id),
               Self (2, col_Id),
               Self (3, col_Id),
-              Self (4, col_Id));
+              Self (4, col_Id)];
    end Col;
 
 
@@ -284,10 +284,10 @@ is
    function to_Matrix_4x4 (Self : in Vector_16)  return Matrix_4x4
    is
    begin
-      return Matrix_4x4' (1 => (Self (1),  Self (2),  Self (3),  Self (4)),
-                          2 => (Self (5),  Self (6),  Self (7),  Self (8)),
-                          3 => (Self (9),  Self (10), Self (11), Self (12)),
-                          4 => (Self (13), Self (14), Self (15), Self (16)));
+      return Matrix_4x4' (1 => [Self ( 1), Self ( 2), Self ( 3), Self ( 4)],
+                          2 => [Self ( 5), Self ( 6), Self ( 7), Self ( 8)],
+                          3 => [Self ( 9), Self (10), Self (11), Self (12)],
+                          4 => [Self (13), Self (14), Self (15), Self (16)]);
    end to_Matrix_4x4;
 
 
@@ -462,8 +462,8 @@ is
    function "+" (Left, Right : in Vector_2) return Vector_2
    is
    begin
-      return (Left (1) + Right (1),
-              Left (2) + Right (2));
+      return [Left (1) + Right (1),
+              Left (2) + Right (2)];
    end "+";
 
 
@@ -471,8 +471,8 @@ is
    function "-" (Left, Right : in Vector_2) return Vector_2
    is
    begin
-      return (Left (1) - Right (1),
-              Left (2) - Right (2));
+      return [Left (1) - Right (1),
+              Left (2) - Right (2)];
    end "-";
 
 
@@ -480,8 +480,8 @@ is
    function "*" (Left : in Real;   Right : in Vector_2) return Vector_2
    is
    begin
-      return (Right (1) * Left,
-              Right (2) * Left);
+      return [Right (1) * Left,
+              Right (2) * Left];
    end "*";
 
 
@@ -489,8 +489,8 @@ is
    function "*" (Left : in Vector_2;   Right : in Real) return Vector_2
    is
    begin
-      return (Left (1) * Right,
-              Left (2) * Right);
+      return [Left (1) * Right,
+              Left (2) * Right];
    end "*";
 
 
@@ -498,8 +498,8 @@ is
    function "/" (Left : in Vector_2;   Right : in Real) return Vector_2
    is
    begin
-      return (Left (1) / Right,
-              Left (2) / Right);
+      return [Left (1) / Right,
+              Left (2) / Right];
    end "/";
 
 
@@ -525,18 +525,18 @@ is
    function "*" (Left : in Real;   Right : in Vector_3) return Vector_3
    is
    begin
-      return (Right (1) * Left,
+      return [Right (1) * Left,
               Right (2) * Left,
-              Right (3) * Left);
+              Right (3) * Left];
    end "*";
 
 
    function "*" (Left, Right : in Vector_3) return Vector_3
    is
    begin
-      return (1 => Left (2) * Right (3)  -  Left (3) * Right (2),
+      return [1 => Left (2) * Right (3)  -  Left (3) * Right (2),
               2 => Left (3) * Right (1)  -  Left (1) * Right (3),
-              3 => Left (1) * Right (2)  -  Left (2) * Right (1));
+              3 => Left (1) * Right (2)  -  Left (2) * Right (1)];
    end "*";
 
 
@@ -544,9 +544,9 @@ is
    function "+" (Left, Right : in Vector_3) return Vector_3
    is
    begin
-      return (Left (1) + Right (1),
+      return [Left (1) + Right (1),
               Left (2) + Right (2),
-              Left (3) + Right (3));
+              Left (3) + Right (3)];
    end "+";
 
 
@@ -554,9 +554,9 @@ is
    function "-" (Left, Right : in Vector_3) return Vector_3
    is
    begin
-      return (Left (1) - Right (1),
+      return [Left (1) - Right (1),
               Left (2) - Right (2),
-              Left (3) - Right (3));
+              Left (3) - Right (3)];
    exception
       when Constraint_Error =>
          raise Constraint_Error with "any_math ""-"" (Left, Right : Vector_3) => "
@@ -568,9 +568,9 @@ is
    function "-" (Right : in Vector_3) return Vector_3
    is
    begin
-      return (-Right (1),
+      return [-Right (1),
               -Right (2),
-              -Right (3));
+              -Right (3)];
    end "-";
 
 
@@ -578,9 +578,9 @@ is
    function "*" (Left : in Vector_3;   Right : in Real) return Vector_3
    is
    begin
-      return (Left (1) * Right,
+      return [Left (1) * Right,
               Left (2) * Right,
-              Left (3) * Right);
+              Left (3) * Right];
    end "*";
 
 
@@ -588,9 +588,9 @@ is
    function "/" (Left : in Vector_3;   Right : in Real) return Vector_3
    is
    begin
-      return (Left (1) / Right,
+      return [Left (1) / Right,
               Left (2) / Right,
-              Left (3) / Right);
+              Left (3) / Right];
    end "/";
 
 
@@ -650,7 +650,7 @@ is
 
    function "*" (Left : in Matrix_2x2;   Right : in Vector_2) return Vector_2
    is
-      Result : Vector_2 := (others => 0.0);
+      Result : Vector_2 := [others => 0.0];
    begin
       for Row in 1 .. 2
       loop
@@ -691,9 +691,9 @@ is
       A : Matrix_3x3 renames Left;
       B : Vector_3   renames Right;
    begin
-      return ((a(1,1)*b(1) + a(1,2)*b(2) + a(1,3)*b(3)),
+      return [(a(1,1)*b(1) + a(1,2)*b(2) + a(1,3)*b(3)),
               (a(2,1)*b(1) + a(2,2)*b(2) + a(2,3)*b(3)),
-              (a(3,1)*b(1) + a(3,2)*b(2) + a(3,3)*b(3)));
+              (a(3,1)*b(1) + a(3,2)*b(2) + a(3,3)*b(3))];
    end "*";
 
 
@@ -702,9 +702,9 @@ is
       A : Matrix_3x3 renames Right;
       B : Vector_3   renames Left;
    begin
-      return ((a(1,1)*b(1) + a(2,1)*b(2) + a(3,1)*b(3)),
+      return [(a(1,1)*b(1) + a(2,1)*b(2) + a(3,1)*b(3)),
               (a(1,2)*b(1) + a(2,2)*b(2) + a(3,2)*b(3)),
-              (a(1,3)*b(1) + a(2,3)*b(2) + a(3,3)*b(3)));
+              (a(1,3)*b(1) + a(2,3)*b(2) + a(3,3)*b(3))];
    end "*";
 
 
@@ -725,10 +725,10 @@ is
       A : Matrix_4x4 renames Left;
       B : Vector_4   renames Right;
    begin
-      return ((a(1,1)*b(1) + a(1,2)*b(2) + a(1,3)*b(3) + a(1,4)*b(4)),
+      return [(a(1,1)*b(1) + a(1,2)*b(2) + a(1,3)*b(3) + a(1,4)*b(4)),
               (a(2,1)*b(1) + a(2,2)*b(2) + a(2,3)*b(3) + a(2,4)*b(4)),
               (a(3,1)*b(1) + a(3,2)*b(2) + a(3,3)*b(3) + a(3,4)*b(4)),
-              (a(4,1)*b(1) + a(4,2)*b(2) + a(4,3)*b(3) + a(4,4)*b(4)));
+              (a(4,1)*b(1) + a(4,2)*b(2) + a(4,3)*b(3) + a(4,4)*b(4))];
    end "*";
 
 
@@ -737,10 +737,10 @@ is
       A : Matrix_4x4 renames Right;
       B : Vector_4   renames Left;
    begin
-      return ((a(1,1)*b(1) + a(2,1)*b(2) + a(3,1)*b(3) + a(4,1)*b(4)),
+      return [(a(1,1)*b(1) + a(2,1)*b(2) + a(3,1)*b(3) + a(4,1)*b(4)),
               (a(1,2)*b(1) + a(2,2)*b(2) + a(3,2)*b(3) + a(4,2)*b(4)),
               (a(1,3)*b(1) + a(2,3)*b(2) + a(3,3)*b(3) + a(4,3)*b(4)),
-              (a(1,4)*b(1) + a(2,4)*b(2) + a(3,4)*b(3) + a(4,4)*b(4)));
+              (a(1,4)*b(1) + a(2,4)*b(2) + a(3,4)*b(3) + a(4,4)*b(4))];
    end "*";
 
 
@@ -777,10 +777,10 @@ is
       A : Matrix_4x4 renames Left;
       B : Matrix_4x4 renames Right;
    begin
-      return ((a(1,1)*b(1,1) + a(1,2)*b(2,1) + a(1,3)*b(3,1) + a(1,4)*b(4,1),  a(1,1)*b(1,2) + a(1,2)*b(2,2) + a(1,3)*b(3,2) + a(1,4)*b(4,2),  a(1,1)*b(1,3) + a(1,2)*b(2,3) + a(1,3)*b(3,3) + a(1,4)*b(4,3),  a(1,1)*b(1,4) + a(1,2)*b(2,4) + a(1,3)*b(3,4) + a(1,4)*b(4,4)),
-              (a(2,1)*b(1,1) + a(2,2)*b(2,1) + a(2,3)*b(3,1) + a(2,4)*b(4,1),  a(2,1)*b(1,2) + a(2,2)*b(2,2) + a(2,3)*b(3,2) + a(2,4)*b(4,2),  a(2,1)*b(1,3) + a(2,2)*b(2,3) + a(2,3)*b(3,3) + a(2,4)*b(4,3),  a(2,1)*b(1,4) + a(2,2)*b(2,4) + a(2,3)*b(3,4) + a(2,4)*b(4,4)),
-              (a(3,1)*b(1,1) + a(3,2)*b(2,1) + a(3,3)*b(3,1) + a(3,4)*b(4,1),  a(3,1)*b(1,2) + a(3,2)*b(2,2) + a(3,3)*b(3,2) + a(3,4)*b(4,2),  a(3,1)*b(1,3) + a(3,2)*b(2,3) + a(3,3)*b(3,3) + a(3,4)*b(4,3),  a(3,1)*b(1,4) + a(3,2)*b(2,4) + a(3,3)*b(3,4) + a(3,4)*b(4,4)),
-              (a(4,1)*b(1,1) + a(4,2)*b(2,1) + a(4,3)*b(3,1) + a(4,4)*b(4,1),  a(4,1)*b(1,2) + a(4,2)*b(2,2) + a(4,3)*b(3,2) + a(4,4)*b(4,2),  a(4,1)*b(1,3) + a(4,2)*b(2,3) + a(4,3)*b(3,3) + a(4,4)*b(4,3),  a(4,1)*b(1,4) + a(4,2)*b(2,4) + a(4,3)*b(3,4) + a(4,4)*b(4,4)));
+      return [[a(1,1)*b(1,1) + a(1,2)*b(2,1) + a(1,3)*b(3,1) + a(1,4)*b(4,1),  a(1,1)*b(1,2) + a(1,2)*b(2,2) + a(1,3)*b(3,2) + a(1,4)*b(4,2),  a(1,1)*b(1,3) + a(1,2)*b(2,3) + a(1,3)*b(3,3) + a(1,4)*b(4,3),  a(1,1)*b(1,4) + a(1,2)*b(2,4) + a(1,3)*b(3,4) + a(1,4)*b(4,4)],
+              [a(2,1)*b(1,1) + a(2,2)*b(2,1) + a(2,3)*b(3,1) + a(2,4)*b(4,1),  a(2,1)*b(1,2) + a(2,2)*b(2,2) + a(2,3)*b(3,2) + a(2,4)*b(4,2),  a(2,1)*b(1,3) + a(2,2)*b(2,3) + a(2,3)*b(3,3) + a(2,4)*b(4,3),  a(2,1)*b(1,4) + a(2,2)*b(2,4) + a(2,3)*b(3,4) + a(2,4)*b(4,4)],
+              [a(3,1)*b(1,1) + a(3,2)*b(2,1) + a(3,3)*b(3,1) + a(3,4)*b(4,1),  a(3,1)*b(1,2) + a(3,2)*b(2,2) + a(3,3)*b(3,2) + a(3,4)*b(4,2),  a(3,1)*b(1,3) + a(3,2)*b(2,3) + a(3,3)*b(3,3) + a(3,4)*b(4,3),  a(3,1)*b(1,4) + a(3,2)*b(2,4) + a(3,3)*b(3,4) + a(3,4)*b(4,4)],
+              [a(4,1)*b(1,1) + a(4,2)*b(2,1) + a(4,3)*b(3,1) + a(4,4)*b(4,1),  a(4,1)*b(1,2) + a(4,2)*b(2,2) + a(4,3)*b(3,2) + a(4,4)*b(4,2),  a(4,1)*b(1,3) + a(4,2)*b(2,3) + a(4,3)*b(3,3) + a(4,4)*b(4,3),  a(4,1)*b(1,4) + a(4,2)*b(2,4) + a(4,3)*b(3,4) + a(4,4)*b(4,4)]];
    end "*";
 
 end any_Math;

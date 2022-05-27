@@ -71,7 +71,7 @@ is
 
 
    overriding
-   function new_box_Shape (Self : access Item;   half_Extents : in Vector_3 := (0.5, 0.5, 0.5)) return physics.Shape.view
+   function new_box_Shape (Self : access Item;   half_Extents : in Vector_3 := [0.5, 0.5, 0.5]) return physics.Shape.view
    is
       pragma Unreferenced (Self);
       the_Box : constant physics.Shape.view := bullet_physics.Shape.new_box_Shape (half_Extents);
@@ -85,7 +85,7 @@ is
                                                      Height : in Real) return physics.Shape.view
    is
       pragma unreferenced (Self);
-      the_Capsule : constant physics.Shape .view := bullet_physics.Shape.new_capsule_Shape (Radii  => (Radius, Radius),
+      the_Capsule : constant physics.Shape .view := bullet_physics.Shape.new_capsule_Shape (Radii  => [Radius, Radius],
                                                                                             Height => Height);
    begin
       return the_Capsule;
@@ -104,7 +104,7 @@ is
 
 
    overriding
-   function new_cylinder_Shape (Self : access Item;   half_Extents : in Vector_3 := (0.5, 0.5, 0.5)) return physics.Shape.view
+   function new_cylinder_Shape (Self : access Item;   half_Extents : in Vector_3 := [0.5, 0.5, 0.5]) return physics.Shape.view
    is
       pragma unreferenced (Self);
       the_Cylinder : constant physics.Shape.view := bullet_physics.Shape.new_cylinder_Shape (half_Extents);
@@ -133,7 +133,7 @@ is
             end loop;
          end loop;
 
-         return (Min, Max);
+         return [Min, Max];
       end height_Extent;
 
       function convert is new ada.unchecked_Conversion (physics.Space.Real_view,
@@ -163,7 +163,7 @@ is
 
 
    overriding
-   function new_plane_Shape (Self : access Item;   Normal : in Vector_3 := (0.0, 1.0, 0.0);
+   function new_plane_Shape (Self : access Item;   Normal : in Vector_3 := [0.0, 1.0, 0.0];
                                                    Offset : in Real     :=  0.0) return physics.Shape .view
    is
       pragma unreferenced (Self);
@@ -444,7 +444,7 @@ is
    is
    begin
       raise Error with "TODO";
-      return (0.0, 0.0, 0.0);
+      return [0.0, 0.0, 0.0];
    end Gravity;
 
 

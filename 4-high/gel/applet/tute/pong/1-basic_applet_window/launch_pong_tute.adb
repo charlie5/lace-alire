@@ -30,7 +30,7 @@ is
    Cycle : Natural := 0;
 
 begin
-   the_Applet.Camera.Site_is   ((0.0, 0.0, 20.0));
+   the_Applet.Camera.Site_is   ([0.0, 0.0, 20.0]);
 
    --- Main loop.
    --

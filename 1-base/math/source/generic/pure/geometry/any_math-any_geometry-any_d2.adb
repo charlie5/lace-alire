@@ -33,8 +33,8 @@ is
       the_Complex : constant Complex := compose_from_Polar (Modulus  => Self.Extent,
                                                             Argument => Self.Angle);
    begin
-      return (the_Complex.Re,
-              the_Complex.Im);
+      return [the_Complex.Re,
+              the_Complex.Im];
    end to_Site;
 
 
@@ -82,8 +82,8 @@ is
    is
    begin
       return (Kind  => two_Points,
-              Sites => (Site_1,
-                        Site_2));
+              Sites => [Site_1,
+                        Site_2]);
    end to_Line;
 
 
@@ -536,9 +536,9 @@ is
    begin
       for i in 2 .. Self.Vertex_Count - 1
       loop
-         Result := Result + Area (Triangle' (Vertices => (Self.Vertices (1),
+         Result := Result + Area (Triangle' (Vertices => [Self.Vertices (1),
                                                           Self.Vertices (i),
-                                                          Self.Vertices (i + 1))));
+                                                          Self.Vertices (i + 1)]));
       end loop;
 
       return Result;
@@ -564,9 +564,9 @@ is
 
    function Angle (Self : in Polygon;   at_Vertex : in Positive) return Radians
    is
-      Tri : constant Triangle := (vertices => (Self.Vertices (at_Vertex),
+      Tri : constant Triangle := (vertices => [Self.Vertices (at_Vertex),
                                                next_Vertex   (Self, at_Vertex),
-                                               prior_Vertex  (Self, at_Vertex)));
+                                               prior_Vertex  (Self, at_Vertex)]);
    begin
       return Angle (Tri, 1);
    end Angle;

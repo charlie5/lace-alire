@@ -49,7 +49,7 @@ is
    --
    the_Ball : constant gel.Sprite.view
      := gel.Forge.new_circle_Sprite (in_World => the_Applet.World,
-                                     Site     => (0.0, 0.0),
+                                     Site     => [0.0, 0.0],
                                      Mass     => 1.0,
                                      Bounce   => 1.0,
                                      Friction => 0.0,
@@ -79,7 +79,7 @@ is
                          Site : in Vector_2)
    is
       the_Player :          Player renames the_Players (Id);
-      score_Site : constant Vector_2    := Site + (0.0, stadium_Height / 2.0 + 0.8);
+      score_Site : constant Vector_2    := Site + [0.0, stadium_Height / 2.0 + 0.8];
    begin
       the_Player.Paddle := gel.Forge.new_rectangle_Sprite (the_Applet.World,
                                                            Site     => Site,
@@ -180,9 +180,9 @@ is
    use lace.Event.Utility;
 
 begin
-   the_Applet.Camera.Site_is ((0.0, 0.0, 20.0));
+   the_Applet.Camera.Site_is ([0.0, 0.0, 20.0]);
 
-   the_Applet.World.Gravity_is ((0.0, 0.0, 0.0));
+   the_Applet.World.Gravity_is ([0.0, 0.0, 0.0]);
    the_Applet.World.add (the_Ball);
 
    --- Add the players.
@@ -190,8 +190,8 @@ begin
    declare
       paddle_X_Offset : constant := stadium_Width / 2.0 - 2.0;
    begin
-      add_Player (1, Site => (-paddle_X_Offset, 0.0));
-      add_Player (2, Site => ( paddle_X_Offset, 0.0));
+      add_Player (1, Site => [-paddle_X_Offset, 0.0]);
+      add_Player (2, Site => [ paddle_X_Offset, 0.0]);
    end;
 
    --- Build the stadium.
@@ -205,14 +205,14 @@ begin
       side_wall_X_Offset : constant :=  stadium_Width / 2.0;
       side_wall_Y_Offset : constant := (side_wall_Height + goal_Size) / 2.0;
    begin
-      add_Wall (Site => (0.0,  top_wall_Y_Offset),  Width => stadium_Width,  Height => Thickness);   -- Top
-      add_Wall (Site => (0.0, -top_wall_Y_Offset),  Width => stadium_Width,  Height => Thickness);   -- Bottom
+      add_Wall (Site => [0.0,  top_wall_Y_Offset],  Width => stadium_Width,  Height => Thickness);   -- Top
+      add_Wall (Site => [0.0, -top_wall_Y_Offset],  Width => stadium_Width,  Height => Thickness);   -- Bottom
 
-      add_Wall (Site => (-side_wall_X_Offset,  side_wall_Y_Offset),  Width => Thickness,   Height => side_wall_Height);   -- upper Left
-      add_Wall (Site => (-side_wall_X_Offset, -side_wall_Y_Offset),  Width => Thickness,   Height => side_wall_Height);   -- lower Left
+      add_Wall (Site => [-side_wall_X_Offset,  side_wall_Y_Offset],  Width => Thickness,   Height => side_wall_Height);   -- upper Left
+      add_Wall (Site => [-side_wall_X_Offset, -side_wall_Y_Offset],  Width => Thickness,   Height => side_wall_Height);   -- lower Left
 
-      add_Wall (Site => ( side_wall_X_Offset,  side_wall_Y_Offset),  Width => Thickness,   Height => side_wall_Height);   -- upper Right
-      add_Wall (Site => ( side_wall_X_Offset, -side_wall_Y_Offset),  Width => Thickness,   Height => side_wall_Height);   -- lower Right
+      add_Wall (Site => [ side_wall_X_Offset,  side_wall_Y_Offset],  Width => Thickness,   Height => side_wall_Height);   -- upper Right
+      add_Wall (Site => [ side_wall_X_Offset, -side_wall_Y_Offset],  Width => Thickness,   Height => side_wall_Height);   -- lower Right
    end;
 
    -- Connect events.
@@ -251,7 +251,7 @@ begin
             the_Player.score_Model.Text_is (new_Score);
 
             the_Ball.Site_is  (Origin_3d);
-            the_Ball.Speed_is ((0.0, 0.0, 0.0));
+            the_Ball.Speed_is ([0.0, 0.0, 0.0]);
          end award_Goal;
 
          goal_X_Boundary : constant := stadium_Width / 2.0 + 1.0;
@@ -263,11 +263,11 @@ begin
 
       if relaunch_Ball
       then
-         the_Ball.Site_is ((0.0, 0.0, 0.0));
+         the_Ball.Site_is ([0.0, 0.0, 0.0]);
          declare
-            the_Force : Vector_3 := (gel.Math.Random.random_Real (50.0, 200.0),
+            the_Force : Vector_3 := [gel.Math.Random.random_Real (50.0, 200.0),
                                      gel.Math.Random.random_Real ( 5.0,  20.0),
-                                     0.0);
+                                     0.0];
          begin
             if gel.Math.Random.random_Boolean
             then
@@ -284,7 +284,7 @@ begin
       for the_Player of the_Players
       loop
          declare
-            paddle_Speed : constant Vector_3 := (0.0, 0.2, 0.0);
+            paddle_Speed : constant Vector_3 := [0.0, 0.2, 0.0];
          begin
             if the_Player.moving_Up   then   the_Player.Paddle.Site_is (the_Player.Paddle.Site + paddle_Speed);   end if;
             if the_Player.moving_Down then   the_Player.Paddle.Site_is (the_Player.Paddle.Site - paddle_Speed);   end if;

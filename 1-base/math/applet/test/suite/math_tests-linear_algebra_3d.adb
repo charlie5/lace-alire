@@ -46,43 +46,43 @@ is
    is
       use float_Math.Algebra.linear.d3;
 
-      From : constant Vector_3 := (0.0, 0.0, 0.0);
+      From : constant Vector_3 := [0.0, 0.0, 0.0];
       To   :          Vector_3;
 
    begin
-      To := From * to_translation_Matrix ((1.0, 0.0, 0.0));
+      To := From * to_translation_Matrix ([1.0, 0.0, 0.0]);
 
       assert (To (1) = 1.0,  Image (To) & "  translation (a) failed !");
       assert (To (2) = 0.0,  Image (To) & "  translation (b) failed !");
       assert (To (3) = 0.0,  Image (To) & "  translation (c) failed !");
 
-      To := From * to_translation_Matrix ((0.0, 1.0, 0.0));
+      To := From * to_translation_Matrix ([0.0, 1.0, 0.0]);
 
       assert (To (1) = 0.0,  Image (To) & "  translation (d) failed !");
       assert (To (2) = 1.0,  Image (To) & "  translation (e) failed !");
       assert (To (3) = 0.0,  Image (To) & "  translation (f) failed !");
 
 
-      To := From * to_translation_Matrix ((-1.0, 0.0, 0.0));
+      To := From * to_translation_Matrix ([-1.0, 0.0, 0.0]);
 
       assert (To (1) = -1.0,  Image (To) & "  translation (g) failed !");
       assert (To (2) =  0.0,  Image (To) & "  translation (h) failed !");
       assert (To (3) =  0.0,  Image (To) & "  translation (i) failed !");
 
-      To := From * to_translation_Matrix ((0.0, -1.0, 0.0));
+      To := From * to_translation_Matrix ([0.0, -1.0, 0.0]);
 
       assert (To (1) =  0.0,  Image (To) & "  translation (j) failed !");
       assert (To (2) = -1.0,  Image (To) & "  translation (k) failed !");
       assert (To (3) =  0.0,  Image (To) & "  translation (l) failed !");
 
 
-      To := From * to_translation_Matrix ((1.0, 1.0, 0.0));
+      To := From * to_translation_Matrix ([1.0, 1.0, 0.0]);
 
       assert (To (1) =  1.0,  Image (To) & "  translation (m) failed !");
       assert (To (2) =  1.0,  Image (To) & "  translation (n) failed !");
       assert (To (3) =  0.0,  Image (To) & "  translation (o) failed !");
 
-      To := From * to_translation_Matrix ((-1.0, -1.0, 0.0));
+      To := From * to_translation_Matrix ([-1.0, -1.0, 0.0]);
 
       assert (To (1) = -1.0,  Image (To) & "  translation (p) failed !");
       assert (To (2) = -1.0,  Image (To) & "  translation (q) failed !");
@@ -95,38 +95,38 @@ is
    is
       use float_Math.Algebra.linear.d3;
 
-      From : constant Vector_3 := (1.0, 0.0, 0.0);
+      From : constant Vector_3 := [1.0, 0.0, 0.0];
       To   :          Vector_3;
 
    begin
       To := From * z_Rotation_from (to_Radians (90.0));
 
-      assert (almost_Equal (To, (0.0, -1.0, 0.0)),
+      assert (almost_Equal (To, [0.0, -1.0, 0.0]),
               Image (To, 16) & "  rotation (90) failed !");
 
       To := From * z_Rotation_from (to_Radians (-90.0));
 
-      assert (almost_Equal (To, (0.0, 1.0, 0.0)),
+      assert (almost_Equal (To, [0.0, 1.0, 0.0]),
               Image (To, 16) & "  rotation (-90) failed !");
 
       To := From * z_Rotation_from (to_Radians (180.0));
 
-      assert (almost_Equal (To, (-1.0, 0.0, 0.0)),
+      assert (almost_Equal (To, [-1.0, 0.0, 0.0]),
               Image (To, 16) & "  rotation (180) failed !");
 
       To := From * z_Rotation_from (to_Radians (-180.0));
 
-      assert (almost_Equal (To, (-1.0, 0.0, 0.0)),
+      assert (almost_Equal (To, [-1.0, 0.0, 0.0]),
               Image (To, 16) & "  rotation (-180) failed !");
 
       To := From * z_Rotation_from (to_Radians (270.0));
 
-      assert (almost_Equal (To, (0.0, 1.0, 0.0)),
+      assert (almost_Equal (To, [0.0, 1.0, 0.0]),
               Image (To, 16) & "  rotation (270) failed !");
 
       To := From * z_Rotation_from (to_Radians (-270.0));
 
-      assert (almost_Equal (To, (0.0, -1.0, 0.0)),
+      assert (almost_Equal (To, [0.0, -1.0, 0.0]),
               Image (To, 16) & "  rotation (-270) failed !");
    end rotation_Matrix_Test;
 
@@ -136,22 +136,22 @@ is
    is
       use float_Math.Algebra.linear.d3;
 
-      From : constant Vector_3 := (1.0, 0.0, 0.0);
+      From : constant Vector_3 := [1.0, 0.0, 0.0];
       To   :          Vector_3;
 
       Transform : Transform_3d := (rotation    => z_Rotation_from (to_Radians (90.0)),
-                                   translation => (0.0, 0.0, 0.0));
+                                   translation => [0.0, 0.0, 0.0]);
 
    begin
       To := From * Transform;
 
-      assert (almost_Equal (To, (0.0, 1.0, 0.0)),
+      assert (almost_Equal (To, [0.0, 1.0, 0.0]),
               Image (To, 16) & "  transform () failed !");
 
-      Transform.Translation := (1.0, 0.0, 0.0);
+      Transform.Translation := [1.0, 0.0, 0.0];
       To := From * Transform;
 
-      assert (almost_Equal (To, (1.0, 1.0, 0.0)),
+      assert (almost_Equal (To, [1.0, 1.0, 0.0]),
               Image (To, 16) & "  transform () failed !");
    end transform_Test;
 
@@ -197,11 +197,11 @@ is
    is
       use float_Math.Algebra.linear.d3;
 
-      From      : constant Vector_3 := (1.0, 1.0, 1.0);
+      From      : constant Vector_3 := [1.0, 1.0, 1.0];
       To        :          Vector_3;
 
       Transform : constant Matrix_4x4 := to_transform_Matrix (Rotation    => z_Rotation_from (to_Radians (90.0)),
-                                                              Translation => (5.0, 5.0, 5.0));
+                                                              Translation => [5.0, 5.0, 5.0]);
    begin
       To := From * Transform;
       To := To   * inverse_Transform (Transform);

@@ -103,7 +103,7 @@ is
 
 
    overriding
-   function new_box_Shape (Self : access Item;   half_Extents : in Vector_3 := (0.5, 0.5, 0.5)) return physics.Shape.view
+   function new_box_Shape (Self : access Item;   half_Extents : in Vector_3 := [0.5, 0.5, 0.5]) return physics.Shape.view
    is
       pragma unreferenced (Self);
    begin
@@ -135,7 +135,7 @@ is
 
 
    overriding
-   function new_cylinder_Shape (Self : access Item;   half_Extents : in Vector_3 := (0.5, 0.5, 0.5)) return physics.Shape.view
+   function new_cylinder_Shape (Self : access Item;   half_Extents : in Vector_3 := [0.5, 0.5, 0.5]) return physics.Shape.view
    is
       pragma unreferenced (Self);
    begin
@@ -168,7 +168,7 @@ is
 
 
    overriding
-   function new_plane_Shape (Self : access Item;   Normal : in Vector_3 := (0.0, 1.0, 0.0);
+   function new_plane_Shape (Self : access Item;   Normal : in Vector_3 := [0.0, 1.0, 0.0];
                                                    Offset : in Real     :=  0.0) return physics.Shape.view
    is
       pragma unreferenced (Self);
@@ -475,7 +475,7 @@ is
    is
    begin
       raise Error with "TODO";
-      return (0.0, 0.0, 0.0);
+      return [0.0, 0.0, 0.0];
    end Gravity;
 
 

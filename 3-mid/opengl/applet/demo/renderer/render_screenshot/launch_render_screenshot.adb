@@ -17,13 +17,13 @@ is
 begin
    Demo.print_Usage ("Use 't' or 'T' to take a screenshot.");
    Demo.define ("openGL 'Render Screenshot' Demo");
-   Demo.Camera.Position_is ((0.0, 2.0, 10.0),
+   Demo.Camera.Position_is ([0.0, 2.0, 10.0],
                             y_Rotation_from (to_Radians (0.0)));
 
    declare
       the_Light : openGL.Light.item := Demo.Renderer.new_Light;
    begin
-      the_Light.Site_is ((5_000.0, 2_000.0, 5_000.0));
+      the_Light.Site_is ([5_000.0, 2_000.0, 5_000.0]);
       Demo.Renderer.set (the_Light);
    end;
 
@@ -81,7 +81,7 @@ begin
 
          --  Render all visuals.
          --
-         Demo.Camera.render ((1 => the_Visuals (Current)));
+         Demo.Camera.render ([1 => the_Visuals (Current)]);
 
          while not Demo.Camera.cull_Completed
          loop

@@ -1131,7 +1131,7 @@ is
    is
       the_Sprite : constant gel.Sprite.view := Item'Class (Self).all_Sprites.fetch.Element (sprite_Id);
    begin
-      the_Sprite.Speed_is ((0.0, 10.0, 0.0));
+      the_Sprite.Speed_is ([0.0, 10.0, 0.0]);
    end kick_Sprite;
 
 

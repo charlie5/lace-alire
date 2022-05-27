@@ -23,7 +23,7 @@ begin
 
    --  Setup the camera.
    --
-   Demo.Camera.Position_is ((3.0, 0.0, 10.0),
+   Demo.Camera.Position_is ([3.0, 0.0, 10.0],
                             y_Rotation_from (to_Radians (0.0)));
 
    Demo.Renderer.add_Font (the_font_Id);
@@ -41,7 +41,7 @@ begin
       --
       use openGL.Visual.Forge;
 
-      the_Sprites : constant openGL.Visual.views := (1 => new_Visual (the_Text_Model.all'Access));
+      the_Sprites : constant openGL.Visual.views := [1 => new_Visual (the_Text_Model.all'Access)];
       Current     : constant Integer             := the_Sprites'First;
 
    begin
@@ -78,7 +78,7 @@ begin
 
          --  Render all sprites.
          --
-         Demo.Camera.render ((1 => the_Sprites (Current)));
+         Demo.Camera.render ([1 => the_Sprites (Current)]);
 
          while not Demo.Camera.cull_Completed
          loop

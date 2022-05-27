@@ -26,38 +26,38 @@ is
       use
           float_Math.Algebra.linear.d2;
 
-      From : constant Vector_2 := (0.0, 0.0);
+      From : constant Vector_2 := [0.0, 0.0];
       To   : Vector_2;
 
    begin
-      To := From * to_translation_Transform ((1.0, 0.0));
+      To := From * to_translation_Transform ([1.0, 0.0]);
 
       assert (To (1) = 1.0,  Image (To) & "  translation () failed !");
       assert (To (2) = 0.0,  Image (To) & "  translation () failed !");
 
-      To := From * to_translation_Transform ((0.0, 1.0));
+      To := From * to_translation_Transform ([0.0, 1.0]);
 
       assert (To (1) = 0.0,  Image (To) & "  translation () failed !");
       assert (To (2) = 1.0,  Image (To) & "  translation () failed !");
 
 
-      To := From * to_translation_Transform ((-1.0, 0.0));
+      To := From * to_translation_Transform ([-1.0, 0.0]);
 
       assert (To (1) = -1.0,  Image (To) & "  translation () failed !");
       assert (To (2) =  0.0,  Image (To) & "  translation () failed !");
 
-      To := From * to_translation_Transform ((0.0, -1.0));
+      To := From * to_translation_Transform ([0.0, -1.0]);
 
       assert (To (1) =  0.0,  Image (To) & "  translation () failed !");
       assert (To (2) = -1.0,  Image (To) & "  translation () failed !");
 
 
-      To := From * to_translation_Transform ((1.0, 1.0));
+      To := From * to_translation_Transform ([1.0, 1.0]);
 
       assert (To (1) =  1.0,  Image (To) & "  translation () failed !");
       assert (To (2) =  1.0,  Image (To) & "  translation () failed !");
 
-      To := From * to_translation_Transform ((-1.0, -1.0));
+      To := From * to_translation_Transform ([-1.0, -1.0]);
 
       assert (To (1) = -1.0,  Image (To) & "  translation () failed !");
       assert (To (2) = -1.0,  Image (To) & "  translation () failed !");
@@ -70,7 +70,7 @@ is
       use
           float_Math.Algebra.linear.d2;
 
-      From : constant Vector_2 := (1.0, 0.0);
+      From : constant Vector_2 := [1.0, 0.0];
       To   : Vector_2;
 
    begin
@@ -114,11 +114,11 @@ is
       use
           float_Math.Algebra.linear.d2;
 
-      From : constant Vector_2 := (1.0, 0.0);
+      From : constant Vector_2 := [1.0, 0.0];
       To   : Vector_2;
 
       Transform : Transform_2d := to_Transform_2d (rotation    => to_Radians (90.0),
-                                                   translation => (0.0, 0.0));
+                                                   translation => [0.0, 0.0]);
 
    begin
       To := From * Transform;
@@ -127,7 +127,7 @@ is
       assert (almost_Equal (To (2),  1.0),   Image (To, 16) & "  transform (b) failed !");
 
 
-      Transform.Translation := (1.0, 0.0);
+      Transform.Translation := [1.0, 0.0];
       To := From * Transform;
 
       assert (almost_Equal (To (1),  1.0),   Image (To, 16) & "  transform (c) failed !");

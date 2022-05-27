@@ -255,28 +255,28 @@ is
       target_Centre           : constant Vector_3 := camera_Spin * (  get_Translation (Self.Target.Transform)
                                                                     - camera_Site);
 
-      target_lower_Left       : constant Vector_3 := target_Centre - (Self.Target.Model.Bounds.Ball,
+      target_lower_Left       : constant Vector_3 := target_Centre - [Self.Target.Model.Bounds.Ball,
                                                                       Self.Target.Model.Bounds.Ball,
-                                                                      0.0);
+                                                                      0.0];
 
       target_Centre_proj      : constant Vector_4 := target_Centre     * camera_projection_Transform;
       target_Lower_Left_proj  : constant Vector_4 := target_lower_Left * camera_projection_Transform;
 
-      target_Centre_norm      : constant Vector_3 := (target_Centre_proj (1)     / target_Centre_proj (4),
+      target_Centre_norm      : constant Vector_3 := [target_Centre_proj (1)     / target_Centre_proj (4),
                                                       target_Centre_proj (2)     / target_Centre_proj (4),
-                                                      target_Centre_proj (3)     / target_Centre_proj (4));
+                                                      target_Centre_proj (3)     / target_Centre_proj (4)];
 
-      target_Lower_Left_norm  : constant Vector_3 := (target_Lower_Left_proj (1) / target_Lower_Left_proj (4),
+      target_Lower_Left_norm  : constant Vector_3 := [target_Lower_Left_proj (1) / target_Lower_Left_proj (4),
                                                       target_Lower_Left_proj (2) / target_Lower_Left_proj (4),
-                                                      target_Lower_Left_proj (3) / target_Lower_Left_proj (4));
+                                                      target_Lower_Left_proj (3) / target_Lower_Left_proj (4)];
 
-      target_Centre_norm_0to1 : constant Vector_3 := (target_Centre_norm (1)     * 0.5 + 0.5,
+      target_Centre_norm_0to1 : constant Vector_3 := [target_Centre_norm (1)     * 0.5 + 0.5,
                                                       target_Centre_norm (2)     * 0.5 + 0.5,
-                                                      target_Centre_norm (3)     * 0.5 + 0.5);
+                                                      target_Centre_norm (3)     * 0.5 + 0.5];
 
-      target_Lower_Left_norm_0to1 : constant Vector_3 := (target_Lower_Left_norm (1) * 0.5 + 0.5,
+      target_Lower_Left_norm_0to1 : constant Vector_3 := [target_Lower_Left_norm (1) * 0.5 + 0.5,
                                                           target_Lower_Left_norm (2) * 0.5 + 0.5,
-                                                          target_Lower_Left_norm (3) * 0.5 + 0.5);
+                                                          target_Lower_Left_norm (3) * 0.5 + 0.5];
 
       viewport_Width  : constant Integer    := camera_Viewport.Max (1) - camera_Viewport.Min (1) + 1;
       viewport_Height : constant Integer    := camera_Viewport.Max (2) - camera_Viewport.Min (2) + 1;

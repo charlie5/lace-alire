@@ -65,9 +65,9 @@ is
       vertex_2_Index         : constant Natural        := demand_Index (Self, my_Vertex (Vertex_2));
       vertex_3_Index         : constant Natural        := demand_Index (Self, my_Vertex (Vertex_3));
 
-      new_Triangle           : constant index_Triangle := (vertex_1_Index, vertex_2_Index, vertex_3_Index);
-      new_Triangle_rotated_1 : constant index_Triangle := (vertex_3_Index, vertex_1_Index, vertex_2_Index);
-      new_Triangle_rotated_2 : constant index_Triangle := (vertex_2_Index, vertex_3_Index, vertex_1_Index);
+      new_Triangle           : constant index_Triangle := [vertex_1_Index, vertex_2_Index, vertex_3_Index];
+      new_Triangle_rotated_1 : constant index_Triangle := [vertex_3_Index, vertex_1_Index, vertex_2_Index];
+      new_Triangle_rotated_2 : constant index_Triangle := [vertex_2_Index, vertex_3_Index, vertex_1_Index];
 
    begin
       if        new_Triangle (1) = new_Triangle (2)

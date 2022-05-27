@@ -33,7 +33,7 @@ is
    X          :          float_math.Real           := 0.0;
 
 begin
-   the_Applet.gui_Camera.Site_is ((0.0, 4.0, 30.0));      -- Position the camera.
+   the_Applet.gui_Camera.Site_is ([0.0, 4.0, 30.0]);      -- Position the camera.
    the_Applet.enable_simple_Dolly (1);                    -- Enable user camera control via keyboard.
    the_Applet.Renderer.Background_is (Blue);
 
@@ -42,18 +42,18 @@ begin
    declare
       use float_Math;
 
-      box_Size : constant gel.Math.Vector_3 := (1.0, 1.0, 1.0);
+      box_Size : constant gel.Math.Vector_3 := [1.0, 1.0, 1.0];
 
       --  Box
       --
       the_box_Model : constant openGL.Model.box.colored.view
         := openGL.Model.box.colored.new_Box (Size  => box_Size,
-                                             Faces => (Front => (colors => (others => (Red,     Opaque))),
-                                                       Rear  => (colors => (others => (Blue,    Opaque))),
-                                                       Upper => (colors => (others => (Violet,  Opaque))),
-                                                       Lower => (colors => (others => (Yellow,  Opaque))),
-                                                       Left  => (colors => (others => (Cyan,    Opaque))),
-                                                       Right => (colors => (others => (Magenta, Opaque)))));
+                                             Faces => [Front => (colors => [others => (Red,     Opaque)]),
+                                                       Rear  => (colors => [others => (Blue,    Opaque)]),
+                                                       Upper => (colors => [others => (Violet,  Opaque)]),
+                                                       Lower => (colors => [others => (Yellow,  Opaque)]),
+                                                       Left  => (colors => [others => (Cyan,    Opaque)]),
+                                                       Right => (colors => [others => (Magenta, Opaque)])]);
       the_static_box_physics_Model : constant physics.Model.view
         := physics.Model.forge.new_physics_Model (shape_Info => (Kind         => physics.Model.cube,
                                                                  half_Extents => box_Size));
@@ -92,15 +92,15 @@ begin
       the_Joint_2 : constant gel.hinge_Joint.view := new gel.hinge_Joint.item;
 
    begin
-      the_Applet.gui_World.Gravity_is ((0.0, -10.0, 0.0));
+      the_Applet.gui_World.Gravity_is ([0.0, -10.0, 0.0]);
 
       the_Applet.gui_World.add (the_Box_1);
       the_Applet.gui_World.add (the_Box_2);
       the_Applet.gui_World.add (the_Box_3);
 
-      the_Box_1.Site_is ((  0.0,  0.0, 0.0));
-      the_Box_2.Site_is (( -1.0,  2.0, 0.0));
-      the_Box_3.Site_is (( 10.0, 10.0, 0.0));
+      the_Box_1.Site_is ([  0.0,  0.0, 0.0]);
+      the_Box_2.Site_is ([ -1.0,  2.0, 0.0]);
+      the_Box_3.Site_is ([ 10.0, 10.0, 0.0]);
       --  the_Box_3.Site_is (( 10.0, 10.0, 0.0));
 
       declare
@@ -112,8 +112,8 @@ begin
 
          y_Rot   : math.Matrix_3x3 := y_Rotation_from (to_Radians (180.0));
       begin
-         set_Translation (Frame_2, (2.0, 2.0, 0.0));
-         set_Translation (Frame_3, (8.0, 8.0, 0.0));
+         set_Translation (Frame_2, [2.0, 2.0, 0.0]);
+         set_Translation (Frame_3, [8.0, 8.0, 0.0]);
          --  set_Translation (Frame_3, (8.0, 8.0, 0.0));
 --           set_Translation (Frame_B, y_Rot * math.Vector_3'( -2.0, 0.0, 0.0));
 --

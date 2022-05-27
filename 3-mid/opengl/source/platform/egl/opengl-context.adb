@@ -20,8 +20,8 @@ is
           opengl.Display        .privvy,
           opengl.surface_Profile.privvy;
 
-      contextAttribs : EGLint_array := (EGL_CONTEXT_CLIENT_VERSION, 2,
-                                        EGL_NONE);
+      contextAttribs : EGLint_array := [EGL_CONTEXT_CLIENT_VERSION, 2,
+                                        EGL_NONE];
    begin
       Self.egl_Context := eglCreateContext (to_eGL (the_Display.all),
                                             to_eGL (the_surface_Profile),

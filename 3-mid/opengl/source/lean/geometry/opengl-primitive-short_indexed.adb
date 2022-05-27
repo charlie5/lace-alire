@@ -16,7 +16,7 @@ is
                                            Indices : in short_Indices)
    is
       use Buffer.short_indices.Forge;
-      buffer_Indices : aliased short_Indices := (Indices'Range => <>);
+      buffer_Indices : aliased short_Indices := [Indices'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop
@@ -34,7 +34,7 @@ is
                                            Indices : in openGL.Indices)
    is
       use Buffer.short_indices.Forge;
-      buffer_Indices : aliased short_Indices := (Indices'Range => <>);
+      buffer_Indices : aliased short_Indices := [Indices'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop
@@ -52,7 +52,7 @@ is
                                            Indices : in long_Indices)
    is
       use Buffer.short_indices.Forge;
-      buffer_Indices : aliased short_indices := (Indices'Range => <>);
+      buffer_Indices : aliased short_indices := [Indices'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop
@@ -117,7 +117,7 @@ is
    procedure Indices_are (Self : in out Item;   Now : in short_Indices)
    is
       use Buffer.short_indices;
-      buffer_Indices : aliased short_Indices := (Now'Range => <>);
+      buffer_Indices : aliased short_Indices := [Now'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop
@@ -132,7 +132,7 @@ is
    procedure Indices_are (Self : in out Item;   Now : in Indices)
    is
       use Buffer.short_indices;
-      buffer_Indices : aliased short_Indices := (Now'Range => <>);
+      buffer_Indices : aliased short_Indices := [Now'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop
@@ -147,7 +147,7 @@ is
    procedure Indices_are (Self : in out Item;   Now : in  long_Indices)
    is
       use Buffer.short_indices;
-      buffer_Indices : aliased short_Indices := (Now'Range => <>);
+      buffer_Indices : aliased short_Indices := [Now'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop

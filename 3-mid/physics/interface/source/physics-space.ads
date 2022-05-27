@@ -109,18 +109,18 @@ is
 
    function              new_Shape (Self : access Item;   from_Model : in Model.view)                        return Shape.view   is abstract;
 
-   function          new_box_Shape (Self : access Item;   half_Extents : in     Vector_3 := (0.5, 0.5, 0.5)) return Shape.view   is abstract;
+   function          new_box_Shape (Self : access Item;   half_Extents : in     Vector_3 := [0.5, 0.5, 0.5]) return Shape.view   is abstract;
    function       new_sphere_Shape (Self : access Item;   Radius       : in     Real     :=  0.5)            return Shape.view   is abstract;
    function      new_capsule_Shape (Self : access Item;   Radius       : in     Real     :=  0.5;
                                                           Height       : in     Real)                        return Shape.view   is abstract;
    function         new_cone_Shape (Self : access Item;   Radius       : in     Real     :=  0.5;
                                                           Height       : in     Real     :=  1.0)            return Shape.view   is abstract;
-   function     new_cylinder_Shape (Self : access Item;   half_Extents : in     Vector_3 := (0.5, 0.5, 0.5)) return Shape.view   is abstract;
+   function     new_cylinder_Shape (Self : access Item;   half_Extents : in     Vector_3 := [0.5, 0.5, 0.5]) return Shape.view   is abstract;
    function  new_heightfield_Shape (Self : access Item;   Heightfield  : in out physics.Heightfield;
                                                           Scale        : in     Vector_3)                    return Shape.view   is abstract;
    function  new_multisphere_Shape (Self : access Item;   Sites        : in     Vector_3_array;
                                                           Radii        : in     Vector)                      return Shape.view   is abstract;
-   function        new_plane_Shape (Self : access Item;   Normal       : in     Vector_3 := (0.0, 1.0, 0.0);
+   function        new_plane_Shape (Self : access Item;   Normal       : in     Vector_3 := [0.0, 1.0, 0.0];
                                                           Offset       : in     Real     :=  0.0)            return Shape.view   is abstract;
    function  new_convex_hull_Shape (Self : access Item;   Points       : in     Vector_3_array)              return Shape.view   is abstract;
    function         new_mesh_Shape (Self : access Item;   Points       : access Geometry_3D.a_Model)         return Shape.view   is abstract;

@@ -12,7 +12,7 @@ is
    end Builder;
 
    package Compiler is
-      for Default_Switches ("ada") use ("-gnat12");
+      for Default_Switches ("ada") use ("-gnat2022");
    end Compiler;
 
    package Binder is

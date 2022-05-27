@@ -40,9 +40,9 @@ is
    function Midpoint (From, To : in Vector_3) return Vector_3
    is
    begin
-      return ((From (1) + To (1)) * 0.5,
+      return [(From (1) + To (1)) * 0.5,
               (From (2) + To (2)) * 0.5,
-              (From (3) + To (3)) * 0.5);
+              (From (3) + To (3)) * 0.5];
    end Midpoint;
 
 
@@ -61,9 +61,9 @@ is
       P : constant Real := to_Real (Percent);
       S : constant Real := 1.0 - P;
    begin
-      return (S * From (1)  +  P * To (1),
+      return [S * From (1)  +  P * To (1),
               S * From (2)  +  P * To (2),
-              S * From (3)  +  P * To (3));
+              S * From (3)  +  P * To (3)];
    end Interpolated;
 
 
@@ -75,9 +75,9 @@ is
    function to_Matrix (Row_1, Row_2, Row_3 : in Vector_3) return Matrix_3x3
    is
    begin
-      return ((Row_1 (1), Row_1 (2), Row_1 (3)),
-              (Row_2 (1), Row_2 (2), Row_2 (3)),
-              (Row_3 (1), Row_3 (2), Row_3 (3)));
+      return [[Row_1 (1), Row_1 (2), Row_1 (3)],
+              [Row_2 (1), Row_2 (2), Row_2 (3)],
+              [Row_3 (1), Row_3 (2), Row_3 (3)]];
    end to_Matrix;
 
 
@@ -182,9 +182,9 @@ is
       use Functions;
       A : Radians renames Angle;
    begin
-      return ((1.0,      0.0,      0.0),
-              (0.0,  Cos (A), -Sin (A)),
-              (0.0,  Sin (A),  Cos (A)));
+      return [[1.0,      0.0,      0.0],
+              [0.0,  Cos (A), -Sin (A)],
+              [0.0,  Sin (A),  Cos (A)]];
    end x_Rotation_from;
 
 
@@ -195,9 +195,9 @@ is
       use Functions;
       A : Radians renames Angle;
    begin
-      return (( Cos (A),  0.0,  Sin (A)),
-              (     0.0,  1.0,      0.0),
-              (-Sin (A),  0.0,  Cos (A)));
+      return [[ Cos (A),  0.0,  Sin (A)],
+              [     0.0,  1.0,      0.0],
+              [-Sin (A),  0.0,  Cos (A)]];
    end y_Rotation_from;
 
 
@@ -207,9 +207,9 @@ is
       use Functions;
       A : Radians renames Angle;
    begin
-      return ((Cos (A),  -Sin (A),  0.0),
-              (Sin (A),   Cos (A),  0.0),
-              (    0.0,       0.0,  1.0));
+      return [[Cos (A),  -Sin (A),  0.0],
+              [Sin (A),   Cos (A),  0.0],
+              [    0.0,       0.0,  1.0]];
    end z_Rotation_from;
 
 
@@ -254,9 +254,9 @@ is
       AD : constant Real := A * D;
       BD : constant Real := B * D;
    begin
-      return (( C  * E,          -C  * F,           D    ),
-              ( BD * E + A * F,  -BD * F + A * E,  -B * C),
-              (-AD * E + B * F,   AD * F + B * E,   A * C));
+      return [[ C  * E,          -C  * F,           D    ],
+              [ BD * E + A * F,  -BD * F + A * E,  -B * C],
+              [-AD * E + B * F,   AD * F + B * E,   A * C]];
    end to_Rotation;
 
 
@@ -264,10 +264,10 @@ is
    function to_translation_Matrix (Translation : Vector_3) return Matrix_4x4
    is
    begin
-      return ((            1.0,             0.0,             0.0, 0.0),
-              (            0.0,             1.0,             0.0, 0.0),
-              (            0.0,             0.0,             1.0, 0.0),
-              (Translation (1), Translation (2), Translation (3), 1.0));
+      return [[            1.0,             0.0,             0.0, 0.0],
+              [            0.0,             1.0,             0.0, 0.0],
+              [            0.0,             0.0,             1.0, 0.0],
+              [Translation (1), Translation (2), Translation (3), 1.0]];
    end to_translation_Matrix;
 
 
@@ -296,10 +296,10 @@ is
 
       Cotangent := cos (Rads) / Sine;
 
-      return ((Cotangent / Aspect,        0.0,                           0.0,   0.0),
-              (               0.0,  Cotangent,                           0.0,   0.0),
-              (               0.0,        0.0,      -(zFar + zNear) / deltaZ,  -1.0),
-              (               0.0,        0.0,  -2.0 * zNear * zFar / deltaZ,   0.0));
+      return [[Cotangent / Aspect,        0.0,                           0.0,   0.0],
+              [               0.0,  Cotangent,                           0.0,   0.0],
+              [               0.0,        0.0,      -(zFar + zNear) / deltaZ,  -1.0],
+              [               0.0,        0.0,  -2.0 * zNear * zFar / deltaZ,   0.0]];
    end to_Perspective;
 
 
@@ -309,26 +309,26 @@ is
       SX : constant Real := Extent (1) / 2.0;
       SY : constant Real := Extent (2) / 2.0;
    begin
-      return (1 => (            SX,              0.0, 0.0, 0.0),
-              2 => (            0.0,              SY, 0.0, 0.0),
-              3 => (            0.0,             0.0, 1.0, 0.0),
-              4 => (SX + Origin (1), SY + Origin (2), 0.0, 1.0));
+      return [1 => [            SX,              0.0, 0.0, 0.0],
+              2 => [            0.0,              SY, 0.0, 0.0],
+              3 => [            0.0,             0.0, 1.0, 0.0],
+              4 => [SX + Origin (1), SY + Origin (2), 0.0, 1.0]];
    end to_viewport_Transform;
 
 
 
    function Look_at (Eye, Center, Up : Vector_3) return Matrix_4x4
    is
-      Forward   : constant Vector_3 := Normalised ((Center (1) - Eye (1),
+      Forward   : constant Vector_3 := Normalised ([Center (1) - Eye (1),
                                                     Center (2) - Eye (2),
-                                                    Center (3) - Eye (3)));
+                                                    Center (3) - Eye (3)]);
       Side      : constant Vector_3 := Forward * Up;
       new_Up    : constant Vector_3 := Side * Forward;
    begin
-      return  ((    Side (1),      Side (2),      Side (3),  0.0),
-               (  new_Up (1),    new_Up (2),    new_Up (3),  0.0),
-               (-Forward (1),  -Forward (2),  -Forward (3),  0.0),
-               (    -Eye (1),      -Eye (2),      -Eye (3),  1.0));
+      return  [[    Side (1),      Side (2),      Side (3),  0.0],
+               [  new_Up (1),    new_Up (2),    new_Up (3),  0.0],
+               [-Forward (1),  -Forward (2),  -Forward (3),  0.0],
+               [    -Eye (1),      -Eye (2),      -Eye (3),  1.0]];
    end Look_at;
 
 
@@ -349,9 +349,9 @@ is
    function "*" (Left : in Transform_3d;   Right : in Vector_3) return Vector_3
    is
    begin
-      return (Row (Left.Rotation, 1) * Right  +  Left.Translation (1),
+      return [Row (Left.Rotation, 1) * Right  +  Left.Translation (1),
               Row (Left.Rotation, 2) * Right  +  Left.Translation (2),
-              Row (Left.Rotation, 3) * Right  +  Left.Translation (3));
+              Row (Left.Rotation, 3) * Right  +  Left.Translation (3)];
    end "*";
 
 
@@ -595,9 +595,9 @@ is
    begin
       return
         (R =>  Left.R     + Right.R,
-         V => (Left.V (1) + Right.V (1),
+         V => [Left.V (1) + Right.V (1),
                Left.V (2) + Right.V (2),
-               Left.V (3) + Right.V (3)));
+               Left.V (3) + Right.V (3)]);
    end "+";
 
 
@@ -607,9 +607,9 @@ is
    begin
       return
         (R =>  Left.R     - Right.R,
-         V => (Left.V (1) - Right.V (1),
+         V => [Left.V (1) - Right.V (1),
                Left.V (2) - Right.V (2),
-               Left.V (3) - Right.V (3)));
+               Left.V (3) - Right.V (3)]);
    end "-";
 
 
@@ -638,9 +638,9 @@ is
    is
    begin
       return
-        (V => (Left.R * Right.V (1)  +  Left.V (1) * Right.R  +  Left.V (2) * Right.V (3)  -  Left.V (3) * Right.V (2),
+        (V => [Left.R * Right.V (1)  +  Left.V (1) * Right.R  +  Left.V (2) * Right.V (3)  -  Left.V (3) * Right.V (2),
                Left.R * Right.V (2)  +  Left.V (2) * Right.R  +  Left.V (3) * Right.V (1)  -  Left.V (1) * Right.V (3),
-               Left.R * Right.V (3)  +  Left.V (3) * Right.R  +  Left.V (1) * Right.V (2)  -  Left.V (2) * Right.V (1)),
+               Left.R * Right.V (3)  +  Left.V (3) * Right.R  +  Left.V (1) * Right.V (2)  -  Left.V (2) * Right.V (1)],
          R =>    Left.R     * Right.R
               -  Left.V (1) * Right.V (1)
               -  Left.V (2) * Right.V (2)
@@ -685,9 +685,9 @@ is
    begin
       return
         ( Left.R     * Right (1)  +  Left.V (2) * Right (3)  -  Left.V (3) * Right (2),
-         (Left.R     * Right (2)  +  Left.V (3) * Right (1)  -  Left.V (1) * Right (3),
+         [Left.R     * Right (2)  +  Left.V (3) * Right (1)  -  Left.V (1) * Right (3),
           Left.R     * Right (3)  +  Left.V (1) * Right (2)  -  Left.V (2) * Right (1),
-         -Left.V (1) * Right (1)  -  Left.V (2) * Right (2)  -  Left.V (3) * Right (3)));
+         -Left.V (1) * Right (1)  -  Left.V (2) * Right (2)  -  Left.V (3) * Right (3)]);
    end "*";
 
 
@@ -697,9 +697,9 @@ is
    begin
       return
         (-Left (1) * Right.V (1) -  Left (2) * Right.V (2)  -  Left (3) * Right.V (3),
-         (Left (1) * Right.R     +  Left (2) * Right.V (3)  -  Left (3) * Right.V (2),
+         [Left (1) * Right.R     +  Left (2) * Right.V (3)  -  Left (3) * Right.V (2),
           Left (2) * Right.R     +  Left (3) * Right.V (1)  -  Left (1) * Right.V (3),
-          Left (3) * Right.R     +  Left (1) * Right.V (2)  -  Left (2) * Right.V (1)));
+          Left (3) * Right.R     +  Left (1) * Right.V (2)  -  Left (2) * Right.V (1)]);
    end "*";
 
 
@@ -709,9 +709,9 @@ is
    begin
       return
         (R =>  Left.R     * Right,
-         V => (Left.V (1) * Right,
+         V => [Left.V (1) * Right,
                Left.V (2) * Right,
-               Left.V (3) * Right));
+               Left.V (3) * Right]);
    end "*";
 
 
@@ -803,10 +803,10 @@ is
    function "/" (Left, Right : Vector_4) return Vector_4
    is
    begin
-      return (Left (1) / Right (1),
+      return [Left (1) / Right (1),
               Left (2) / Right (2),
               Left (3) / Right (3),
-              Left (4) / Right (4));
+              Left (4) / Right (4)];
    end "/";
 
 
@@ -848,10 +848,10 @@ is
    function closest_Axis (Vector : in Vector_4) return Integer
    is
    begin
-      return max_Axis ((abs (Vector (1)),
+      return max_Axis ([abs (Vector (1)),
                         abs (Vector (2)),
                         abs (Vector (3)),
-                        abs (Vector (4))));
+                        abs (Vector (4))]);
    end closest_Axis;
 
 
@@ -864,7 +864,7 @@ is
                        Viewport   : in Rectangle) return Vector_3
    is
       final_Matrix    : constant Matrix_4x4 := Transpose (Inverse (Model * Projection));
-      window_Position :          Vector_4   := (From (1), From (2), From (3), 1.0);
+      window_Position :          Vector_4   := [From (1), From (2), From (3), 1.0];
       world_Position  :          Vector_4;
    begin
       --  Map x and y from window coordinates.
@@ -899,10 +899,10 @@ is
    function to_translate_Matrix (Translation : in Vector_3) return Matrix_4x4
    is
    begin
-      return ((            1.0,             0.0,             0.0,   0.0),
-              (            0.0,             1.0,             0.0,   0.0),
-              (            0.0,             0.0,             1.0,   0.0),
-              (Translation (1), Translation (2), Translation (3),   1.0));
+      return [[            1.0,             0.0,             0.0,   0.0],
+              [            0.0,             1.0,             0.0,   0.0],
+              [            0.0,             0.0,             1.0,   0.0],
+              [Translation (1), Translation (2), Translation (3),   1.0]];
    end to_translate_Matrix;
 
 
@@ -910,10 +910,10 @@ is
    function to_scale_Matrix (Scale : in Vector_3) return Matrix_4x4
    is
    begin
-      return ((Scale (1),        0.0,        0.0,   0.0),
-              (0.0,        Scale (2),        0.0,   0.0),
-              (0.0,              0.0,  Scale (3),   0.0),
-              (0.0,              0.0,        0.0,   1.0));
+      return [[Scale (1),        0.0,        0.0,   0.0],
+              [0.0,        Scale (2),        0.0,   0.0],
+              [0.0,              0.0,  Scale (3),   0.0],
+              [0.0,              0.0,        0.0,   1.0]];
    end to_scale_Matrix;
 
 
@@ -921,10 +921,10 @@ is
    function to_rotate_Matrix (Rotation : in Matrix_3x3) return Matrix_4x4
    is
    begin
-      return ((Rotation (1, 1),  Rotation (1, 2),  Rotation (1, 3),   0.0),
-              (Rotation (2, 1),  Rotation (2, 2),  Rotation (2, 3),   0.0),
-              (Rotation (3, 1),  Rotation (3, 2),  Rotation (3, 3),   0.0),
-              (            0.0,              0.0,              0.0,   1.0));
+      return [[Rotation (1, 1),  Rotation (1, 2),  Rotation (1, 3),   0.0],
+              [Rotation (2, 1),  Rotation (2, 2),  Rotation (2, 3),   0.0],
+              [Rotation (3, 1),  Rotation (3, 2),  Rotation (3, 3),   0.0],
+              [            0.0,              0.0,              0.0,   1.0]];
 
    end to_rotate_Matrix;
 
@@ -933,10 +933,10 @@ is
    function to_transform_Matrix (Rotation : in Matrix_3x3;   Translation : in Vector_3) return Matrix_4x4
    is
    begin
-      return ((Rotation (1, 1),  Rotation (1, 2),  Rotation (1, 3),   0.0),
-              (Rotation (2, 1),  Rotation (2, 2),  Rotation (2, 3),   0.0),
-              (Rotation (3, 1),  Rotation (3, 2),  Rotation (3, 3),   0.0),
-              (Translation (1),  Translation (2),  Translation (3),   1.0));
+      return [[Rotation (1, 1),  Rotation (1, 2),  Rotation (1, 3),   0.0],
+              [Rotation (2, 1),  Rotation (2, 2),  Rotation (2, 3),   0.0],
+              [Rotation (3, 1),  Rotation (3, 2),  Rotation (3, 3),   0.0],
+              [Translation (1),  Translation (2),  Translation (3),   1.0]];
    end to_transform_Matrix;
 
 
@@ -957,9 +957,9 @@ is
    function get_Rotation (Transform : in Matrix_4x4) return Matrix_3x3
    is
    begin
-      return ((Transform (1, 1),  Transform (1, 2),  Transform (1, 3)),
-              (Transform (2, 1),  Transform (2, 2),  Transform (2, 3)),
-              (Transform (3, 1),  Transform (3, 2),  Transform (3, 3)));
+      return [[Transform (1, 1),  Transform (1, 2),  Transform (1, 3)],
+              [Transform (2, 1),  Transform (2, 2),  Transform (2, 3)],
+              [Transform (3, 1),  Transform (3, 2),  Transform (3, 3)]];
    end get_Rotation;
 
 
@@ -977,7 +977,7 @@ is
    function get_Translation (Transform : in Matrix_4x4) return Vector_3
    is
    begin
-      return (Transform (4, 1),  Transform (4, 2),  Transform (4, 3));
+      return [Transform (4, 1),  Transform (4, 2),  Transform (4, 3)];
    end get_Translation;
 
 
@@ -998,9 +998,9 @@ is
 --        pragma Suppress (all_Checks);          -- For speed.
       m : Matrix_3x3 renames Rotation;
    begin
-      return ((m (1,1),  m (2,1),  m (3,1)),
-              (m (1,2),  m (2,2),  m (3,2)),
-              (m (1,3),  m (2,3),  m (3,3)));
+      return [[m (1,1),  m (2,1),  m (3,1)],
+              [m (1,2),  m (2,2),  m (3,2)],
+              [m (1,3),  m (2,3),  m (3,3)]];
    end inverse_Rotation;
 
 
@@ -1011,16 +1011,16 @@ is
 
       m :          Matrix_4x4 renames Transform;
 
-      R : constant Matrix_3x3 := (( m (1,1),  m (2,1),  m (3,1)),
-                                  ( m (1,2),  m (2,2),  m (3,2)),
-                                  ( m (1,3),  m (2,3),  m (3,3)));
+      R : constant Matrix_3x3 := [[ m (1,1),  m (2,1),  m (3,1)],
+                                  [ m (1,2),  m (2,2),  m (3,2)],
+                                  [ m (1,3),  m (2,3),  m (3,3)]];
 
       T : constant Vector_3   := Vector_3' (m (4,1), m (4,2), m (4,3)) * R;
    begin
-      return (( m (1,1),  m (2,1),  m (3,1), 0.0),
-              ( m (1,2),  m (2,2),  m (3,2), 0.0),
-              ( m (1,3),  m (2,3),  m (3,3), 0.0),
-              (  -T (1),   -T (2),   -T (3), 1.0));
+      return [[ m (1,1),  m (2,1),  m (3,1), 0.0],
+              [ m (1,2),  m (2,2),  m (3,2), 0.0],
+              [ m (1,3),  m (2,3),  m (3,3), 0.0],
+              [  -T (1),   -T (2),   -T (3), 1.0]];
    end inverse_Transform;
 
 

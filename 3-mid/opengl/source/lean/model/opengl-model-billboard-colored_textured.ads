@@ -50,7 +50,7 @@ private
 
          texture_Name   : asset_Name            := null_Asset;
          Texture        : openGL.Texture.Object := openGL.Texture.null_Object;      -- The texture to be applied to the billboard face.
-         texture_Coords : Coordinates           := ((0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0));
+         texture_Coords : Coordinates           := [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0)];
 
          is_Modified    : Boolean               := False;
 

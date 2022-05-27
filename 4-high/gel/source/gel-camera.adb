@@ -46,7 +46,7 @@ is
 
             the_Visuals (Count)            := the_Sprite.Visual;
             the_Visuals (Count).Transform_is (all_Sprites (i).Transform);
-            the_Visuals (Count).Scale_is     ((1.0, 1.0, 1.0));
+            the_Visuals (Count).Scale_is     ([1.0, 1.0, 1.0]);
 
             the_Visuals (Count).program_Parameters_are (the_Sprite.program_Parameters);
          end if;

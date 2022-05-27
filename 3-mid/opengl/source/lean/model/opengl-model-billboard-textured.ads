@@ -53,7 +53,7 @@ private
       record
          texture_Name   : asset_Name            := null_Asset;
          Texture        : openGL.Texture.Object := openGL.Texture.null_Object;      -- The texture to be applied to the billboard face.
-         texture_Coords : Coordinates           := ((0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0));     -- TODO: Should be constant/static ?
+         texture_Coords : Coordinates           := [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0)];     -- TODO: Should be constant/static ?
 
          case Lucid is
             when True  => lucid_Image : lucid_Image_view;

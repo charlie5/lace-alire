@@ -21,7 +21,7 @@ is
 begin
    Demo.print_Usage ("To see the light move, disable 'Sync to VBlank'.");
    Demo.define ("openGL 'render Lighting' Demo");
-   Demo.Camera.Position_is ((0.0, 0.0, 10.0),
+   Demo.Camera.Position_is ([0.0, 0.0, 10.0],
                             y_Rotation_from (to_Radians (0.0)));
    declare
       use openGL.Palette;
@@ -39,19 +39,19 @@ begin
       --
       use openGL.Visual.Forge;
 
-      the_Visuals : constant openGL.Visual.views := (1 => new_Visual (the_Ball_1_Model.all'Access),
-                                                     2 => new_Visual (the_Ball_2_Model.all'Access));
+      the_Visuals : constant openGL.Visual.views := [1 => new_Visual (the_Ball_1_Model.all'Access),
+                                                     2 => new_Visual (the_Ball_2_Model.all'Access)];
 
       the_Light : openGL.Light.item := Demo.Renderer.new_Light;
 
       -- Light movement.
       --
-      initial_Site : constant openGL.Vector_3 := (-10_000.0, 0.0, 10_000.0);
-      site_Delta   :          openGL.Vector_3 := (      1.0, 0.0,      0.0);
+      initial_Site : constant openGL.Vector_3 := [-10_000.0, 0.0, 10_000.0];
+      site_Delta   :          openGL.Vector_3 := [      1.0, 0.0,      0.0];
 
    begin
-      the_Visuals (1).Site_is ((0.0,  1.0, 0.0));
-      the_Visuals (2).Site_is ((0.0, -1.0, 0.0));
+      the_Visuals (1).Site_is ([0.0,  1.0, 0.0]);
+      the_Visuals (2).Site_is ([0.0, -1.0, 0.0]);
 
       -- Set the lights initial position to far behind and far to the left.
       --

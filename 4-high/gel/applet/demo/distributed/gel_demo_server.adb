@@ -38,7 +38,7 @@ is
 
          the_Box  : constant gel.Sprite.view := gel.Forge. new_box_Sprite (the_World.all'Access,
                                                                            Site => math.Origin_3D,
-                                                                           Size => (20.0, 1.0, 20.0),
+                                                                           Size => [20.0, 1.0, 20.0],
                                                                            Mass => 0.0);
 
          the_Ball : constant gel.Sprite.view := gel.Forge.new_ball_Sprite (the_World.all'Access,
@@ -49,14 +49,14 @@ is
       begin
          --- Setup.
          --
-         the_World.Gravity_is ((0.0, -10.0, 0.0));
+         the_World.Gravity_is ([0.0, -10.0, 0.0]);
 
          the_World.add     (the_Ball, and_Children => False);
-         the_Ball .Site_is ((0.0, 10.0, 0.0));
+         the_Ball .Site_is ([0.0, 10.0, 0.0]);
          the_Ball.Solid.activate;
 
          the_World.add   (the_Box, and_Children => False);
-         the_Box.Site_is ((0.0, -1.0, 0.0));
+         the_Box.Site_is ([0.0, -1.0, 0.0]);
 
 
          --- Begin processing.
@@ -84,7 +84,7 @@ is
             if Counter = 5 * 60
             then
                Counter := 0;
-               the_Ball.Site_is  ((0.0,  25.0,  0.0));
+               the_Ball.Site_is  ([0.0, 25.0, 0.0]);
             end if;
 
             next_render_Time := next_render_Time + gel.World.evolve_Period;

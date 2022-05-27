@@ -393,7 +393,7 @@ is
    is
       use linear_Algebra_3D;
 
-      light_Site : constant Vector_3 := (10_000.0, -10_000.0, 10_000.0);
+      light_Site : constant Vector_3 := [10_000.0, -10_000.0, 10_000.0];
       the_Light  : openGL.Light.item;
 
    begin
@@ -437,7 +437,7 @@ is
 
                -- Render the target for subsequent copy to impostor texture.
                --
-               Self.draw (the_Visuals            => (1 => the_Impostor.Target),
+               Self.draw (the_Visuals            => [1 => the_Impostor.Target],
                           camera_world_Transform => camera_world_Transform,
                           view_Transform         => new_view_Transform,
                           perspective_Transform  => perspective_Transform,
@@ -464,10 +464,10 @@ is
                X_last  : constant Real := Real (the_Update.current_Width_pixels)  / Real (texture_Width)  - X_First;
                Y_last  : constant Real := Real (the_Update.current_Height_pixels) / Real (texture_Height) - Y_First;
             begin
-               the_Model.Texture_Coords_are ((1 => (S => X_first, T => Y_first),
+               the_Model.Texture_Coords_are ([1 => (S => X_first, T => Y_first),
                                               2 => (S => X_last,  T => Y_first),
                                               3 => (S => X_last,  T => Y_last),
-                                              4 => (S => X_first, T => Y_last)));
+                                              4 => (S => X_first, T => Y_last)]);
             end;
 
             the_Model.Texture.enable;

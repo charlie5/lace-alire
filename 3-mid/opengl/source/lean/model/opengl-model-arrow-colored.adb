@@ -53,7 +53,7 @@ is
 
       Color         : constant openGL.rgb_Color := +Self.Color;
       indices_Count : constant long_Index_t     := 2;
-      the_Indices   : aliased  Indices          := (1 .. indices_Count => <>);
+      the_Indices   : aliased  Indices          := [1 .. indices_Count => <>];
       the_Primitive :          Primitive.indexed.view;
    begin
       Geometry.free (Self.Geometry);
@@ -74,25 +74,25 @@ is
       --
       Self.Geometry.free_Primitives;
 
-      the_Indices   := (1, 2);
+      the_Indices   := [1, 2];
       the_Primitive := Primitive.indexed.new_Primitive (Primitive.Lines, the_Indices, line_Width => Self.line_Width);
       Self.Geometry.add (Primitive.view (the_Primitive));
 
       -- Left bit.
       --
-      the_Indices   := (2, 3);
+      the_Indices   := [2, 3];
       the_Primitive := Primitive.indexed.new_Primitive (Primitive.Lines, the_Indices, line_Width => Self.line_Width);
       Self.Geometry.add (Primitive.view (the_Primitive));
 
       -- Right bit.
       --
-      the_Indices   := (2, 4);
+      the_Indices   := [2, 4];
       the_Primitive := Primitive.indexed.new_Primitive (Primitive.Lines, the_Indices, line_Width => Self.line_Width);
       Self.Geometry.add (Primitive.view (the_Primitive));
 
       Self.set_side_Bits;
 
-      return (1 => Self.Geometry);
+      return [1 => Self.Geometry];
    end to_GL_Geometries;
 
 

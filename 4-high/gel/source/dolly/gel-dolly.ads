@@ -62,9 +62,9 @@ private
       record
          Cameras    : camera_Vector;
 
-         Motion     : Direction_Flags := (others => False);
-         Spin       : Direction_Flags := (others => False);
-         Orbit      : Direction_Flags := (others => False);
+         Motion     : Direction_Flags := [others => False];
+         Spin       : Direction_Flags := [others => False];
+         Orbit      : Direction_Flags := [others => False];
 
          Speed      : math.Real       := 1.0;
          Multiplier : math.Real       := 1.0;     -- Applied to speed.

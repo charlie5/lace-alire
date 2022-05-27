@@ -20,8 +20,8 @@ is
 
       Self.world_Transform := Identity_4x4;
       Self. view_Transform := Identity_4x4;
-      Self.Viewport        := (Min => (0, 0),
-                               Max => (0, 0));
+      Self.Viewport        := (Min => [0, 0],
+                               Max => [0, 0]);
    end define;
 
 
@@ -43,9 +43,9 @@ is
                                                                           zNear  => Self.near_Plane_Distance,
                                                                           zFar   => Self. far_Plane_Distance);
       Viewport              : constant Rectangle := Self.Viewport;
-      Position_window_space : constant Vector_3  := (Window_Site (1),
+      Position_window_space : constant Vector_3  := [Window_Site (1),
                                                      Real (Viewport.Max (2)) - Window_Site (2),
-                                                     Window_Site (3));
+                                                     Window_Site (3)];
       Site_world_space      : constant Vector_3  := unProject (Position_window_space,
                                                                Model      => Self.view_Transform,
                                                                Projection => perspective_Transform,

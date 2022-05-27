@@ -33,8 +33,8 @@ is
    Counter    : Natural := 0;
 
 begin
-   the_Applet.gui_World .Gravity_is    ((0.0, -10.0, 0.0));
-   the_Applet.gui_Camera.Site_is       ((0.0, 4.0, 30.0));      -- Position the camera.
+   the_Applet.gui_World .Gravity_is    ([0.0, -10.0, 0.0]);
+   the_Applet.gui_Camera.Site_is       ([0.0, 4.0, 30.0]);      -- Position the camera.
    the_Applet.Renderer  .Background_is (Grey);
    the_Applet.enable_simple_Dolly      (1);                     -- Enable user camera control via keyboard.
 
@@ -54,8 +54,8 @@ begin
          Frame_A : constant math.Matrix_4x4 := math.Identity_4x4;
          Frame_B : constant math.Matrix_4x4 := math.Identity_4x4;
       begin
-         the_hinge_Box_1.Site_is (( 0.0,  0.0,  0.0));
-         the_hinge_Box_2.Site_is ((-10.0, 0.0,  0.0));
+         the_hinge_Box_1.Site_is ([ 0.0,  0.0,  0.0]);
+         the_hinge_Box_2.Site_is ([-10.0, 0.0,  0.0]);
 
 
          the_hinge_Box_1.attach_via_Hinge (the_Child         => the_hinge_Box_2,

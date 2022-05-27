@@ -27,7 +27,7 @@ is
       get (Self (Last + 1 .. Self'Last), Y, Last);
       get (Self (Last + 1 .. Self'Last), Z, Last);
 
-      return (X, Y, Z);
+      return [X, Y, Z];
    end to_Vector_3;
 
 

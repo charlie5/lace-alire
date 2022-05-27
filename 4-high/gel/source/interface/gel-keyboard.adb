@@ -9,7 +9,7 @@ is
       use ada.Characters.latin_1;
 
       key_Map_of_character : constant array (Key) of Character
-        := (SPACE  => ' ',
+        := [SPACE  => ' ',
             QUOTE  => ''',
             COMMA  => ',',
             MINUS  => '-',
@@ -80,11 +80,11 @@ is
             KP_ENTER    => NUL,
             KP_EQUALS   => '=',
 
-            others => NUL);
+            others => NUL];
 
 
       shifted_key_Map_of_character : constant array (Key) of Character
-        := (SPACE  => ' ',
+        := [SPACE  => ' ',
             QUOTE  => '"',
             COMMA  => '<',
             MINUS  => '_',
@@ -155,7 +155,7 @@ is
             KP_ENTER    => NUL,
             KP_EQUALS   => '=',
 
-            others => NUL);
+            others => NUL];
 
    begin
       if        Self.modifier_Set (LShift)

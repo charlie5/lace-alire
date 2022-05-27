@@ -16,23 +16,23 @@ is
 begin
    Demo.print_Usage;
    Demo.define ("openGL 'Render Arrows' Demo");
-   Demo.Camera.Position_is ((0.0, 0.0, 10.0),
+   Demo.Camera.Position_is ([0.0, 0.0, 10.0],
                             y_Rotation_from (to_Radians (0.0)));
    declare
       --  The Models.
       --
       the_Arrow_Model         : constant Model.Arrow.colored.view
-        := Model.Arrow.colored.new_Arrow (End_2 => (0.0, 5.0, 0.0));
+        := Model.Arrow.colored.new_Arrow (End_2 => [0.0, 5.0, 0.0]);
 
       the_spinner_Arrow_Model : constant Model.Arrow.colored.view
-        := Model.Arrow.colored.new_Arrow (End_1 => (0.0, -2.5, 0.0),
-                                          End_2 => (0.0,  2.5, 0.0));
+        := Model.Arrow.colored.new_Arrow (End_1 => [0.0, -2.5, 0.0],
+                                          End_2 => [0.0,  2.5, 0.0]);
       --  The Sprites.
       --
       use openGL.Visual.Forge;
 
-      the_Sprites : constant openGL.Visual.views := (new_Visual (        the_Arrow_Model.all'Access),
-                                                     new_Visual (the_spinner_Arrow_Model.all'Access));
+      the_Sprites : constant openGL.Visual.views := [new_Visual (        the_Arrow_Model.all'Access),
+                                                     new_Visual (the_spinner_Arrow_Model.all'Access)];
       Angle : Radians := 0.0;
       Site  : openGL.Vector_2;
 
@@ -48,7 +48,7 @@ begin
          the_Arrow_Model.End_Site_is (Now     => math.Vector_3 (Site & 0.0),
                                       for_End => 2);
 
-         the_Sprites (2).Spin_is (to_Rotation (Axis  => (0.0, 0.0, 1.0),
+         the_Sprites (2).Spin_is (to_Rotation (Axis  => [0.0, 0.0, 1.0],
                                                Angle => Angle));
          -- Handle user commands.
          --

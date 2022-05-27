@@ -29,7 +29,7 @@ is
 
    function new_Terrain (heights_File : in asset_Name;
                          texture_File : in asset_Name    := null_Asset;
-                         Scale        : in math.Vector_3 := (1.0, 1.0, 1.0)) return Visual.Grid
+                         Scale        : in math.Vector_3 := [1.0, 1.0, 1.0]) return Visual.Grid
    is
       the_Pixels  : openGL.IO.height_Map_view := IO.to_height_Map (heights_File);
 
@@ -76,8 +76,8 @@ is
                                             math.Index (the_Pixels'Last (2)));
 
                the_Heightmap_Grid (Row, Col)
-                 := new height_Map' (Region (the_Pixels.all, (Index_t (row_First), Index_t (row_Last)),
-                                                             (Index_t (col_First), Index_t (col_Last))));
+                 := new height_Map' (Region (the_Pixels.all, [Index_t (row_First), Index_t (row_Last)],
+                                                             [Index_t (col_First), Index_t (col_Last)]));
             end loop;
          end loop;
       end;
@@ -134,9 +134,9 @@ is
                   site_Y_Offset :=    the_height_Extents (1)
                                    + (the_height_Extents (2) - the_height_Extents (1)) / 2.0;
 
-                  the_Site := (  site_X_Offset - (total_Width / 2.0),
+                  the_Site := [  site_X_Offset - (total_Width / 2.0),
                                  site_Y_Offset * Scale (2),
-                               -(site_Z_Offset - (total_Depth / 2.0)));
+                               -(site_Z_Offset - (total_Depth / 2.0))];
 
 
                   the_Visual_Grid (Row, Col).Site_is (the_Site + base_Centre);

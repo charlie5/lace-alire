@@ -209,10 +209,10 @@ is
       half_Width   : constant Real := Width  / 2.0;
       half_Height  : constant Real := Height / 2.0;
 
-      the_Vertices : constant Geometry_2d.Sites (1 .. 4) := ((-half_Width, -half_Height),
-                                                             ( half_Width, -half_Height),
-                                                             ( half_Width,  half_Height),
-                                                             (-half_Width,  half_Height));
+      the_Vertices : constant Geometry_2d.Sites (1 .. 4) := [[-half_Width, -half_Height],
+                                                             [ half_Width, -half_Height],
+                                                             [ half_Width,  half_Height],
+                                                             [-half_Width,  half_Height]];
    begin
       return new_polygon_Sprite (in_World, Site, Mass, Friction, Bounce, the_Vertices, Color);
    end new_rectangle_Sprite;
@@ -303,8 +303,8 @@ is
    function new_box_Sprite (in_World     : in gel.World.view;
                             Site         : in math.Vector_3 := math.Origin_3D;
                             Mass         : in math.Real     := 1.0;
-                            Size         : in math.Vector_3 := (1.0, 1.0, 1.0);
-                            Colors       : in box_Colors    := (others => opengl.Palette.random_Color);
+                            Size         : in math.Vector_3 := [1.0, 1.0, 1.0];
+                            Colors       : in box_Colors    := [others => opengl.Palette.random_Color];
                             is_Kinematic : in Boolean       := False) return gel.Sprite.view
    is
       use openGL.Model.box,
@@ -313,12 +313,12 @@ is
 
       the_box_Model : constant openGL.Model.box.colored.view
         := openGL.Model.box.colored.new_Box (Size => Size,
-                                             Faces => (Front => (Colors => (others => (Colors (1), Opaque))),
-                                                       Rear  => (Colors => (others => (Colors (2), Opaque))),
-                                                       Upper => (Colors => (others => (Colors (3), Opaque))),
-                                                       Lower => (Colors => (others => (Colors (4), Opaque))),
-                                                       Left  => (Colors => (others => (Colors (5), Opaque))),
-                                                       Right => (Colors => (others => (Colors (6), Opaque)))));
+                                             Faces => [Front => (Colors => [others => (Colors (1), Opaque)]),
+                                                       Rear  => (Colors => [others => (Colors (2), Opaque)]),
+                                                       Upper => (Colors => [others => (Colors (3), Opaque)]),
+                                                       Lower => (Colors => [others => (Colors (4), Opaque)]),
+                                                       Left  => (Colors => [others => (Colors (5), Opaque)]),
+                                                       Right => (Colors => [others => (Colors (6), Opaque)])]);
       the_box_physics_Model : constant physics.Model.view
         := physics.Model.Forge.new_physics_Model (shape_Info => (Kind         => physics.Model.Cube,
                                                                  half_Extents => Size / 2.0),
@@ -342,7 +342,7 @@ is
    function new_box_Sprite (in_World : in gel.World.view;
                             Site     : in math.Vector_3 := math.Origin_3D;
                             Mass     : in math.Real     := 1.0;
-                            Size     : in math.Vector_3 := (1.0, 1.0, 1.0);
+                            Size     : in math.Vector_3 := [1.0, 1.0, 1.0];
                             Texture  : in openGL.asset_Name) return gel.Sprite.view
    is
       use openGL.Model.box,
@@ -350,12 +350,12 @@ is
 
       the_box_Model : constant openGL.Model.box.textured.view
         := openGL.Model.box.textured.new_Box (Size => Size,
-                                              Faces => (Front => (texture_Name => Texture),
+                                              Faces => [Front => (texture_Name => Texture),
                                                         Rear  => (texture_Name => Texture),
                                                         Upper => (texture_Name => Texture),
                                                         Lower => (texture_Name => Texture),
                                                         Left  => (texture_Name => Texture),
-                                                        Right => (texture_Name => Texture)));
+                                                        Right => (texture_Name => Texture)]);
       the_box_physics_Model : constant physics.Model.view
         := physics.Model.Forge.new_physics_Model (shape_Info => (Kind         => physics.Model.Cube,
                                                                  half_Extents => Size / 2.0),
@@ -379,7 +379,7 @@ is
    function new_billboard_Sprite (in_World : in gel.World.view;
                                   Site     : in math.Vector_3     := math.Origin_3D;
                                   Mass     : in math.Real         := 1.0;
-                                  Size     : in math.Vector_3     := (1.0, 1.0, 1.0);
+                                  Size     : in math.Vector_3     := [1.0, 1.0, 1.0];
                                   Texture  : in openGL.asset_Name := openGL.null_Asset) return gel.Sprite.view
    is
       use Math;
@@ -415,7 +415,7 @@ is
                                   Site     : in math.Vector_3 := math.Origin_3D;
                                   Color    : in openGL.lucid_Color;
                                   Mass     : in math.Real         := 1.0;
-                                  Size     : in math.Vector_3     := (1.0, 1.0, 1.0);
+                                  Size     : in math.Vector_3     := [1.0, 1.0, 1.0];
                                   Texture  : in openGL.asset_Name := openGL.null_Asset) return gel.Sprite.view
    is
       use Math;
@@ -449,7 +449,7 @@ is
    function new_arrow_Sprite (in_World   : in gel.World.view;
                               Site       : in math.Vector_3      := math.Origin_3D;
                               Mass       : in math.Real          := 0.0;
-                              Size       : in math.Vector_3      := (1.0, 1.0, 1.0);
+                              Size       : in math.Vector_3      := [1.0, 1.0, 1.0];
                               Texture    : in openGL.asset_Name  := openGL.null_Asset;
                               Color      : in openGL.lucid_Color := (openGL.Palette.Black, openGL.Opaque);
                               line_Width : in openGL.Real        := openGL.Primitive.unused_line_Width) return gel.Sprite.view
@@ -484,7 +484,7 @@ is
    function new_line_Sprite  (in_World   : in gel.World.view;
                               Site       : in math.Vector_3      := math.Origin_3D;
                               Mass       : in math.Real          := 0.0;
-                              Size       : in math.Vector_3      := (1.0, 1.0, 1.0);
+                              Size       : in math.Vector_3      := [1.0, 1.0, 1.0];
                               Texture    : in openGL.asset_Name  := openGL.null_Asset;
                               Color      : in openGL.lucid_Color := (openGL.Palette.Black, openGL.Opaque);
                               line_Width : in openGL.Real        := openGL.Primitive.unused_line_Width) return gel.Sprite.view
@@ -518,7 +518,7 @@ is
    function new_segment_line_Sprite  (in_World   : in gel.World.view;
                                       Site       : in math.Vector_3      := math.Origin_3D;
                                       Mass       : in math.Real          := 0.0;
-                                      Size       : in math.Vector_3      := (1.0, 1.0, 1.0);
+                                      Size       : in math.Vector_3      := [1.0, 1.0, 1.0];
                                       Texture    : in openGL.asset_Name  := openGL.null_Asset;
                                       Color      : in openGL.lucid_Color := (openGL.Palette.Black, openGL.Opaque);
                                       line_Width : in openGL.Real        := openGL.Primitive.unused_line_Width) return gel.Sprite.view
@@ -556,7 +556,7 @@ is
                              Text     : in String;
                              Font     : in openGL.Font.font_Id;
                              Color    : in openGL.Color  := opengl.Palette.Black;
-                             Size     : in math.Vector_3 := (1.0, 1.0, 1.0);
+                             Size     : in math.Vector_3 := [1.0, 1.0, 1.0];
                              Centered : in Boolean       := True) return gel.Sprite.view
    is
       use Math;
@@ -574,11 +574,11 @@ is
          declare
             half_Width   : constant Real                       := Size (1) / 2.0;
             half_Height  : constant Real                       := Size (2) / 2.0;
-            the_Vertices : constant Geometry_2d.Sites (1 .. 8) := ((-half_Width, -half_Height),
-                                                                   ( half_Width, -half_Height),
-                                                                   ( half_Width,  half_Height),
-                                                                   (-half_Width,  half_Height),
-                                                                   others => (0.0, 0.0));
+            the_Vertices : constant Geometry_2d.Sites (1 .. 8) := [[-half_Width, -half_Height],
+                                                                   [ half_Width, -half_Height],
+                                                                   [ half_Width,  half_Height],
+                                                                   [-half_Width,  half_Height],
+                                                                   others => [0.0, 0.0]];
          begin
             the_physics_Model := physics.Model.Forge.new_physics_Model (shape_Info => (Kind         => physics.Model.Polygon,
                                                                                        Vertices     => the_Vertices,

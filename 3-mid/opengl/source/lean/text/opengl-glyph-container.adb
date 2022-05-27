@@ -135,9 +135,9 @@ is
 
       ft_kernAdvance : constant freetype.Vector_3  := Self.Face.KernAdvance (Integer (Left),
                                                                              Integer (Right));
-      kernAdvance : Vector_3 := (ft_kernAdvance (1),
+      kernAdvance : Vector_3 := [ft_kernAdvance (1),
                                  ft_kernAdvance (2),
-                                 ft_kernAdvance (3));
+                                 ft_kernAdvance (3)];
       Index : freetype.charMap.glyphIndex;
 
    begin

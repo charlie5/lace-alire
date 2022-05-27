@@ -16,7 +16,7 @@ is
                                            Indices : in long_Indices)
    is
       use Buffer.long_indices.Forge;
-      buffer_Indices : aliased long_Indices := (Indices'Range => <>);
+      buffer_Indices : aliased long_Indices := [Indices'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop
@@ -59,7 +59,7 @@ is
    procedure Indices_are  (Self : in out Item;   Now : in long_Indices)
    is
       use Buffer.long_indices;
-      buffer_Indices : aliased long_Indices := (Now'Range => <>);
+      buffer_Indices : aliased long_Indices := [Now'Range => <>];
    begin
       for Each in buffer_Indices'Range
       loop

@@ -20,7 +20,7 @@ begin
 
    --  Setup the camera.
    --
-   Demo.Camera.Position_is ((0.0, 100.0, 500.0),
+   Demo.Camera.Position_is ([0.0, 100.0, 500.0],
                             y_Rotation_from (to_Radians (0.0)));
 
    -- Set the lights initial position to far behind and far to the left.
@@ -29,7 +29,7 @@ begin
       use openGL.Light;
       the_Light : openGL.Light.item := Demo.Renderer.new_Light;
    begin
-      the_Light.Site_is ((0.0, 1000.0, 0.0));
+      the_Light.Site_is ([0.0, 1000.0, 0.0]);
       Demo.Renderer.set (the_Light);
    end;
 
@@ -40,7 +40,7 @@ begin
 
       Terrain : constant openGL.Visual.Grid := openGL.Terrain.new_Terrain (heights_File => Heights,
                                                                            texture_File => Texture,
-                                                                           Scale        => (1.0, 25.0, 1.0));
+                                                                           Scale        => [1.0, 25.0, 1.0]);
       Count   : constant Positive :=   Terrain'Length (1)
                                      * Terrain'Length (2);
       Last    : Natural := 0;

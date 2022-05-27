@@ -41,12 +41,12 @@ is
 
       vertex_Count  : constant      Index_t :=      Index_t (Self.Points.Length);
       indices_Count : constant long_Index_t := long_Index_t (vertex_Count);
-      the_Indices   : aliased       Indices := (1 .. indices_Count => <>);
+      the_Indices   : aliased       Indices := [1 .. indices_Count => <>];
 
    begin
       if Self.Points.Length <= 2
       then
-         return (1..0 => <>);
+         return [1..0 => <>];
       end if;
 
       for i in the_Indices'Range
@@ -60,7 +60,7 @@ is
       Self.Geometry.Vertices_are (Self.Vertices (1 .. Index_t (Self.vertex_Count)));
       Self.Geometry.add (Primitive.view (new_Primitive (Line_Strip,
                                                         the_Indices)));
-      return (1 => Self.Geometry.all'Access);
+      return [1 => Self.Geometry.all'Access];
    end to_GL_Geometries;
 
 

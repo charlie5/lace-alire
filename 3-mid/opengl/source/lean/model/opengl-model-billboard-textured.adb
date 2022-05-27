@@ -44,7 +44,7 @@ is
           Geometry.textured,
           openGL.Texture;
 
-      the_Indices  : aliased constant Indices         := (1, 2, 3, 4);
+      the_Indices  : aliased constant Indices         := [1, 2, 3, 4];
       the_Sites    :         constant billboard.Sites := vertex_Sites (Self.Plane,
                                                                        Self.Width,
                                                                        Self.Height);
@@ -69,10 +69,10 @@ is
    begin
       declare
          the_Vertices : constant Geometry.textured.Vertex_array
-           := (1 => (site => the_Sites (1),  coords => Self.texture_Coords (1)),
+           := [1 => (site => the_Sites (1),  coords => Self.texture_Coords (1)),
                2 => (site => the_Sites (2),  coords => Self.texture_Coords (2)),
                3 => (site => the_Sites (3),  coords => Self.texture_Coords (3)),
-               4 => (site => the_Sites (4),  coords => Self.texture_Coords (4)));
+               4 => (site => the_Sites (4),  coords => Self.texture_Coords (4))];
       begin
          the_Face := new_Face (Vertices => the_Vertices);
 
@@ -110,7 +110,7 @@ is
          end if;
       end;
 
-      return (1 => the_Face.all'Access);
+      return [1 => the_Face.all'Access];
    end to_GL_Geometries;
 
 

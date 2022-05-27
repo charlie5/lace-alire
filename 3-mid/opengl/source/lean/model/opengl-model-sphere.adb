@@ -22,8 +22,8 @@ is
    is
    begin
       return (Ball => Self.Radius,
-              Box  => (Lower => (-Self.Radius, -Self.Radius, -Self.Radius),
-                       Upper => ( Self.Radius,  Self.Radius,  Self.Radius)));
+              Box  => (Lower => [-Self.Radius, -Self.Radius, -Self.Radius],
+                       Upper => [ Self.Radius,  Self.Radius,  Self.Radius]));
    end Bounds;
 
 

@@ -54,9 +54,9 @@ is
       vertex_Count   : constant      Index_t :=   1 + 1                                                  -- North and south pole.
                                                 + Index_t ((long_Count + 1) * (lat_Count - 2));          -- Each latitude ring.
 
-      the_Sites      : aliased  Sites                         := (1 ..  vertex_Count => <>);
-      the_Indices    : aliased  Indices                       := (1 .. indices_Count => <>);
-      the_Vertices   : aliased  Geometry.colored.Vertex_array := (1 ..  vertex_Count => <>);
+      the_Sites      : aliased  Sites                         := [1 ..  vertex_Count => <>];
+      the_Indices    : aliased  Indices                       := [1 .. indices_Count => <>];
+      the_Vertices   : aliased  Geometry.colored.Vertex_array := [1 ..  vertex_Count => <>];
 
       Color          : constant openGL.rgba_Color := to_rgba_Color (Self.Color);
       the_Geometry   : constant Geometry.colored.view     := Geometry.colored.new_Geometry;
@@ -66,8 +66,8 @@ is
       declare
          use linear_Algebra_3d;
 
-         north_Pole : constant Site := (0.0,  0.5,  0.0);
-         south_Pole : constant Site := (0.0, -0.5,  0.0);
+         north_Pole : constant Site := [0.0,  0.5,  0.0];
+         south_Pole : constant Site := [0.0, -0.5,  0.0];
 
          the_Site : Site    := north_Pole;
          vert_Id  : Index_t := 1;              -- Start at '1' (not '0')to account for north pole.
@@ -165,7 +165,7 @@ is
          the_Geometry.add (Primitive.view (the_Primitive));
       end;
 
-      return (1 => Geometry.view (the_Geometry));
+      return [1 => Geometry.view (the_Geometry)];
    end to_GL_Geometries;
 
 

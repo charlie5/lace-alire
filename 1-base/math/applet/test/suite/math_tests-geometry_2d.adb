@@ -25,23 +25,23 @@ is
       use float_Math.Geometry.d2;
 
       the_Poly : Polygon := (vertex_Count => 4,
-                             vertices     => ((-1.0, -1.0),
-                                              ( 1.0, -1.0),
-                                              ( 1.0,  1.0),
-                                              (-1.0,  1.0)));
+                             vertices     => [[-1.0, -1.0],
+                                              [ 1.0, -1.0],
+                                              [ 1.0,  1.0],
+                                              [-1.0,  1.0]]);
    begin
       assert (is_Convex (the_Poly),
               "T1 => " & Image (the_Poly) & " should be convex ... failed !");
 
-      the_Poly.Vertices (3) := (0.0, 0.0);
+      the_Poly.Vertices (3) := [0.0, 0.0];
       assert (is_Convex (the_Poly),
               "T2 => " & Image (the_Poly) & " should be convex ... failed !");
 
-      the_Poly.Vertices (3) := (0.0, 0.1);
+      the_Poly.Vertices (3) := [0.0, 0.1];
       assert (is_Convex (the_Poly),
               "T3 => " & Image (the_Poly) & " should be convex ... failed !");
 
-      the_Poly.Vertices (3) := (0.0, -0.1);
+      the_Poly.Vertices (3) := [0.0, -0.1];
       assert (not is_Convex (the_Poly),
               "T4 => " & Image (the_Poly) & " should not be convex ... failed !");
    end Polygon_is_convex_Test;
@@ -52,30 +52,30 @@ is
    is
       use float_Math.Geometry.d2;
 
-      the_Tri : Triangle := (vertices => (( 0.0,  0.0),
-                                          ( 1.0,  0.0),
-                                          ( 1.0,  1.0)));
+      the_Tri : Triangle := [vertices => [[0.0, 0.0],
+                                          [1.0, 0.0],
+                                          [1.0, 1.0]]];
    begin
       assert (almost_Equal (Area (the_Tri), 0.5),
               "T1 =>  & Image (the_Tri) &  area should be 0.5 ... failed !   " & Image (Area (the_Tri), 12));
 
 
-      the_Tri := (vertices => ((-0.11073643,  -0.179634809),
-                               (-0.0553682148, 0.410182595),
-                               (-0.0276841074, 0.705091298)));
+      the_Tri := (vertices => [[-0.11073643,  -0.179634809],
+                               [-0.0553682148, 0.410182595],
+                               [-0.0276841074, 0.705091298]]);
       assert (Area (the_Tri) >= 0.0,
               "T2 =>  & Image (the_Tri) &  area should be positive ... failed !");
 
 
-      the_Tri := (vertices => ((-1.0, -1.0),
-                               ( 1.0, -1.0),
-                               ( 1.0, -0.999999)));
+      the_Tri := (vertices => [[-1.0, -1.0],
+                               [ 1.0, -1.0],
+                               [ 1.0, -0.999999]]);
       assert (Area (the_Tri) > 0.0,
               "T3 =>  & Image (the_Tri) &  area should be positive ... failed !");
 
-      the_Tri := (vertices => ((-0.11073643,  -0.179634809),
-                               (-0.0276841074, 0.705091298),
-                               (-0.0553682148, 0.410182595)));
+      the_Tri := (vertices => [[-0.11073643,  -0.179634809],
+                               [-0.0276841074, 0.705091298],
+                               [-0.0553682148, 0.410182595]]);
       assert (Area (the_Tri) >= 0.0,
               "T4 =>  & Image (the_Tri) &  area should be positive ... failed !");
 

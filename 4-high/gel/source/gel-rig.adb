@@ -45,10 +45,10 @@ is
    function to_Math (From : in collada.Matrix_4x4) return math.Matrix_4x4
    is
    begin
-      return (1 => (From (1, 1),  From (1, 2),  From (1, 3),  From (1, 4)),
-              2 => (From (2, 1),  From (2, 2),  From (2, 3),  From (2, 4)),
-              3 => (From (3, 1),  From (3, 2),  From (3, 3),  From (3, 4)),
-              4 => (From (4, 1),  From (4, 2),  From (4, 3),  From (4, 4)));
+      return [1 => [From (1, 1),  From (1, 2),  From (1, 3),  From (1, 4)],
+              2 => [From (2, 1),  From (2, 2),  From (2, 3),  From (2, 4)],
+              3 => [From (3, 1),  From (3, 2),  From (3, 3),  From (3, 4)],
+              4 => [From (4, 1),  From (4, 2),  From (4, 3),  From (4, 4)]];
    end to_Math;
    pragma Unreferenced (to_Math);
 
@@ -178,7 +178,7 @@ is
 
    begin
       if which_Joint = Self.root_Joint.Name
-      then   joint_site_Offet := (0.0, 0.0, 0.0);
+      then   joint_site_Offet := [0.0, 0.0, 0.0];
       else   joint_site_Offet := Self.anim_joint_site_Offets (which_Joint);
       end if;
 
@@ -370,7 +370,7 @@ is
          if which_Joint = Self.root_Joint.Name
          then
             joint_Sites.insert (which_Joint,
-                                (0.0, 0.0, 0.0));
+                                [0.0, 0.0, 0.0]);
          else
             joint_Sites.insert (which_Joint,
                                 get_Translation (Self.joint_bind_Matrix (which_Joint)));
@@ -401,7 +401,7 @@ is
             declare
                use standard.physics.Model;
 
-               Size : constant Vector_3 := (0.1, 0.1, 0.1);
+               Size : constant Vector_3 := [0.1, 0.1, 0.1];
 
                physics_Model : constant standard.physics.Model.View
                  := standard.physics.Model.Forge.new_physics_Model (shape_Info  => (Kind         => Cube,
@@ -416,7 +416,7 @@ is
                                                           is_Kinematic => is_Kinematic);
             end;
 
-            new_Sprite.Site_is ((0.0, 0.0, 0.0));
+            new_Sprite.Site_is ([0.0, 0.0, 0.0]);
             new_Sprite.Spin_is (Identity_3x3);
 
             Self.bone_pose_Transforms.insert (the_Bone, Identity_4x4);
@@ -426,10 +426,10 @@ is
             new_Sprite := gel.Forge.new_box_Sprite (in_World     => in_World.all'Access,
                                                     Mass         => 1.0,
                                                     Size         => Scale,
-                                                    Colors       => (1      => Black,
+                                                    Colors       => [1      => Black,
                                                                      3      => Green,
                                                                      4      => Blue,
-                                                                     others => Red),
+                                                                     others => Red],
                                                     is_Kinematic => is_Kinematic);
             new_Sprite.Site_is (the_bone_Site);
             new_Sprite.Spin_is (Inverse (get_Rotation (Self.joint_bind_Matrix (start_Joint))));
@@ -451,8 +451,8 @@ is
          declare
             new_Sprite : constant gel.Sprite.view := gel.Forge.new_box_Sprite (in_World     => in_World,
                                                                                Mass         => 0.0,
-                                                                               Size         => (0.02, 0.02, 0.02),
-                                                                               Colors       => (others => Yellow),
+                                                                               Size         => [0.02, 0.02, 0.02],
+                                                                               Colors       => [others => Yellow],
                                                                                is_Kinematic => True);
          begin
             Self.joint_Sprites.insert (the_Bone, new_Sprite);
@@ -509,7 +509,7 @@ is
          end if;
 
          end_Point         :=   joint_Sites.Element (which_Joint)
-                              + (0.0, bone_Length, 0.0) * get_Rotation (Self.joint_bind_Matrix (which_Joint));
+                              + [0.0, bone_Length, 0.0] * get_Rotation (Self.joint_bind_Matrix (which_Joint));
          prior_bone_Length := bone_Length;
 
          Self.joint_Parent.insert (which_Joint, Parent);
@@ -517,9 +517,9 @@ is
          create_Bone (which_Joint,
                       which_Joint,
                       end_Point,
-                      (the_bone_Details.width_Factor * bone_Length,
+                      [the_bone_Details.width_Factor * bone_Length,
                        bone_Length * 0.90,
-                       the_bone_Details.depth_Factor * bone_Length),
+                       the_bone_Details.depth_Factor * bone_Length],
                       1.0);
 
          if Parent /= (+"")
@@ -655,9 +655,9 @@ is
 
                      -- For location interpolation during 'translation' animation.
                      --
-                     Self.Channels (Channel).current_Site  := (Self.Channels (Channel).Values (1),
+                     Self.Channels (Channel).current_Site  := [Self.Channels (Channel).Values (1),
                                                                Self.Channels (Channel).Values (2),
-                                                               Self.Channels (Channel).Values (3));
+                                                               Self.Channels (Channel).Values (3)];
                      Self.Channels (Channel).initial_Site  := Self.Channels (Channel).current_Site;
                   end setup_Location;
                   pragma Unreferenced (setup_Location);
@@ -680,7 +680,7 @@ is
                            the_X_Value : constant Real := Self.Channels (Channel).Values (i);
                         begin
                            Self.Channels (Channel).Transforms (i) := (Rotation    => to_Quaternion (Identity_3x3),
-                                                                      Translation => (the_X_Value, 0.0, 0.0));
+                                                                      Translation => [the_X_Value, 0.0, 0.0]);
                         end;
                      end loop;
 
@@ -709,7 +709,7 @@ is
                            the_Y_Value : constant Real := Self.Channels (Channel).Values (i);
                         begin
                            Self.Channels (Channel).Transforms (i) := (rotation    => to_Quaternion (Identity_3x3),
-                                                                      translation => (0.0, the_Y_Value, 0.0));
+                                                                      translation => [0.0, the_Y_Value, 0.0]);
                         end;
                      end loop;
 
@@ -738,7 +738,7 @@ is
                            the_Z_Value : constant Real := Self.Channels (Channel).Values (i);
                         begin
                            Self.Channels (Channel).Transforms (i) := (rotation    => to_Quaternion (Identity_3x3),
-                                                                      translation => (0.0, 0.0, the_Z_Value));
+                                                                      translation => [0.0, 0.0, the_Z_Value]);
                         end;
                      end loop;
 

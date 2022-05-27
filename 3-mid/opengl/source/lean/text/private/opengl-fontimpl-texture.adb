@@ -242,7 +242,7 @@ is
       Success   : constant Boolean                    := Self.CheckGlyph (to_characterCode (for_Character)) with unreferenced;
       the_Glyph : constant Glyph.Container.Glyph_view := Self.glyphList.Glyph (to_characterCode (for_Character));
    begin
-      return Glyph.texture.item (the_Glyph.all).Quad ((0.0, 0.0, 0.0));
+      return Glyph.texture.item (the_Glyph.all).Quad ([0.0, 0.0, 0.0]);
    end Quad;
 
 
@@ -307,7 +307,7 @@ is
          use GL.Pointers;
 
          the_Image : Image (1 .. Index_t (self.textureHeight),
-                            1 .. Index_t (Self.textureWidth)) := (others => (others => +Black));
+                            1 .. Index_t (Self.textureWidth)) := (others => [others => +Black]);
 
          textID    : aliased openGL.Texture.texture_Name;
       begin
