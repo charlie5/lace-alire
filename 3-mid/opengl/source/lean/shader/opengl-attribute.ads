@@ -62,15 +62,18 @@ is
 
 private
 
+   type String_view is access String;
+
+
    type Item is tagged
       record
-         Name          : access String;
-         Location      :        gl.GLuint;
-         Size          :        gl.GLint;
-         data_Kind     :        Attribute.data_Kind;
-         vertex_Stride :        gl.GLint;
-         Offset        :        system.storage_Elements.storage_Offset;
-         Normalized    :        gl.GLboolean;
+         Name          : String_view;
+         Location      : gl.GLuint;
+         Size          : gl.GLint;
+         data_Kind     : Attribute.data_Kind;
+         vertex_Stride : gl.GLint;
+         Offset        : system.storage_Elements.storage_Offset;
+         Normalized    : gl.GLboolean;
       end record;
 
    for data_Kind use (GL_BYTE           => 16#1400#,

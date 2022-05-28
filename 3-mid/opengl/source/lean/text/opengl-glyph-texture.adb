@@ -24,7 +24,7 @@ is
    function new_Glyph (glyth_Slot       : in freetype_c.FT_GlyphSlot.item;
                        texture_Id       : in openGL.Texture.texture_Name;
                        xOffset, yOffset : in Integer;
-                       Width,   Height  : in Integer) return access Glyph.texture.item'Class
+                       Width,   Height  : in Integer) return Glyph.texture.view
    is
    begin
       return new Glyph.texture.item' (to_Glyph (glyth_Slot,

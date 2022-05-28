@@ -104,7 +104,8 @@ is
          root_Node : Node_view;
       end record;
 
-   type visual_Scene_array is array (Positive range <>) of visual_Scene;
+   type visual_Scene_array      is array (Positive range <>) of visual_Scene;
+   type visual_Scene_array_view is access visual_Scene_array;
 
 
    ----------------
@@ -113,8 +114,8 @@ is
 
    type Item is
       record
-         Contents      : access visual_Scene_array;
-         skeletal_Root :        Text;
+         Contents      : visual_Scene_array_view;
+         skeletal_Root : Text;
       end record;
 
 

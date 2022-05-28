@@ -43,7 +43,7 @@ private
 
    type Item is new Model.text.item with
       record
-         Text     : access String;
+         Text     : String_view;
 
          Font_Id  : openGL.Font.font_Id;
          Font     : openGL.Font.texture.view;

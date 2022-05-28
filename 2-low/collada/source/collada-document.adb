@@ -562,6 +562,7 @@ is
          end if;
       end parse_the_asset_Element;
 
+
       ---------------------------------
       --- Parse the 'library' elements.
       --
@@ -576,7 +577,7 @@ is
                use collada.Library.geometries;
                the_Geometries : constant xml.Elements := the_Library.Children (named => "geometry");
             begin
-               the_document.Libraries.Geometries.Contents := new Geometry_array (the_Geometries'Range);
+               the_Document.Libraries.Geometries.Contents := new Geometry_array (the_Geometries'Range);
 
                for Each in the_Geometries'Range
                loop
@@ -661,6 +662,7 @@ is
          end if;
       end parse_the_geometries_Library;
 
+
       -- Parse the controllers library.
       --
       declare
@@ -721,6 +723,7 @@ is
             end;
          end if;
       end;
+
 
       -- Parse the visual_Scenes library.
       --
@@ -876,6 +879,7 @@ is
             end;
          end if;
       end;
+
 
       -- Parse the animations library.
       --

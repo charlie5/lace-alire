@@ -10,9 +10,9 @@ is
       coord_Count  : constant long_Index_t  := 0; --get_coord_Count;                        -- TODO: Add texturing.
       normal_Count : constant long_Index_t  := 0; --collada_Normals'Length   / 3;           -- TODO: Add lighting.
 
-      the_Sites    : constant Sites_view    := new many_Sites   (1 .. site_Count);
-      the_Normals  : constant Normals_view  := new many_Normals (1 .. normal_Count);
-      the_Coords   :          Coords_view;
+      the_Sites    : constant many_Sites_view    := new many_Sites   (1 .. site_Count);
+      the_Normals  : constant many_Normals_view  := new many_Normals (1 .. normal_Count);
+      the_Coords   :          many_Coords_view;
 
       the_Faces    :          IO.Faces_view := new IO.Faces (1 .. 50_000);
       face_Count   :          long_Index_t  := 0;

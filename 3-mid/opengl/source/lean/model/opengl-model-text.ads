@@ -24,4 +24,6 @@ private
 
    type Item is abstract new Model.item with null record;
 
+   type String_view is access String;
+
 end openGL.Model.text;

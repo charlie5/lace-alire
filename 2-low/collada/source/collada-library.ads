@@ -3,6 +3,10 @@ package collada.Library
 -- Provides a namespace and core types for the specific collada library child packages.
 --
 is
+   type Float_array_view is access Float_array;
+   type  Text_array_view is access Text_array;
+
+
    ----------
    -- Sources
    --
@@ -12,12 +16,12 @@ is
          Id       : Text;
          array_Id : Text;
 
-         Floats   : access float_Array;
-         Texts    : access Text_array;
+         Floats   : Float_array_view;
+         Texts    :  Text_array_view;
       end record;
 
-   type Sources is array (Positive range <>) of Source;
-
+   type Sources      is array (Positive range <>) of Source;
+   type Sources_view is access Sources;
 
    ----------
    --- Inputs

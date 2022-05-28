@@ -77,15 +77,15 @@ is
    --  Views
    --
 
-   type              Sites_view is access all openGL.many_Sites;
-   type             Coords_view is access all openGL.many_Coordinates_2D;
-   type            Normals_view is access all openGL.many_Normals;
+   type              many_Sites_view is access all openGL.many_Sites;
+   type             many_Coords_view is access all openGL.many_Coordinates_2D;
+   type            many_Normals_view is access all openGL.many_Normals;
    type bone_Weights_array_view is access all bone_Weights_array;
    type              Faces_view is access all IO.Faces;
 
-   procedure free is new ada.unchecked_Deallocation (many_Sites,          IO.Sites_view);
-   procedure free is new ada.unchecked_Deallocation (many_Coordinates_2D, IO.Coords_view);
-   procedure free is new ada.unchecked_Deallocation (many_Normals,        IO.Normals_view);
+   procedure free is new ada.unchecked_Deallocation (many_Sites,          IO.many_Sites_view);
+   procedure free is new ada.unchecked_Deallocation (many_Coordinates_2D, IO.many_Coords_view);
+   procedure free is new ada.unchecked_Deallocation (many_Normals,        IO.many_Normals_view);
    procedure free is new ada.unchecked_Deallocation (IO.Faces,            IO.Faces_view);
 
 
@@ -95,9 +95,9 @@ is
 
    type Model is
       record
-         Sites   : Sites_view;
-         Coords  : Coords_view;
-         Normals : Normals_view;
+         Sites   : many_Sites_view;
+         Coords  : many_Coords_view;
+         Normals : many_Normals_view;
          Weights : bone_Weights_array_view;
          Faces   : Faces_view;
       end record;

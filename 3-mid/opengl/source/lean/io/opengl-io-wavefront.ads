@@ -45,6 +45,10 @@ is
    function to_Model (model_File : in String)         return IO.Model;
 
 
+   type Sites_view          is access openGL.Sites;
+   type Coordinates_2D_view is access openGL.Coordinates_2D;
+   type Normals_view        is access openGL.Normals;
+
    type Model is
       record
          material_Library : Text;
@@ -52,9 +56,9 @@ is
          object_Name      : Text;
          group_Name       : Text;
 
-         Sites   : access openGL.Sites;
-         Coords  : access openGL.Coordinates_2D;
-         Normals : access openGL.Normals;
+         Sites   : Sites_view;
+         Coords  : Coordinates_2D_view;
+         Normals : Normals_view;
          Faces   : access wavefront.Faces;
       end record;
 

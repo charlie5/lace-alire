@@ -795,8 +795,8 @@ is
                                                       1.0];
             Site_world_space  : constant Vector_3 := the_Camera.to_world_Site (Site_window_space);
 
-            the_Context : constant access button_press_raycast_Context := new button_press_raycast_Context;
-            event_Kind  :                 mouse_button_collision_Event;
+            the_Context : constant button_press_raycast_Context_view := new button_press_raycast_Context;
+            event_Kind  :          mouse_button_collision_Event;
 
          begin
             the_Context.is_Motion := False;
@@ -837,8 +837,8 @@ is
             Site_window_space : constant Vector_3 := [Real (the_Event.Site (1)),  Real (the_Event.Site (2)),  1.0];
             Site_world_space  : constant Vector_3 := the_Camera.to_world_Site (Site_window_space);
 
-            the_Context : constant access button_press_raycast_Context := new button_press_raycast_Context;
-            event_Kind  :                 mouse_button_collision_Event;
+            the_Context : constant button_press_raycast_Context_view := new button_press_raycast_Context;
+            event_Kind  :          mouse_button_collision_Event;
 
          begin
             the_Context.is_Motion := False;
@@ -879,7 +879,7 @@ is
             Site_world_space  : constant Vector_3 := the_Camera.to_world_Site (Site_window_space);
             pragma Unreferenced (Site_world_space);
 
-            the_Context : constant access button_press_raycast_Context := new button_press_raycast_Context;
+            the_Context : constant button_press_raycast_Context_view := new button_press_raycast_Context;
 
          begin
             the_Context.is_Motion := True;

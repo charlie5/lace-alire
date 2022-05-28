@@ -37,13 +37,13 @@ is
                              Normalized  : in Boolean) return Item
       is
       begin
-         return (name          => new String'(Name),
-                 location      => gl_Location,
-                 size          => Size,
-                 data_kind     => data_Kind,
-                 vertex_stride => gl.GLint (Stride),
-                 offset        => Offset,
-                 normalized    => Boolean'Pos (Normalized));
+         return (Name          => new String'(Name),
+                 Location      => gl_Location,
+                 Size          => Size,
+                 data_Kind     => data_Kind,
+                 vertex_Stride => gl.GLint (Stride),
+                 Offset        => Offset,
+                 Normalized    => Boolean'Pos (Normalized));
       end to_Attribute;
 
 

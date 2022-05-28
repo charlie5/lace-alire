@@ -73,7 +73,7 @@ is
    function new_Dof6_Joint (Object_A, Object_B : in physics.Object.view;
                             Frame_A,  Frame_B  : in Matrix_4x4) return physics.Joint.DoF6.view
    is
-      Self : constant access DoF6 := new DoF6;
+      Self : constant DoF6_view := new DoF6;
 
       c_Object_A : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_A).C;
       c_Object_B : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_B).C;
@@ -238,7 +238,7 @@ is
    function new_Ball_Joint (Object_A,   Object_B   : in physics.Object.view;
                             Pivot_in_A, Pivot_in_B : in Vector_3) return physics.Joint.ball.view
    is
-      Self : constant access Ball := new Ball;
+      Self : constant Ball_view := new Ball;
 
       c_Object_A   : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_A).C;
       c_Object_B   : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_B).C;
@@ -403,7 +403,7 @@ is
    function new_Slider_Joint (Object_A,   Object_B : in physics.Object.view;
                               Frame_A,    Frame_B  : in Matrix_4x4) return physics.Joint.slider.view
    is
-      Self       : constant access Slider := new Slider;
+      Self       : constant Slider_view := new Slider;
 
       c_Object_A : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_A).C;
       c_Object_B : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_B).C;
@@ -567,7 +567,7 @@ is
    function new_cone_Twist_Joint (Object_A,   Object_B   : in physics.Object.view;
                                   Frame_A,    Frame_B    : in Matrix_4x4) return physics.Joint.cone_twist.view
    is
-      Self : constant access cone_Twist := new cone_Twist;
+      Self : constant cone_Twist_view := new cone_Twist;
 
       c_Object_A : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_A).C;
       c_Object_B : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_B).C;
@@ -733,7 +733,7 @@ is
    is
       use type bullet_physics.Object.view;
 
-      Self : constant access Hinge := new Hinge;
+      Self : constant Hinge_view := new Hinge;
 
       c_Object_A : constant bullet_C.Pointers.Object_Pointer := bullet_physics.Object.view (Object_A).C;
       c_Frame_A  : aliased  c_math_c.Matrix_4x4.item         := +Frame_A;
@@ -760,7 +760,7 @@ is
    is
       use type bullet_physics.Object.view;
 
-      Self : constant access Hinge := new Hinge;
+      Self : constant Hinge_view := new Hinge;
 
       c_Object_A : bullet_C.Pointers.Object_Pointer;
       c_Object_B : bullet_C.Pointers.Object_Pointer;

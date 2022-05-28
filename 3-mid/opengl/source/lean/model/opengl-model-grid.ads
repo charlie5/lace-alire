@@ -33,11 +33,11 @@ private
 
    type Item is new Model.item with
       record
-         Color    :        openGL.rgb_Color;
-         Vertices : access openGL.Geometry.colored.Vertex_array;
-         Geometry :        openGL.Geometry.colored.view;
+         Color    : openGL.rgb_Color;
+         Vertices : openGL.Geometry.colored.Vertex_array_view;
+         Geometry : openGL.Geometry.colored.view;
          Width,
-         Height   :        Positive;
+         Height   : Positive;
       end record;
 
 end openGL.Model.grid;

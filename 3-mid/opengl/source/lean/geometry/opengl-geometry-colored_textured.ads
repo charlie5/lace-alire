@@ -19,7 +19,8 @@ is
          Coords : Coordinate_2D;
       end record;
 
-   type Vertex_array is array (long_Index_t range <>) of aliased Vertex;
+   type Vertex_array      is array (long_Index_t range <>) of aliased Vertex;
+   type Vertex_array_view is access Vertex_array;
 
 
    --------------

@@ -88,6 +88,9 @@ private
          null;
       end record;
 
+   type DoF6_view is access DoF6;
+
+
    overriding
    procedure destruct    (Self : in out DoF6);
 
@@ -137,6 +140,9 @@ private
       record
          null;
       end record;
+
+   type Slider_view is access Slider;
+
 
    overriding
    procedure destruct    (Self : in out Slider);
@@ -188,6 +194,9 @@ private
          null;
       end record;
 
+   type cone_Twist_view is access cone_Twist;
+
+
    overriding
    procedure destruct    (Self : in out cone_Twist);
 
@@ -237,6 +246,9 @@ private
       record
          null;
       end record;
+
+   type Ball_view is access Ball;
+
 
    overriding
    procedure destruct    (Self : in out Ball);
@@ -288,6 +300,9 @@ private
       record
          null;
       end record;
+
+   type Hinge_view is access Hinge;
+
 
    overriding
    procedure destruct    (Self : in out Hinge);

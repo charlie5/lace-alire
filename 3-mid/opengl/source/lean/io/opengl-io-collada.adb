@@ -5,6 +5,7 @@ with
 
      ada.Text_IO;
 
+
 package body openGL.IO.collada
 is
    package std_Collada renames Standard.Collada;
@@ -15,6 +16,9 @@ is
       use std_Collada.Library,
           std_Collada.Library.geometries,
           ada.Text_IO;
+
+      use type std_Collada.Library.controllers.Controller_array_view;
+
 
       which_Geometry    : constant := 1;     -- Select which gemometry, just for testing.
 
@@ -44,9 +48,9 @@ is
       normal_Count : constant long_Index_t  := collada_Normals  'Length / 3;
       coord_Count  : constant long_Index_t  := get_coord_Count;
 
-      the_Sites    : constant Sites_view    := new many_Sites   (1 ..  site_Count);
-      the_Normals  : constant Normals_view  := new many_Normals (1 .. normal_Count);
-      the_Coords   :          Coords_view;
+      the_Sites    : constant many_Sites_view    := new many_Sites   (1 ..  site_Count);
+      the_Normals  : constant many_Normals_view  := new many_Normals (1 .. normal_Count);
+      the_Coords   :          many_Coords_view;
       the_Weights  :          bone_Weights_array_view;
 
       the_Faces    :          IO.Faces_view := new IO.Faces (1 .. 50_000);

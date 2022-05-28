@@ -36,15 +36,16 @@ is
 
    type Animation is
       record
-         Id      :        Text;
-         Name    :        Text;
+         Id      : Text;
+         Name    : Text;
 
-         Sources : access library.Sources;
-         Sampler :        animations.Sampler;
-         Channel :        animations.Channel;
+         Sources : library.Sources_view;
+         Sampler : animations.Sampler;
+         Channel : animations.Channel;
       end record;
 
-   type Animation_array is array (Positive range <>) of Animation;
+   type Animation_array      is array (Positive range <>) of Animation;
+   type Animation_array_view is access Animation_array;
 
    function Inputs_of         (Self : in Animation) return access float_Array;
    function Outputs_of        (Self : in Animation) return access float_Array;
@@ -57,7 +58,7 @@ is
 
    type Item is
       record
-         Contents : access Animation_array;
+         Contents : Animation_array_view;
       end record;
 
 

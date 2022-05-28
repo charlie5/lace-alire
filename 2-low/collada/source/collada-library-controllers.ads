@@ -41,11 +41,11 @@ is
 
    type Skin is
       record
-         main_Source       :        Text;
-         bind_shape_Matrix :        float_Array (1 .. 16);
-         Sources           : access library.Sources;
-         Joints            :        controllers.Joints;
-         vertex_weights    :        controllers.vertex_Weights;
+         main_Source       : Text;
+         bind_shape_Matrix : float_Array (1 .. 16);
+         Sources           : library.Sources_view;
+         Joints            : controllers.Joints;
+         vertex_weights    : controllers.vertex_Weights;
       end record;
 
    function Weights_of           (Self : in Skin) return access float_Array;
@@ -65,8 +65,8 @@ is
          Skin : controllers.Skin;
       end record;
 
-   type Controller_array is array (Positive range <>) of Controller;
-
+   type Controller_array      is array (Positive range <>) of Controller;
+   type Controller_array_view is access Controller_array;
 
    ----------------
    --- Library Item
@@ -74,7 +74,7 @@ is
 
    type Item is
       record
-         Contents : access Controller_array;
+         Contents : Controller_array_view;
       end record;
 
 

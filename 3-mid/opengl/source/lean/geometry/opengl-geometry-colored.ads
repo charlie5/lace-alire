@@ -21,7 +21,8 @@ is
          Color : rgba_Color;
       end record;
 
-   type Vertex_array is array (Index_t range <>) of aliased Vertex;
+   type Vertex_array      is array (Index_t range <>) of aliased Vertex;
+   type Vertex_array_view is access Vertex_array;
 
 
    --------------

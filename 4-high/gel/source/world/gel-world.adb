@@ -316,7 +316,7 @@ is
 
          Responder : impact_Responder_view;
 
-         responses_Done : access Signal_Object := new Signal_Object;
+         responses_Done : signal_Object_view := new Signal_Object;
       end record;
 
    function Hash (Self : in filtered_impact_Response) return ada.Containers.Hash_type;

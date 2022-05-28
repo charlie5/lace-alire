@@ -36,7 +36,7 @@ is
 
    function new_FontImpl_texture (ftFont            : access openGL.Font.item'Class;
                                   pBufferBytes      : in     unsigned_char_Pointer;
-                                  bufferSizeInBytes : in     Natural) return access fontImpl.texture.item'Class;
+                                  bufferSizeInBytes : in     Natural) return fontImpl.texture.view;
    overriding
    procedure destruct (Self : in out Item);
 

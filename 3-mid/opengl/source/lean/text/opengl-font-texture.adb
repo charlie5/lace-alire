@@ -37,7 +37,7 @@ is
       do
          Self.define (fontImpl.Texture.new_FontImpl_texture (Self'Access,
                                                              pBufferBytes,
-                                                             bufferSizeInBytes));
+                                                             bufferSizeInBytes).all'Access);
       end return;
    end to_Font_texture;
 

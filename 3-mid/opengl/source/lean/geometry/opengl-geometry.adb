@@ -351,6 +351,8 @@ is
    -----------
    --  Normals
    --
+   type Normals_view is access Normals;
+
 
    generic
       type any_Index_t is range <>;
@@ -368,9 +370,9 @@ is
       function Facets_of is new any_Facets_of (any_Index_t,
                                                any_Indices);
 
-      the_Normals : constant access Normals     := new Normals (Sites'Range);
-      the_Facets  :                 Facets_view :=     Facets_of (face_Kind,
-                                                                  Indices).all'unchecked_Access;
+      the_Normals : constant Normals_view := new Normals (Sites'Range);
+      the_Facets  :          Facets_view  :=     Facets_of (face_Kind,
+                                                            Indices).all'unchecked_Access;
 
       type facet_Normals      is array (long_Index_t range 1 .. the_Facets'Length) of Normal;
       type facet_Normals_view is access all facet_Normals;

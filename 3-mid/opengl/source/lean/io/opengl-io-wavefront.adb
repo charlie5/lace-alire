@@ -136,9 +136,9 @@ is
 
       max_Elements : constant      := 200_000;
 
-      the_Sites    : Sites_view    := new many_Sites          (1 .. max_Elements);
-      the_Coords   : Coords_view   := new many_Coordinates_2D (1 .. max_Elements);
-      the_Normals  : Normals_view  := new many_Normals        (1 .. max_Elements);
+      the_Sites    : many_Sites_view    := new many_Sites          (1 .. max_Elements);
+      the_Coords   : many_Coords_view   := new many_Coordinates_2D (1 .. max_Elements);
+      the_Normals  : many_Normals_view  := new many_Normals        (1 .. max_Elements);
       the_Faces    : IO.Faces_view := new IO.Faces'           (1 .. max_Elements => <>);
 
       site_Count   : long_Index_t  := 0;
@@ -204,9 +204,9 @@ is
 
 
       declare
-         used_Sites   : constant IO.  Sites_view := new many_Sites'          (the_Sites   (1 ..   site_Count));
-         used_Coords  : constant IO. Coords_view := new many_Coordinates_2D' (the_Coords  (1 ..  coord_Count));
-         used_Normals : constant IO.Normals_view := new many_Normals'        (the_Normals (1 .. normal_Count));
+         used_Sites   : constant IO.  many_Sites_view := new many_Sites'          (the_Sites   (1 ..   site_Count));
+         used_Coords  : constant IO. many_Coords_view := new many_Coordinates_2D' (the_Coords  (1 ..  coord_Count));
+         used_Normals : constant IO.many_Normals_view := new many_Normals'        (the_Normals (1 .. normal_Count));
          used_Faces   : constant IO.  Faces_view := new IO.Faces'            (the_Faces   (1 ..   face_Count));
       begin
          free (the_Sites);
@@ -410,16 +410,15 @@ is
       begin
          free (the_Faces);
 
-         return
-           (material_Library => the_material_Library,
-            material_Name    => the_material_Name,
-            object_Name      => the_object_Name,
-            group_Name       => the_group_Name,
+         return (material_Library => the_material_Library,
+                 material_Name    => the_material_Name,
+                 object_Name      => the_object_Name,
+                 group_Name       => the_group_Name,
 
-            Sites   => new openGL.Sites'(the_Sites (1 .. site_Count)),
-            Coords  => new Coordinates_2D'(the_Coords (1 .. coord_Count)),
-            Normals => new openGL.Normals'(the_Normals (1 .. normal_Count)),
-            Faces   => used_Faces);
+                 Sites   => new openGL.Sites'   (the_Sites   (1 .. site_Count)),
+                 Coords  => new Coordinates_2D' (the_Coords  (1 .. coord_Count)),
+                 Normals => new openGL.Normals' (the_Normals (1 .. normal_Count)),
+                 Faces   => used_Faces);
       end;
    end to_Model;
 

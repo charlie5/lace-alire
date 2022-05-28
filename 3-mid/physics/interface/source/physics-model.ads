@@ -7,6 +7,11 @@ package physics.Model
 --  Provides a model describing physical properties.
 --
 is
+   type Heightfield_view    is access physics.Heightfield;
+   type Vector_3_array_view is access physics.Vector_3_array;
+   type Vector_view         is access Vector;
+
+
    type shape_Kind is (Cylinder,  Cone,    Cube,  a_Sphere,  a_Capsule,  Heightfield,  Hull,  Mesh,  multi_Sphere, Plane,     -- 3D
                        Circle,    Polygon);                                                                                   -- 2D
 
@@ -23,7 +28,7 @@ is
                Height        :        Real;
 
             when Heightfield =>
-               Heights       : access physics.Heightfield;
+               Heights       :        Heightfield_view;
                height_Range  :        Vector_2;
 
             when a_Sphere =>
@@ -33,14 +38,14 @@ is
                circle_Radius :        Real;
 
             when Hull =>
-               Points        : access physics.Vector_3_array;
+               Points        :        Vector_3_array_view;
 
             when Mesh =>
                Model         : access Geometry_3D.a_Model;
 
             when multi_Sphere =>
-               Sites         : access physics.Vector_3_array;
-               Radii         : access Vector;
+               Sites         :        Vector_3_array_view;
+               Radii         :        Vector_view;
 
             when Plane =>
                plane_Normal  :        Vector_3;

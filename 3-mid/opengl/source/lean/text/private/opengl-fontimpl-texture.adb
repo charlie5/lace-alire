@@ -87,7 +87,7 @@ is
 
    function new_FontImpl_texture (ftFont            : access Font.item'Class;
                                   pBufferBytes      : in     unsigned_char_Pointer;
-                                  bufferSizeInBytes : in     Natural) return access fontImpl.texture.item'Class
+                                  bufferSizeInBytes : in     Natural) return fontImpl.texture.view
    is
    begin
       return new fontImpl.texture.item' (to_FontImpl_texture (ftFont,
@@ -222,7 +222,7 @@ is
                                                    Self.xOffset,
                                                    Self.yOffset,
                                                    Integer (Self.textureWidth),
-                                                   Integer (Self.textureHeight));
+                                                   Integer (Self.textureHeight)).all'Access;
 
       Self.xOffset := Self.xOffset + Integer (  tempGlyph.BBox.Box.Upper (1)
                                               - tempGlyph.BBox.Box.Lower (1)
