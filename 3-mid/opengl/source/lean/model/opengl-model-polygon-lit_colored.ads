@@ -1,5 +1,4 @@
 with
-     openGL.Model,
      openGL.Font,
      openGL.Geometry;
 

@@ -1,5 +1,4 @@
 with
-     gel.World,
      lace.Observer,
      ada.unchecked_Conversion,
      ada.Containers.Vectors;

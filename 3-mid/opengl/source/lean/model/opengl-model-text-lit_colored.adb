@@ -1,7 +1,6 @@
 with
      openGL.Geometry.lit_colored_textured,
      openGL.GlyphImpl.Texture,
-     openGL,
      openGL.Primitive.indexed,
      openGL.Texture,
 

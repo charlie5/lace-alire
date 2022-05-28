@@ -1,6 +1,3 @@
-with
-     gel.World;
-
 limited
 with
      openGL.Renderer.lean;

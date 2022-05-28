@@ -1,5 +1,4 @@
 with
-     lace.Event,
      lace.Observer,
      lace.Subject,
      lace.Response;

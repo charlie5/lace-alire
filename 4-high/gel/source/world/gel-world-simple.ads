@@ -1,5 +1,4 @@
 with
-     gel.World,
      ada.unchecked_Conversion;
 
 limited

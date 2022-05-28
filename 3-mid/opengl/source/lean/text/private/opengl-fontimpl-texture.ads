@@ -1,5 +1,4 @@
 with
-     openGL.FontImpl,
      openGL.Texture,
      openGL.GlyphImpl.texture,
 
@@ -10,6 +9,7 @@ with
 private
 with
      GL;
+
 
 package openGL.FontImpl.texture
 --

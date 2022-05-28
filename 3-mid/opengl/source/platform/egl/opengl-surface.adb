@@ -52,7 +52,7 @@ is
       if Success = EGL_FALSE then
          raise opengl.Error with "unable to swap egl buffers";
       end if;
-   end;
+   end swap_Buffers;
 
 
 end opengl.Surface;
