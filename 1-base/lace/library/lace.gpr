@@ -21,7 +21,7 @@ is
    for Source_Dirs use ("../source",
                         "../source/containers",
 --                        "../source/environ",
-                        "../source/events",
+                        "../source/dice",
                         "../source/events",
                         "../source/events/concrete",
                         "../source/events/interface",

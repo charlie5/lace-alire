@@ -116,7 +116,7 @@ test_text_replace
 test_environ_general
 HelloWorld*
 5-all/applet/build_all/build_all
-
+test_dice
 
 ## Old Code
 #
