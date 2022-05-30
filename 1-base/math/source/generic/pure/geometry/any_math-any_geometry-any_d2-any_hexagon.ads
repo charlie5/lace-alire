@@ -5,6 +5,14 @@ package any_Math.any_Geometry.any_d2.any_Hexagon with Pure
 --
 --   https://en.wikipedia.org/wiki/Hexagon
 --
+--
+--                 5   6
+--                  ---
+--                4/   \1
+--                 \   /
+--                  ---
+--                 3   2
+--
 is
    -------------
    --- vertex_Id
@@ -40,6 +48,9 @@ is
 
    function side_Length (Self : in Item) return Real;
    function t           (Self : in Item) return Real renames side_Length;
+
+
+   function Site (Self : in Item;   Id : vertex_Id) return any_d2.Site;
 
 
 

@@ -96,4 +96,16 @@ is
    end side_Length;
 
 
+
+   function Site (Self : in Item;   Id : vertex_Id) return any_d2.Site
+   is
+      use Functions;
+
+      Angle : constant Radians := to_Radians (60.0 * Degrees (Id - 1));
+   begin
+      return any_d2.Site' (1 => Self.circumRadius * cos (Angle),
+                           2 => Self.circumRadius * sin (Angle));
+   end Site;
+
+
 end any_Math.any_Geometry.any_d2.any_Hexagon;
