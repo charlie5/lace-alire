@@ -118,6 +118,8 @@ HelloWorld*
 5-all/applet/build_all/build_all
 test_dice
 launch_hexagon_test
+launch_render_hex_grid
+
 
 ## Old Code
 #
