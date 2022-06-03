@@ -108,4 +108,61 @@ is
    end Site;
 
 
+
+   --------
+   --- Grid
+   --
+
+   function to_Grid (Rows, Cols   : in Positive;
+                     circumRadius : in Real) return Grid
+   is
+      Hex              : constant Item := (circumRadius => circumRadius);
+      inRadius         : constant Real := any_Hexagon.inRadius         (Hex);
+      maximal_Diameter : constant Real := any_Hexagon.maximal_Diameter (Hex);
+      minimal_Diameter : constant Real := any_Hexagon.minimal_Diameter (Hex);
+
+      Result : Grid (Rows, Cols);
+
+   begin
+      Result.circumRadius := circumRadius;
+
+      for Row in 1 .. Rows
+      loop
+
+         for Col in 1 .. Cols
+         loop
+            Result.Centers (Row, Col) := [circumRadius + Real (Col - 1) * (maximal_Diameter - 0.5 * circumRadius),
+                                          inRadius     + Real (Row - 1) * minimal_Diameter];
+
+            if Col mod 2 = 0   -- Even column.
+            then
+               Result.Centers (Row, Col) (2) := @ + inRadius;
+            end if;
+         end loop;
+
+      end loop;
+
+      return Result;
+   end to_Grid;
+
+
+
+   function hex_Center (Grid : in any_Hexagon.Grid;   Coords : in Coordinates) return any_d2.Site
+   is
+   begin
+      return Grid.Centers (Coords.Row, Coords.Col);
+   end hex_Center;
+
+
+
+   function vertex_Site (Self : in Grid;   hex_Id : in any_Hexagon.Coordinates;
+                                           Which  : in any_Hexagon.vertex_Id) return any_d2.Site
+   is
+      Hex : constant Item := (circumRadius => Self.circumRadius);
+   begin
+      return   hex_Center (Self, hex_Id)
+             + Site (Hex, Id => Which);
+   end vertex_Site;
+
+
 end any_Math.any_Geometry.any_d2.any_Hexagon;

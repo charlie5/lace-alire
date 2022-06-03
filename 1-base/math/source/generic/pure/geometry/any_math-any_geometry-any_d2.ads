@@ -11,13 +11,15 @@ is
    --  Sites
    --
 
-
    -- Cartesian
    --
    subtype Site  is Vector_2;                                 -- 2D cartesian coordinates.
    type    Sites is array (Positive range <>) of Site;
+   type    Grid  is array (Positive range <>,
+                           Positive range <>) of Site;
 
    function Distance (From, To : Site) return Real;
+
 
 
    -- Polar

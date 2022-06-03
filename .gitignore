@@ -117,6 +117,7 @@ test_environ_general
 HelloWorld*
 5-all/applet/build_all/build_all
 test_dice
+launch_hexagon_test
 
 ## Old Code
 #

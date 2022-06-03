@@ -54,6 +54,44 @@ is
 
 
 
+   --------
+   --- Grid
+   --
+   -- Origin is at the top left corner.
+   -- X increases to the right.
+   -- Y increases downwards.
+   --
+
+   type Grid (Rows : Positive;
+              Cols : Positive) is private;
+
+
+   type Coordinates is
+      record
+         Row, Col: Positive;
+      end record;
+
+
+   function to_Grid (Rows, Cols   : in Positive;
+                     circumRadius : in Real) return Grid;
+
+   function hex_Center (Grid : in any_Hexagon.Grid;   Coords : in Coordinates) return any_d2.Site;
+   --
+   -- Returns the centre of the hexagon at the given co-ordinates.
+
+   function vertex_Site (Self : in Grid;   hex_Id : in any_Hexagon.Coordinates;
+                                           Which  : in any_Hexagon.vertex_Id) return any_d2.Site;
+
+
+
 private
+
+   type Grid (Rows : Positive;
+              Cols : Positive) is
+      record
+         circumRadius : Real;
+         Centers      : any_d2.Grid (1 .. Rows,
+                                     1 .. Cols);
+      end record;
 
 end any_Math.any_Geometry.any_d2.any_Hexagon;
