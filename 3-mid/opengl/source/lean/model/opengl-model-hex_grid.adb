@@ -99,7 +99,7 @@ is
    function to_GL_Geometries (Self : access Item;   Textures : access Texture.name_Map_of_texture'Class;
                                                     Fonts    : in     Font.font_id_Map_of_font) return Geometry.views
    is
-      pragma unreferenced (Textures, Fonts);
+      pragma Unreferenced (Textures, Fonts);
 
       use Geometry,
           Geometry.colored,
@@ -142,13 +142,15 @@ is
         mid_zig_zag_vertex_Count : constant Index_t := row_Count * 2 + 2;
        last_zig_zag_vertex_Count : constant Index_t := row_Count * 2 + 1;
 
-      zigzag_join_vertex_Count   : constant Index_t := col_Count;
+      zig_zags_vertex_Count      : constant Index_t :=   first_zig_zag_vertex_Count
+                                                       + (mid_zig_zag_vertex_Count) * (zig_zag_Count - 2)
+                                                       + last_zig_zag_vertex_Count;
+      zig_zag_joiner_vertex_Count : constant Index_t := col_Count * 2;
 
-      vertex_Count  : constant Index_t :=   first_zig_zag_vertex_Count
-                                          +  (mid_zig_zag_vertex_Count) * (zig_zag_Count - 2)
-                                          +  last_zig_zag_vertex_Count;
+      vertex_Count  : constant Index_t :=         zig_zags_vertex_Count
+                                          + zig_zag_joiner_vertex_Count;
 
-      hex_Vertices  : hex_Grid.hex_Vertices (1 .. vertex_Count);
+      hex_Vertices  : hex_Grid.hex_Vertices (1 .. zig_zags_vertex_Count);
 
       --  indices_Count : constant long_Index_t :=   (2 * (long_Index_t (Heights'Length (2)) + 1)) * (long_Index_t (row_Count) - 1)
       --                                           +  2 * (long_Index_t (Heights'Length (2)));
@@ -236,21 +238,55 @@ is
 
 
       set_GL_Vertices:
+      declare
+         vertex_Id : Index_t := 0;
       begin
+         --- Add hex vertices.
+         --
          for i in hex_Vertices'Range
          loop
-            the_Vertices (i).Site := hex_Vertices (i).Site;
+            vertex_Id := vertex_Id + 1;
+            the_Vertices (vertex_Id).Site  := hex_Vertices (vertex_Id).Site;
+            the_Vertices (vertex_Id).Color := (Primary => [255, 255, 255],
+                                               Alpha   => 255);
+         end loop;
+
+         --- Add joiner vertices.
+         --
+         for i in 1 .. col_Count
+         loop
+            declare
+               use hexagon_Geometry;
+               Site : Geometry_2d.Site := vertex_Site (the_Grid,
+                                                       hex_Id => [Row => Positive (row_Count),
+                                                                  Col => Positive (i)],
+                                                       Which  => 3);
+            begin
+               vertex_Id                := vertex_Id + 1;
+               the_Vertices (vertex_Id) := (Site => [Site (1), 0.0, Site (2)],
+                                            Color => (Primary => [0, 0, 0],
+                                                      Alpha   => 0));
+
+               Site                     := vertex_Site (the_Grid,
+                                                        hex_Id => [Row => 1,
+                                                                   Col => Positive (i)],
+                                                        Which  => 6);
+               vertex_Id                := vertex_Id + 1;
+               the_Vertices (vertex_Id) := (Site => [Site (1), 0.0, Site (2)],
+                                            Color => (Primary => [0, 0, 0],
+                                                      Alpha   => 0));
+            end;
          end loop;
       end set_GL_Vertices;
 
 
       set_GL_Indices:
       declare
-         Cursor : long_Index_t := 0;
-
+         Cursor            : long_Index_t := 0;
+         joiners_vertex_Id :      Index_t := zig_zags_vertex_Count;
 
          procedure add_zig_zag_Vertex (Row, Col   : in Positive;
-                                hex_Vertex : in Hexagon.vertex_Id)
+                                       hex_Vertex : in Hexagon.vertex_Id)
          is
             use hexagon_Geometry;
 
@@ -261,6 +297,18 @@ is
             Cursor               := Cursor + 1;
             the_Indices (Cursor) := fetch_Id (S => Site);
          end add_zig_zag_Vertex;
+
+         procedure add_joiner_vertex_Pair
+         is
+         begin
+            Cursor               := Cursor + 1;
+            joiners_vertex_Id    := joiners_vertex_Id + 1;
+            the_Indices (Cursor) := joiners_vertex_Id;
+
+            Cursor               := Cursor + 1;
+            joiners_vertex_Id    := joiners_vertex_Id + 1;
+            the_Indices (Cursor) := joiners_vertex_Id;
+         end;
 
 
          --  the_height_Range : constant Vector_2 := height_Extent (Heights.all);
@@ -276,6 +324,8 @@ is
             add_zig_zag_Vertex (Row, Col => 1, hex_Vertex => 4);
             add_zig_zag_Vertex (Row, Col => 1, hex_Vertex => 3);
          end loop;
+
+         add_joiner_vertex_Pair;
 
 
          --- Middles zigzags
@@ -319,6 +369,7 @@ is
                end loop;
             end;
 
+            add_joiner_vertex_Pair;
          end loop;
 
 
@@ -332,6 +383,7 @@ is
             add_zig_zag_Vertex (Row, Positive (col_Count), hex_Vertex => 2);
          end loop;
 
+         --  add_joiner_vertex_Pair;
       end set_GL_Indices;
 
 
