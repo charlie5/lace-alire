@@ -97,7 +97,6 @@ is
                                                                      equivalent_Keys => Equivalent,
                                                                      "="             => "=");
 
-
    overriding
    function to_GL_Geometries (Self : access Item;   Textures : access Texture.name_Map_of_texture'Class;
                                                     Fonts    : in     Font.font_id_Map_of_font) return Geometry.views
@@ -117,15 +116,12 @@ is
          use site_Maps_of_vertex_Id;
          C : constant Cursor := site_Map_of_vertex_Id.Find (S);
       begin
-         --  put_Line (S'Image);
          if has_Element (C)
          then
-            --  put_Line (Element (C)'Image);
             return Element (C);
          else
             next_free_vertex_Id := @ + 1;
             site_Map_of_vertex_Id.insert (S, next_free_vertex_Id);
-            --  put_Line (next_free_vertex_Id'Image);
             return next_free_vertex_Id;
          end if;
       end fetch_Id;
@@ -155,8 +151,6 @@ is
 
       hex_Vertices  : hex_Grid.hex_Vertices (1 .. zig_zags_vertex_Count);
 
-      --  indices_Count : constant long_Index_t :=   (2 * (long_Index_t (Heights'Length (2)) + 1)) * (long_Index_t (row_Count) - 1)
-      --                                           +  2 * (long_Index_t (Heights'Length (2)));
       zigzags_indices_Count : constant long_Index_t := long_Index_t (vertex_Count);
 
       the_Vertices     : aliased  Geometry.colored.Vertex_array := [1 ..  vertex_Count => <>];
@@ -250,8 +244,6 @@ is
       declare
          vertex_Id :        Index_t     := 0;
          Color   : constant rgba_Color  := Self.Color;
-         --  Color     : constant rgba_Color := (Primary => Primary,
-         --                                      Alpha   => 255);
       begin
          --- Add hex vertices.
          --
@@ -259,8 +251,7 @@ is
          loop
             vertex_Id := vertex_Id + 1;
             the_Vertices (vertex_Id).Site  := hex_Vertices (vertex_Id).Site;
-            the_Vertices (vertex_Id).Color := Color; --(Primary => [255, 255, 255],
-                                                     -- Alpha   => 255);
+            the_Vertices (vertex_Id).Color := Color;
          end loop;
 
          --- Add joiner vertices.
@@ -399,7 +390,6 @@ is
             add_zig_zag_Vertex (Row, Positive (col_Count), hex_Vertex => 2);
          end loop;
 
-         --  add_joiner_vertex_Pair;
       end set_zigzags_GL_Indices;
 
 
@@ -484,235 +474,6 @@ is
       return [1 => Geometry.view (zigzags_Geometry),
               2 => Geometry.view (   tops_Geometry)];
    end to_GL_Geometries;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   --  overriding
-   --  function to_GL_Geometries (Self : access Item;   Textures : access Texture.name_Map_of_texture'Class;
-   --                                                   Fonts    : in     Font.font_id_Map_of_font) return Geometry.views
-   --  is
-   --     pragma unreferenced (Textures, Fonts);
-   --
-   --     use Geometry,
-   --         Geometry.colored,
-   --         Geometry_2d;
-   --
-   --     Heights       :          height_Map_view renames Self.Heights;
-   --
-   --     row_Count     : constant Index_t := Heights'Length (1);
-   --     col_Count     : constant Index_t := Heights'Length (2);
-   --
-   --     the_Grid      : constant hexagon_Geometry.Grid := Hexagon.to_Grid (Rows         => Positive (row_Count),
-   --                                                                        Cols         => Positive (col_Count),
-   --                                                                        circumRadius => 1.0);
-   --     zig_zag_Count              : constant Index_t := col_Count + 1;
-   --
-   --     first_zig_zag_vertex_Count : constant Index_t := row_Count * 2 + 1;
-   --     mid_zig_zag_vertex_Count   : constant Index_t := row_Count * 2 + 2;
-   --     last_zig_zag_vertex_Count  : constant Index_t := row_Count * 2 + 1;
-   --
-   --     --  vertex_Count  : constant Index_t :=   first_zig_zag_vertex_Count
-   --     --                                      +  (mid_zig_zag_vertex_Count) * (zig_zag_Count - 2)
-   --     --                                      +  last_zig_zag_vertex_Count;
-   --
-   --     vertex_Count  : constant Index_t :=   first_zig_zag_vertex_Count
-   --                                         --  +  (mid_zig_zag_vertex_Count) * (zig_zag_Count - 2)
-   --                                         +  last_zig_zag_vertex_Count
-   --                                         + 1;
-   --
-   --
-   --     --  vertex_Count  : constant Index_t      := Heights'Length (1) * Heights'Length (2);
-   --
-   --     --  indices_Count : constant long_Index_t :=   (2 * (long_Index_t (Heights'Length (2)) + 1)) * (long_Index_t (row_Count) - 1)
-   --     --                                           +  2 * (long_Index_t (Heights'Length (2)));
-   --     indices_Count : constant long_Index_t := long_Index_t (vertex_Count);
-   --
-   --     the_Sites     : aliased  Sites         := [1 .. vertex_Count => <>];
-   --     the_Bounds    :          openGL.Bounds := null_Bounds;
-   --
-   --     the_Vertices  : aliased  Geometry.colored.Vertex_array := [1 ..  vertex_Count => <>];
-   --     the_Indices   : aliased  Indices                       := [1 .. indices_Count => <>];
-   --
-   --     the_Geometry  : constant Geometry.colored.view := Geometry.colored.new_Geometry;
-   --
-   --  begin
-   --     set_Sites:
-   --     declare
-   --        vert_Id  : Index_t  := 0;
-   --
-   --        the_Site : Geometry_2d.Site;
-   --        Offset   : Geometry_2d.Site;
-   --
-   --        Hex      : constant Geometry_2d.Hexagon.item := (circumRadius => 1.0);
-   --
-   --        procedure add_zig_zag (Row, Col   : in Positive;
-   --                               hex_Vertex : in Hexagon.vertex_Id)
-   --        is
-   --        begin
-   --           vert_Id := vert_Id + 1;
-   --           put_Line (vert_Id'Image);
-   --
-   --           the_Site            := hexagon_Geometry.Site (the_Grid, Row, Col);
-   --           Offset              := hexagon_Geometry.Site (Hex, Id => hex_Vertex);
-   --
-   --           the_Sites (vert_Id) :=   [the_Site (1), 0.0, the_Site (2)]
-   --                                  + [  Offset (1), 0.0,   Offset (2)];
-   --
-   --           the_Vertices (vert_Id).Site  := the_Sites (vert_Id);
-   --        end add_zig_zag;
-   --
-   --
-   --        --  the_height_Range : constant Vector_2 := height_Extent (Heights.all);
-   --        --  Middle           : constant Real     := (the_height_Range (1) + the_height_Range (2))  /  2.0;
-   --
-   --     begin
-   --        for Col in 1 .. 1 -- col_Count
-   --        loop
-   --           for Row in 1 .. row_Count
-   --           loop
-   --              add_zig_zag (Positive (Row), Col, hex_Vertex => 5);
-   --              add_zig_zag (Positive (Row), Col, hex_Vertex => 4);
-   --
-   --              if Row = row_Count     -- The last row.
-   --              then
-   --                 add_zig_zag (Positive (Row), Col, hex_Vertex => 3);
-   --              end if;
-   --
-   --
-   --              the_Bounds.Box.Lower (1) := Real'Min (the_Bounds.Box.Lower (1),  the_Sites (vert_Id) (1));
-   --              the_Bounds.Box.Lower (2) := 0.0; -- Real'Min (the_Bounds.Box.Lower (2),  the_Sites (vert_Id) (2));
-   --              the_Bounds.Box.Lower (3) := Real'Min (the_Bounds.Box.Lower (3),  the_Sites (vert_Id) (3));
-   --
-   --              the_Bounds.Box.Upper (1) := Real'Max (the_Bounds.Box.Upper (1),  the_Sites (vert_Id) (1));
-   --              the_Bounds.Box.Upper (2) := 0.0; -- Real'Max (the_Bounds.Box.Upper (2),  the_Sites (vert_Id) (2));
-   --              the_Bounds.Box.Upper (3) := Real'Max (the_Bounds.Box.Upper (3),  the_Sites (vert_Id) (3));
-   --
-   --              the_Bounds.Ball := Real'Max (the_Bounds.Ball,
-   --                                           abs (the_Sites (vert_Id)));
-   --           end loop;
-   --
-   --           for Row in 1 .. row_Count
-   --           loop
-   --              add_zig_zag (Positive (Row), Col, hex_Vertex => 6);
-   --              add_zig_zag (Positive (Row), Col, hex_Vertex => 1);
-   --
-   --              if Row = row_Count     -- The last row.
-   --              then
-   --                 add_zig_zag (Positive (Row), Col, hex_Vertex => 2);
-   --              end if;
-   --
-   --
-   --              the_Bounds.Box.Lower (1) := Real'Min (the_Bounds.Box.Lower (1),  the_Sites (vert_Id) (1));
-   --              the_Bounds.Box.Lower (2) := 0.0; -- Real'Min (the_Bounds.Box.Lower (2),  the_Sites (vert_Id) (2));
-   --              the_Bounds.Box.Lower (3) := Real'Min (the_Bounds.Box.Lower (3),  the_Sites (vert_Id) (3));
-   --
-   --              the_Bounds.Box.Upper (1) := Real'Max (the_Bounds.Box.Upper (1),  the_Sites (vert_Id) (1));
-   --              the_Bounds.Box.Upper (2) := 0.0; -- Real'Max (the_Bounds.Box.Upper (2),  the_Sites (vert_Id) (2));
-   --              the_Bounds.Box.Upper (3) := Real'Max (the_Bounds.Box.Upper (3),  the_Sites (vert_Id) (3));
-   --
-   --              the_Bounds.Ball := Real'Max (the_Bounds.Ball,
-   --                                           abs (the_Sites (vert_Id)));
-   --           end loop;
-   --        end loop;
-   --
-   --        the_Bounds.Ball := the_Bounds.Ball * 1.1;     -- TODO: Why the '* 1.1' ?
-   --     end set_Sites;
-   --
-   --
-   --     set_Indices:
-   --     declare
-   --        Cursor : long_Index_t := 0;
-   --        Start,
-   --        Upper,
-   --        Lower  : Index_t;
-   --     begin
-   --        Start := 1;
-   --
-   --        for Col in 1 .. Index_t'(1) -- col_Count
-   --        loop
-   --           for Row in 1 .. row_Count
-   --           loop
-   --              Upper := Start;
-   --              Lower := Start + 1;
-   --
-   --              Cursor := Cursor + 1;   the_Indices (Cursor) := Upper;
-   --              Cursor := Cursor + 1;   the_Indices (Cursor) := Lower;
-   --
-   --              if Row = row_Count     -- Last row.
-   --              then
-   --                 Cursor := Cursor + 1;   the_Indices (Cursor) := Lower + 1;
-   --              end if;
-   --
-   --              Start := Start + 2;
-   --           end loop;
-   --
-   --           for Row in 1 .. row_Count
-   --           loop
-   --              Upper := Start;
-   --              Lower := Start + 1;
-   --
-   --              Cursor := Cursor + 1;   the_Indices (Cursor) := Upper;
-   --              Cursor := Cursor + 1;   the_Indices (Cursor) := Lower;
-   --
-   --              if Row = row_Count     -- Last row.
-   --              then
-   --                 Cursor := Cursor + 1;   the_Indices (Cursor) := Lower + 1;
-   --              end if;
-   --
-   --              Start := Start + 2;
-   --           end loop;
-   --
-   --           the_Vertices (vertex_Count).Site := [0.0, 0.0, 0.0];
-   --           the_Indices (Cursor + 1) := 14;
-   --
-   --           --  if Row /= row_Count   -- Not the last row.
-   --           --  then
-   --           --     -- Add 1st redundant triangle to allow for next strip.
-   --           --     Cursor := Cursor + 1;   the_Indices (Cursor) := Lower;
-   --           --
-   --           --     -- Advance Start index.
-   --           --     Start  := Start + col_Count + 1;
-   --           --
-   --           --     -- Add 2nd redundant triangle to allow for next strip.
-   --           --     Cursor := Cursor + 1;   the_Indices (Cursor) := Start;
-   --           --  end if;
-   --        end loop;
-   --
-   --     end set_Indices;
-   --
-   --
-   --     the_Geometry.is_Transparent (False);
-   --     the_Geometry.Vertices_are   (the_Vertices);
-   --
-   --     Self.Bounds := the_Bounds;
-   --
-   --     declare
-   --        the_Primitive : constant Primitive.indexed.view
-   --          := Primitive.indexed.new_Primitive (Primitive.line_Strip,
-   --                                              the_Indices);
-   --     begin
-   --        the_Geometry.add (Primitive.view (the_Primitive));
-   --     end;
-   --
-   --     return [1 => Geometry.view (the_Geometry)];
-   --  end to_GL_Geometries;
 
 
 
