@@ -269,13 +269,15 @@ is
          loop
             declare
                use hexagon_Geometry;
+
                Site : Geometry_2d.Site := vertex_Site (the_Grid,
                                                        hex_Id => [Row => Positive (row_Count),
                                                                   Col => Positive (i)],
                                                        Which  => 3);
+               hex_vertex_Id : Index_t := fetch_Id (Site);
             begin
                vertex_Id                := vertex_Id + 1;
-               the_Vertices (vertex_Id) := (Site => [Site (1), 0.0, Site (2)],
+               the_Vertices (vertex_Id) := (Site  => hex_Vertices (hex_vertex_Id).Site,
                                             Color => (Primary => Color,
                                                       Alpha   => 0));
 
@@ -283,8 +285,10 @@ is
                                                         hex_Id => [Row => 1,
                                                                    Col => Positive (i)],
                                                         Which  => 6);
+
+               hex_vertex_Id            := fetch_Id (Site);
                vertex_Id                := vertex_Id + 1;
-               the_Vertices (vertex_Id) := (Site => [Site (1), 0.0, Site (2)],
+               the_Vertices (vertex_Id) := (Site => hex_Vertices (hex_vertex_Id).Site,
                                             Color => (Primary => Color,
                                                       Alpha   => 0));
             end;
