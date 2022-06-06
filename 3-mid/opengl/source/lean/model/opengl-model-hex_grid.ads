@@ -1,5 +1,6 @@
 with
-     openGL.Geometry;
+     openGL.Geometry,
+     openGL.Palette;
 
 
 package openGL.Model.hex_grid
@@ -19,7 +20,8 @@ is
    --
 
    function new_Grid (heights_Asset : in asset_Name;
-                      Heights       : in height_Map_view) return View;
+                      Heights       : in height_Map_view;
+                      Color         : in openGL.Color := Palette.White) return View;
    overriding
    procedure destroy (Self : in out Item);
 
@@ -38,8 +40,9 @@ private
    type Item is new Model.item with
       record
          heights_Asset : asset_Name := null_Asset;
-
          Heights       : height_Map_view;
+
+         Color         : rgb_Color;
       end record;
 
 

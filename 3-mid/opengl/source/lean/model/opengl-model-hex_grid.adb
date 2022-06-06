@@ -17,11 +17,13 @@ is
    --
 
    function new_Grid (heights_Asset : in asset_Name;
-                      Heights       : in height_Map_view) return View
+                      Heights       : in height_Map_view;
+                      Color         : in openGL.Color := Palette.White) return View
    is
       the_Model : constant View := new Item' (Model.item with
                                               heights_Asset => heights_Asset,
-                                              Heights       => Heights);
+                                              Heights       => Heights,
+                                              Color         => +Color);
    begin
       the_Model.set_Bounds;
       return the_Model;
@@ -154,12 +156,18 @@ is
 
       --  indices_Count : constant long_Index_t :=   (2 * (long_Index_t (Heights'Length (2)) + 1)) * (long_Index_t (row_Count) - 1)
       --                                           +  2 * (long_Index_t (Heights'Length (2)));
-      indices_Count : constant long_Index_t := long_Index_t (vertex_Count);
+      zigzags_indices_Count : constant long_Index_t := long_Index_t (vertex_Count);
 
-      the_Vertices  : aliased  Geometry.colored.Vertex_array := [1 ..  vertex_Count => <>];
-      the_Indices   : aliased  Indices                       := [1 .. indices_Count => <>];
+      the_Vertices     : aliased  Geometry.colored.Vertex_array := [1 ..  vertex_Count => <>];
 
-      the_Geometry  : constant Geometry.colored.view := Geometry.colored.new_Geometry;
+      hex_Count        : constant long_Index_t := long_Index_t (col_Count * row_Count * 2);
+
+      zigzags_Indices  : aliased  Indices                       := [1 .. zigzags_indices_Count        => <>];
+         tops_Indices  : aliased  Indices                       := [1 ..   hex_Count
+                                                                         + long_Index_t (col_Count * 2) => <>];
+
+      zigzags_Geometry : constant Geometry.colored.view := Geometry.colored.new_Geometry;
+         tops_Geometry : constant Geometry.colored.view := Geometry.colored.new_Geometry;
 
    begin
 
@@ -239,7 +247,10 @@ is
 
       set_GL_Vertices:
       declare
-         vertex_Id : Index_t := 0;
+         vertex_Id :          Index_t    := 0;
+         Color   : constant rgb_Color  := Self.Color;
+         --  Color     : constant rgba_Color := (Primary => Primary,
+         --                                      Alpha   => 255);
       begin
          --- Add hex vertices.
          --
@@ -247,8 +258,9 @@ is
          loop
             vertex_Id := vertex_Id + 1;
             the_Vertices (vertex_Id).Site  := hex_Vertices (vertex_Id).Site;
-            the_Vertices (vertex_Id).Color := (Primary => [255, 255, 255],
-                                               Alpha   => 255);
+            the_Vertices (vertex_Id).Color := (Primary => Color,
+                                               Alpha   => 255); --(Primary => [255, 255, 255],
+                                                     -- Alpha   => 255);
          end loop;
 
          --- Add joiner vertices.
@@ -264,7 +276,7 @@ is
             begin
                vertex_Id                := vertex_Id + 1;
                the_Vertices (vertex_Id) := (Site => [Site (1), 0.0, Site (2)],
-                                            Color => (Primary => [0, 0, 0],
+                                            Color => (Primary => Color,
                                                       Alpha   => 0));
 
                Site                     := vertex_Site (the_Grid,
@@ -273,14 +285,14 @@ is
                                                         Which  => 6);
                vertex_Id                := vertex_Id + 1;
                the_Vertices (vertex_Id) := (Site => [Site (1), 0.0, Site (2)],
-                                            Color => (Primary => [0, 0, 0],
+                                            Color => (Primary => Color,
                                                       Alpha   => 0));
             end;
          end loop;
       end set_GL_Vertices;
 
 
-      set_GL_Indices:
+      set_zigzags_GL_Indices:
       declare
          Cursor            : long_Index_t := 0;
          joiners_vertex_Id :      Index_t := zig_zags_vertex_Count;
@@ -295,7 +307,7 @@ is
                                                              Which  => hex_Vertex);
          begin
             Cursor               := Cursor + 1;
-            the_Indices (Cursor) := fetch_Id (S => Site);
+            zigzags_Indices (Cursor) := fetch_Id (S => Site);
          end add_zig_zag_Vertex;
 
          procedure add_joiner_vertex_Pair
@@ -303,12 +315,12 @@ is
          begin
             Cursor               := Cursor + 1;
             joiners_vertex_Id    := joiners_vertex_Id + 1;
-            the_Indices (Cursor) := joiners_vertex_Id;
+            zigzags_Indices (Cursor) := joiners_vertex_Id;
 
             Cursor               := Cursor + 1;
             joiners_vertex_Id    := joiners_vertex_Id + 1;
-            the_Indices (Cursor) := joiners_vertex_Id;
-         end;
+            zigzags_Indices (Cursor) := joiners_vertex_Id;
+         end add_joiner_vertex_Pair;
 
 
          --  the_height_Range : constant Vector_2 := height_Extent (Heights.all);
@@ -384,21 +396,89 @@ is
          end loop;
 
          --  add_joiner_vertex_Pair;
-      end set_GL_Indices;
+      end set_zigzags_GL_Indices;
 
 
-      the_Geometry.is_Transparent (False);
-      the_Geometry.Vertices_are   (the_Vertices);
+      zigzags_Geometry.is_Transparent (False);
+      zigzags_Geometry.Vertices_are   (the_Vertices);
 
+
+      set_tops_GL_Indices:
+      declare
+         Cursor : long_Index_t := 0;
+      begin
+         for Col in 1 .. col_Count
+         loop
+            for Row in 1 .. row_Count
+            loop
+               declare
+                  use hexagon_Geometry;
+                  Site : Geometry_2d.Site := vertex_Site (the_Grid,
+                                                          hex_Id => [Positive (Row),
+                                                                     Positive (Col)],
+                                                          Which  => 5);
+               begin
+                  Cursor                := Cursor + 1;
+                  tops_Indices (Cursor) := fetch_Id (Site);
+
+                  Site := vertex_Site (the_Grid,
+                                       hex_Id => [Positive (Row),
+                                                  Positive (Col)],
+                                       Which  => 6);
+
+                  Cursor                := Cursor + 1;
+                  tops_Indices (Cursor) := fetch_Id (Site);
+
+                  if Row = row_Count     -- Last row, so do bottom.
+                  then
+                     Site := vertex_Site (the_Grid,
+                                          hex_Id => [Positive (Row),
+                                                     Positive (Col)],
+                                          Which  => 3);
+
+                     Cursor                := Cursor + 1;
+                     tops_Indices (Cursor) := fetch_Id (Site);
+
+                     Site := vertex_Site (the_Grid,
+                                          hex_Id => [Positive (Row),
+                                                     Positive (Col)],
+                                          Which  => 2);
+
+                     Cursor                := Cursor + 1;
+                     tops_Indices (Cursor) := fetch_Id (Site);
+                  end if;
+               end;
+            end loop;
+         end loop;
+      end set_tops_GL_Indices;
+
+
+      tops_Geometry.is_Transparent (False);
+      tops_Geometry.Vertices_are   (the_Vertices);
+
+
+      add_zigzag_Geometry:
       declare
          the_Primitive : constant Primitive.indexed.view
            := Primitive.indexed.new_Primitive (Primitive.line_Strip,
-                                               the_Indices);
+                                               zigzags_Indices);
       begin
-         the_Geometry.add (Primitive.view (the_Primitive));
-      end;
+         zigzags_Geometry.add (Primitive.view (the_Primitive));
+      end add_zigzag_Geometry;
 
-      return [1 => Geometry.view (the_Geometry)];
+
+      add_tops_Geometry:
+      declare
+         the_Primitive : constant Primitive.indexed.view
+           := Primitive.indexed.new_Primitive (Primitive.lines,
+                                               tops_Indices);
+      begin
+         tops_Geometry.add (Primitive.view (the_Primitive));
+      end add_tops_Geometry;
+
+
+      return [1 => Geometry.view (zigzags_Geometry),
+              2 => Geometry.view (   tops_Geometry)];
    end to_GL_Geometries;
 
 
