@@ -18,7 +18,8 @@ is
 
    function new_Grid (heights_Asset : in asset_Name;
                       Heights       : in height_Map_view;
-                      Color         : in openGL.Color := Palette.White) return View
+                      Color         : in lucid_Color := (palette.White,
+                                                         Opaque)) return View
    is
       the_Model : constant View := new Item' (Model.item with
                                               heights_Asset => heights_Asset,
@@ -247,8 +248,8 @@ is
 
       set_GL_Vertices:
       declare
-         vertex_Id :          Index_t    := 0;
-         Color   : constant rgb_Color  := Self.Color;
+         vertex_Id :        Index_t     := 0;
+         Color   : constant rgba_Color  := Self.Color;
          --  Color     : constant rgba_Color := (Primary => Primary,
          --                                      Alpha   => 255);
       begin
@@ -258,8 +259,7 @@ is
          loop
             vertex_Id := vertex_Id + 1;
             the_Vertices (vertex_Id).Site  := hex_Vertices (vertex_Id).Site;
-            the_Vertices (vertex_Id).Color := (Primary => Color,
-                                               Alpha   => 255); --(Primary => [255, 255, 255],
+            the_Vertices (vertex_Id).Color := Color; --(Primary => [255, 255, 255],
                                                      -- Alpha   => 255);
          end loop;
 
@@ -278,7 +278,7 @@ is
             begin
                vertex_Id                := vertex_Id + 1;
                the_Vertices (vertex_Id) := (Site  => hex_Vertices (hex_vertex_Id).Site,
-                                            Color => (Primary => Color,
+                                            Color => (Primary => Color.Primary,
                                                       Alpha   => 0));
 
                Site                     := vertex_Site (the_Grid,
@@ -289,7 +289,7 @@ is
                hex_vertex_Id            := fetch_Id (Site);
                vertex_Id                := vertex_Id + 1;
                the_Vertices (vertex_Id) := (Site => hex_Vertices (hex_vertex_Id).Site,
-                                            Color => (Primary => Color,
+                                            Color => (Primary => Color.Primary,
                                                       Alpha   => 0));
             end;
          end loop;
