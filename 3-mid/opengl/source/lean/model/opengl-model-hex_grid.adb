@@ -164,6 +164,10 @@ is
       zigzags_Geometry : constant Geometry.colored.view := Geometry.colored.new_Geometry;
          tops_Geometry : constant Geometry.colored.view := Geometry.colored.new_Geometry;
 
+
+      min_Site : Site := [Real'Last,  Real'Last,  Real'Last];
+      max_Site : Site := [Real'First, Real'First, Real'First];
+
    begin
 
       find_shared_Hexes_per_Vertex:
@@ -231,6 +235,14 @@ is
                      the_Vertex.Site := [Site (1),
                                          Height,
                                          Site (2)];
+
+                     min_Site := [Real'Min (min_Site (1), the_Vertex.Site (1)),
+                                  Real'Min (min_Site (2), the_Vertex.Site (2)),
+                                  Real'Min (min_Site (3), the_Vertex.Site (3))];
+
+                     max_Site := [Real'Max (min_Site (1), the_Vertex.Site (1)),
+                                  Real'Max (min_Site (2), the_Vertex.Site (2)),
+                                  Real'Max (min_Site (3), the_Vertex.Site (3))];
                   end;
                end loop;
 
@@ -242,6 +254,15 @@ is
 
       set_GL_Vertices:
       declare
+         --  the_height_Range : constant Vector_2 := height_Extent (Heights.all);
+         --  middle_Height    : constant Real     :=     (the_height_Range (1)
+         --                                            +  the_height_Range (2))
+         --                                            / 2.0;
+
+         Center           : constant Site     := [(max_Site (1) - min_Site (1)) / 2.0,
+                                                  (max_Site (2) - min_Site (2)) / 2.0,
+                                                  (max_Site (3) - min_Site (3)) / 2.0];
+
          vertex_Id :        Index_t     := 0;
          Color   : constant rgba_Color  := Self.Color;
       begin
@@ -250,7 +271,7 @@ is
          for i in hex_Vertices'Range
          loop
             vertex_Id := vertex_Id + 1;
-            the_Vertices (vertex_Id).Site  := hex_Vertices (vertex_Id).Site;
+            the_Vertices (vertex_Id).Site  := hex_Vertices (vertex_Id).Site - Center;
             the_Vertices (vertex_Id).Color := Color;
          end loop;
 
@@ -268,7 +289,7 @@ is
                hex_vertex_Id : Index_t := fetch_Id (Site);
             begin
                vertex_Id                := vertex_Id + 1;
-               the_Vertices (vertex_Id) := (Site  => hex_Vertices (hex_vertex_Id).Site,
+               the_Vertices (vertex_Id) := (Site  => hex_Vertices (hex_vertex_Id).Site - Center,
                                             Color => (Primary => Color.Primary,
                                                       Alpha   => 0));
 
@@ -279,7 +300,7 @@ is
 
                hex_vertex_Id            := fetch_Id (Site);
                vertex_Id                := vertex_Id + 1;
-               the_Vertices (vertex_Id) := (Site => hex_Vertices (hex_vertex_Id).Site,
+               the_Vertices (vertex_Id) := (Site  => hex_Vertices (hex_vertex_Id).Site - Center,
                                             Color => (Primary => Color.Primary,
                                                       Alpha   => 0));
             end;
@@ -291,6 +312,7 @@ is
       declare
          Cursor            : long_Index_t := 0;
          joiners_vertex_Id :      Index_t := zig_zags_vertex_Count;
+
 
          procedure add_zig_zag_Vertex (Row, Col   : in Positive;
                                        hex_Vertex : in Hexagon.vertex_Id)
@@ -305,6 +327,7 @@ is
             zigzags_Indices (Cursor) := fetch_Id (S => Site);
          end add_zig_zag_Vertex;
 
+
          procedure add_joiner_vertex_Pair
          is
          begin
@@ -317,9 +340,6 @@ is
             zigzags_Indices (Cursor) := joiners_vertex_Id;
          end add_joiner_vertex_Pair;
 
-
-         --  the_height_Range : constant Vector_2 := height_Extent (Heights.all);
-         --  Middle           : constant Real     := (the_height_Range (1) + the_height_Range (2))  /  2.0;
 
       begin
          --- Fist zigzag
