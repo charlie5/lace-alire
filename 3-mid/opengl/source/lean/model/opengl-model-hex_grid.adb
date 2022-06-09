@@ -155,13 +155,13 @@ is
 
       zigzags_indices_Count : constant long_Index_t := long_Index_t (vertex_Count);
 
-      gl_Vertices      : aliased  Geometry.colored.Vertex_array := [1 ..  vertex_Count => <>];
+      gl_Vertices      : aliased  Geometry.colored.Vertex_array (1 .. vertex_Count);
 
       hex_Count        : constant long_Index_t := long_Index_t (col_Count * row_Count * 2);
 
-      zigzags_Indices  : aliased  Indices                       := [1 .. zigzags_indices_Count => <>];
-         tops_Indices  : aliased  Indices                       := [1 ..   hex_Count
-                                                                         + long_Index_t (col_Count * 2) => <>];
+      zigzags_Indices  : aliased  Indices (1 .. zigzags_indices_Count);
+      tops_Indices     : aliased  Indices (1 ..   hex_Count
+                                                + long_Index_t (col_Count * 2));
 
       zigzags_Geometry : constant Geometry.colored.view := Geometry.colored.new_Geometry;
          tops_Geometry : constant Geometry.colored.view := Geometry.colored.new_Geometry;
@@ -256,12 +256,12 @@ is
 
       set_GL_Vertices:
       declare
-         Center    : constant Site        := [(max_Site (1) - min_Site (1)) / 2.0,
-                                              (max_Site (2) - min_Site (2)) / 2.0,
-                                              (max_Site (3) - min_Site (3)) / 2.0];
+         Center    : constant Site := [(max_Site (1) - min_Site (1)) / 2.0,
+                                       (max_Site (2) - min_Site (2)) / 2.0,
+                                       (max_Site (3) - min_Site (3)) / 2.0];
 
-         vertex_Id :          Index_t     := 0;
-         Color     : constant rgba_Color  := Self.Color;
+         vertex_Id :          Index_t    := 0;
+         Color     : constant rgba_Color := Self.Color;
       begin
          --- Add hex vertices.
          --
@@ -508,7 +508,8 @@ is
 
       vertex_Count : constant Index_t := Heights'Length (1) * Heights'Length (2);
 
-      the_Sites    : aliased  Sites   := [1 .. vertex_Count => <>];
+      the_Sites    : aliased  Sites (1 .. vertex_Count);
+
       the_Bounds   : openGL.Bounds    := null_Bounds;
 
    begin
