@@ -5,7 +5,7 @@ with
 
 package openGL.Model.hex_grid
 --
---  Models hex grid.
+--  Models a regular hexagon grid.
 --
 is
    type Item is new Model.item with private;
@@ -40,14 +40,14 @@ private
 
    type Item is new Model.item with
       record
-         heights_Asset : asset_Name := null_Asset;
+         heights_Asset : asset_Name     := null_Asset;
          Heights       : height_Map_view;
-
          Color         : rgba_Color;
       end record;
 
 
    overriding
    procedure set_Bounds (Self : in out Item);
+
 
 end openGL.Model.hex_grid;
