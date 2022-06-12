@@ -530,6 +530,133 @@ is
    for          BitMapV4Header'Size use 8 * 108;
 
 
+
+   procedure Screenshot (Filename   : in String;
+                         with_Alpha : in Boolean := False)
+   is
+      use GL,
+          GL.Binding;
+
+      File       : ada.Streams.Stream_IO.File_type;
+      FileHeader : BitMapFileHeader;
+      FileInfo   : BitMapV4Header;
+
+      Viewport   : array (0 .. 3) of aliased GLint;
+
+   begin
+      Tasks.check;
+
+      glGetIntegerv (GL_VIEWPORT,
+                     Viewport (0)'unchecked_Access);
+      Errors.log;
+
+
+      FileHeader.bfType := 16#4D42#;     -- 'BM'
+
+      FileInfo.Core.biWidth  := I32 (Viewport (2));
+      FileInfo.Core.biHeight := I32 (Viewport (3));
+      FileInfo.Core.biPlanes := 1;
+
+      if with_Alpha
+      then
+         FileHeader.bfOffBits        :=   BitMapFileHeader'Size / 8
+                                        + BitMapV4Header  'Size / 8;
+         FileInfo.Core.biSize        := BitMapV4Header'Size / 8;
+         FileInfo.Core.biBitCount    := 32;
+         FileInfo.Core.biCompression :=  3;
+         FileInfo.Core.biSizeImage   := U32 (  4     -- 4-byte padding for '.bmp/.avi' formats.
+                                             * Integer (Float'Ceiling (Float (FileInfo.Core.biWidth)))
+                                             * Integer (FileInfo.Core.biHeight));
+
+         FileInfo.bV4RedMask    := 16#00FF0000#;
+         FileInfo.bV4GreenMask  := 16#0000FF00#;
+         FileInfo.bV4BlueMask   := 16#000000FF#;
+         FileInfo.bV4AlphaMask  := 16#FF000000#;
+         FileInfo.bV4CSType     := 0;
+         FileInfo.bV4Endpoints  := (others => (others => 0));
+         FileInfo.bV4GammaRed   := 0;
+         FileInfo.bV4GammaGreen := 0;
+         FileInfo.bV4GammaBlue  := 0;
+
+      else
+         FileHeader.bfOffBits        :=   BitMapFileHeader'Size / 8
+                                        + BitMapInfoHeader'Size / 8;
+         FileInfo.Core.biSize        := BitMapInfoHeader'Size / 8;
+         FileInfo.Core.biBitCount    := 24;
+         FileInfo.Core.biCompression :=  0;
+         FileInfo.Core.biSizeImage   := U32 (  4     -- 4-byte padding for '.bmp/.avi' formats.
+                                               * Integer (Float'Ceiling (Float (FileInfo.Core.biWidth) * 3.0 / 4.0))
+                                               * Integer (FileInfo.Core.biHeight));
+      end if;
+
+      FileHeader.bfSize := FileHeader.bfOffBits + FileInfo.Core.biSizeImage;
+
+      Create (File, out_File, Filename);
+      declare
+         procedure write_Intel is new write_Intel_x86_Number (U16, Stream (File));
+         procedure write_Intel is new write_Intel_x86_Number (U32, Stream (File));
+         function  convert     is new ada.unchecked_Conversion (I32, U32);
+      begin
+         -- ** Endian-safe: ** --
+         write_Intel (FileHeader.bfType);
+         write_Intel (FileHeader.bfSize);
+         write_Intel (FileHeader.bfReserved1);
+         write_Intel (FileHeader.bfReserved2);
+         write_Intel (FileHeader.bfOffBits);
+         --
+         write_Intel (         FileInfo.Core.biSize);
+         write_Intel (convert (FileInfo.Core.biWidth));
+         write_Intel (convert (FileInfo.Core.biHeight));
+         write_Intel (         FileInfo.Core.biPlanes);
+         write_Intel (         FileInfo.Core.biBitCount);
+         write_Intel (         FileInfo.Core.biCompression);
+         write_Intel (         FileInfo.Core.biSizeImage);
+         write_Intel (convert (FileInfo.Core.biXPelsPerMeter));
+         write_Intel (convert (FileInfo.Core.biYPelsPerMeter));
+         write_Intel (         FileInfo.Core.biClrUsed);
+         write_Intel (         FileInfo.Core.biClrImportant);
+
+         if with_Alpha
+         then
+            write_Intel (FileInfo.bV4RedMask);
+            write_Intel (FileInfo.bV4GreenMask);
+            write_Intel (FileInfo.bV4BlueMask);
+            write_Intel (FileInfo.bV4AlphaMask);
+            write_Intel (FileInfo.bV4CSType);
+
+            write_Intel (FileInfo.bV4Endpoints.ciexyzRed.ciexyzX);
+            write_Intel (FileInfo.bV4Endpoints.ciexyzRed.ciexyzY);
+            write_Intel (FileInfo.bV4Endpoints.ciexyzRed.ciexyzZ);
+
+            write_Intel (FileInfo.bV4Endpoints.ciexyzGreen.ciexyzX);
+            write_Intel (FileInfo.bV4Endpoints.ciexyzGreen.ciexyzY);
+            write_Intel (FileInfo.bV4Endpoints.ciexyzGreen.ciexyzZ);
+
+            write_Intel (FileInfo.bV4Endpoints.ciexyzBlue.ciexyzX);
+            write_Intel (FileInfo.bV4Endpoints.ciexyzBlue.ciexyzY);
+            write_Intel (FileInfo.bV4Endpoints.ciexyzBlue.ciexyzZ);
+
+            write_Intel (FileInfo.bV4GammaRed);
+            write_Intel (FileInfo.bV4GammaGreen);
+            write_Intel (FileInfo.bV4GammaBlue);
+         end if;
+
+         write_raw_Frame (Stream (File),
+                          Integer (Viewport (2)),
+                          Integer (Viewport (3)),
+                          Alpha => with_Alpha);
+         close (File);
+
+      exception
+         when others =>
+            close (File);
+            raise;
+      end;
+   end Screenshot;
+
+
+
+
    procedure opaque_Screenshot (Filename : in String)
    is
       use GL,
@@ -707,16 +834,6 @@ is
       end;
    end lucid_Screenshot;
 
-
-
-   procedure Screenshot (Filename : in String;   with_Alpha : in Boolean := False)
-   is
-   begin
-      if with_Alpha
-      then  lucid_Screenshot (Filename);
-      else opaque_Screenshot (Filename);
-      end if;
-   end Screenshot;
 
 
    ----------------
