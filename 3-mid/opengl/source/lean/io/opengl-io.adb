@@ -368,7 +368,7 @@ is
       -- http://www.openGL.org/sdk/docs/man/xhtml/glPixelStore.xml
       --
       padded_row_Size : constant Positive := (if with_Alpha then 4 * Integer (Float'Ceiling (Float (Width)))
-                                                       else 4 * Integer (Float'Ceiling (Float (Width) * 3.0 / 4.0)));
+                                                            else 4 * Integer (Float'Ceiling (Float (Width) * 3.0 / 4.0)));
       -- (in bytes)
 
       type temp_Bitmap_type is array (Natural range <>) of aliased gl.GLUbyte;
@@ -412,7 +412,7 @@ is
                     GLSizei (width),
                     GLSizei (height),
                     (if with_Alpha then to_GL (openGL.Texture.BGRA)
-                              else to_GL (openGL.Texture.BGR)),
+                                   else to_GL (openGL.Texture.BGR)),
                     GL.GL_UNSIGNED_BYTE,
                     pPicData);
       Errors.log;
@@ -660,7 +660,7 @@ is
                      Viewport (0)'unchecked_Access);
       Errors.log;
 
-      Create (File, out_File, Filename);
+      create (File, out_File, Filename);
 
       S := Stream (File);
 
