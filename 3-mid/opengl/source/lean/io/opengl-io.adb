@@ -16,6 +16,7 @@ with
 
      System;
 
+
 package body openGL.IO
 is
    use ada.Characters.handling,
@@ -354,9 +355,9 @@ is
    --- Raw Image Frames
    --
 
-   procedure write_raw_Frame (Stream        : in Stream_access;
+   procedure write_raw_Frame (to_Stream     : in Stream_access;
                               Width, Height : in Natural;
-                              Alpha         : in Boolean)
+                              with_Alpha    : in Boolean)
    is
       use GL,
           GL.Binding,
@@ -366,7 +367,7 @@ is
       -- padding: see glPixelStore, GL_[UN]PACK_ALIGNMENT = 4 as initial value.
       -- http://www.openGL.org/sdk/docs/man/xhtml/glPixelStore.xml
       --
-      padded_row_Size : constant Positive := (if Alpha then 4 * Integer (Float'Ceiling (Float (Width)))
+      padded_row_Size : constant Positive := (if with_Alpha then 4 * Integer (Float'Ceiling (Float (Width)))
                                                        else 4 * Integer (Float'Ceiling (Float (Width) * 3.0 / 4.0)));
       -- (in bytes)
 
@@ -410,7 +411,7 @@ is
       GLReadPixels (0, 0,
                     GLSizei (width),
                     GLSizei (height),
-                    (if Alpha then to_GL (openGL.Texture.BGRA)
+                    (if with_Alpha then to_GL (openGL.Texture.BGRA)
                               else to_GL (openGL.Texture.BGR)),
                     GL.GL_UNSIGNED_BYTE,
                     pPicData);
@@ -426,19 +427,19 @@ is
             for SE_Buffer'Address use PicData'Address;
             pragma Import (Ada, SE_Buffer);
          begin
-            ada.Streams.write (Stream.all, SE_Buffer (0 .. Stream_Element_Offset (data_Max)));
+            ada.Streams.write (to_Stream.all, SE_Buffer (0 .. Stream_Element_Offset (data_Max)));
          end;
 
       else
-         temp_Bitmap_type'write (Stream, PicData (0 .. data_Max));
+         temp_Bitmap_type'write (to_Stream, PicData (0 .. data_Max));
       end if;
 
    end write_raw_Frame;
 
 
 
-   -------------
-   -- Screenshot
+   --------------
+   -- Bitmap File
    --
 
    type U8  is mod 2 **  8;   for U8 'Size use  8;
@@ -531,30 +532,22 @@ is
 
 
 
-   procedure Screenshot (Filename   : in String;
-                         with_Alpha : in Boolean := False)
+   procedure write_BMP_Header (to_Stream     : in Stream_Access;
+                               Width, Height : in GL.GLint;
+                               with_Alpha    : in Boolean)
    is
       use GL,
-          GL.Binding;
+          GL.Binding,
+          Texture;
 
-      File       : ada.Streams.Stream_IO.File_type;
       FileHeader : BitMapFileHeader;
       FileInfo   : BitMapV4Header;
 
-      Viewport   : array (0 .. 3) of aliased GLint;
-
    begin
-      Tasks.check;
-
-      glGetIntegerv (GL_VIEWPORT,
-                     Viewport (0)'unchecked_Access);
-      Errors.log;
-
-
       FileHeader.bfType := 16#4D42#;     -- 'BM'
 
-      FileInfo.Core.biWidth  := I32 (Viewport (2));
-      FileInfo.Core.biHeight := I32 (Viewport (3));
+      FileInfo.Core.biWidth  := I32 (Width);
+      FileInfo.Core.biHeight := I32 (Height);
       FileInfo.Core.biPlanes := 1;
 
       if with_Alpha
@@ -585,16 +578,15 @@ is
          FileInfo.Core.biBitCount    := 24;
          FileInfo.Core.biCompression :=  0;
          FileInfo.Core.biSizeImage   := U32 (  4     -- 4-byte padding for '.bmp/.avi' formats.
-                                               * Integer (Float'Ceiling (Float (FileInfo.Core.biWidth) * 3.0 / 4.0))
-                                               * Integer (FileInfo.Core.biHeight));
+                                             * Integer (Float'Ceiling (Float (FileInfo.Core.biWidth) * 3.0 / 4.0))
+                                             * Integer (FileInfo.Core.biHeight));
       end if;
 
       FileHeader.bfSize := FileHeader.bfOffBits + FileInfo.Core.biSizeImage;
 
-      Create (File, out_File, Filename);
       declare
-         procedure write_Intel is new write_Intel_x86_Number (U16, Stream (File));
-         procedure write_Intel is new write_Intel_x86_Number (U32, Stream (File));
+         procedure write_Intel is new write_Intel_x86_Number   (U16, to_Stream);
+         procedure write_Intel is new write_Intel_x86_Number   (U32, to_Stream);
          function  convert     is new ada.unchecked_Conversion (I32, U32);
       begin
          -- ** Endian-safe: ** --
@@ -640,18 +632,57 @@ is
             write_Intel (FileInfo.bV4GammaGreen);
             write_Intel (FileInfo.bV4GammaBlue);
          end if;
-
-         write_raw_Frame (Stream (File),
-                          Integer (Viewport (2)),
-                          Integer (Viewport (3)),
-                          Alpha => with_Alpha);
-         close (File);
-
-      exception
-         when others =>
-            close (File);
-            raise;
       end;
+   end write_BMP_Header;
+
+
+
+   -------------
+   -- Screenshot
+   --
+
+   procedure Screenshot (Filename   : in String;
+                         with_Alpha : in Boolean := False)
+   is
+      use GL,
+          GL.Binding,
+          ada.Streams.Stream_IO;
+
+      File     : ada.Streams.Stream_IO.File_type;
+      S        : ada.Streams.Stream_IO.Stream_access;
+
+      Viewport : array (0 .. 3) of aliased GLint;
+
+   begin
+      Tasks.check;
+
+      glGetIntegerv (GL_VIEWPORT,
+                     Viewport (0)'unchecked_Access);
+      Errors.log;
+
+      Create (File, out_File, Filename);
+
+      S := Stream (File);
+
+      write_BMP_Header (to_Stream  => S,
+                        Width      => Viewport (2),
+                        Height     => Viewport (3),
+                        with_Alpha => with_Alpha);
+
+      write_raw_Frame  (to_Stream  => S,
+                        Width      => Integer (Viewport (2)),
+                        Height     => Integer (Viewport (3)),
+                        with_Alpha => with_Alpha);
+      close (File);
+
+   exception
+      when others =>
+         if is_Open (File)
+         then
+            close (File);
+         end if;
+
+         raise;
    end Screenshot;
 
 
@@ -797,7 +828,7 @@ is
    begin
       String'write    (S, "00db");
       write_Intel     (bmp_Size);
-      write_raw_Frame (S, Width, Height, Alpha => False);
+      write_raw_Frame (S, Width, Height, with_Alpha => False);
 
       Frames := Frames + 1;
    end capture_Frame;
