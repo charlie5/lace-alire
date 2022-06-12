@@ -742,9 +742,10 @@ is
          write_Intel (         FileInfo.biClrUsed);
          write_Intel (         FileInfo.biClrImportant);
          --
-         write_raw_BGR_Frame (Stream (File),
-                              Integer (Viewport (2)),
-                              Integer (Viewport (3)));
+         write_raw_Frame (Stream (File),
+                          Integer (Viewport (2)),
+                          Integer (Viewport (3)),
+                          Alpha => False);
          Close (File);
 
       exception
@@ -848,9 +849,10 @@ is
          write_Intel (FileInfo.bV4GammaGreen);
          write_Intel (FileInfo.bV4GammaBlue);
 
-         write_raw_BGRA_Frame (Stream (File),
-                               Integer (Viewport (2)),
-                               Integer (Viewport (3)));
+         write_raw_Frame (Stream (File),
+                          Integer (Viewport (2)),
+                          Integer (Viewport (3)),
+                          Alpha => True);
          close (File);
 
       exception
@@ -1011,9 +1013,9 @@ is
       S : constant Stream_Access := Stream (Avi);
       procedure Write_Intel is new Write_Intel_x86_number (U32, s);
    begin
-      String'write        (S, "00db");
-      write_Intel         (bmp_Size);
-      write_raw_BGR_frame (S, Width, Height);
+      String'write    (S, "00db");
+      write_Intel     (bmp_Size);
+      write_raw_Frame (S, Width, Height, Alpha => False);
 
       Frames := Frames + 1;
    end capture_Frame;
