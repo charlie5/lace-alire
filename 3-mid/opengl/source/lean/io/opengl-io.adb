@@ -469,23 +469,23 @@ is
 
 
 
-   subtype FXPT2DOT30 is U32;
+   subtype FxPt2dot30 is U32;
 
-   type CIEXYZ is
+   type CIExyz is
       record
-         ciexyzX : FXPT2DOT30;
-         ciexyzY : FXPT2DOT30;
-         ciexyzZ : FXPT2DOT30;
+         ciexyzX : FxPt2dot30;
+         ciexyzY : FxPt2dot30;
+         ciexyzZ : FxPt2dot30;
       end record;
 
-   type CIEXYZTRIPLE is
+   type CIExyzTriple is
       record
-         ciexyzRed   : CIEXYZ;
-         ciexyzGreen : CIEXYZ;
-         ciexyzBlue  : CIEXYZ;
+         ciexyzRed   : CIExyz;
+         ciexyzGreen : CIExyz;
+         ciexyzBlue  : CIExyz;
       end record;
 
-   type BITMAPFILEHEADER is
+   type BitMapFileHeader is
       record
          bfType      : U16;
          bfSize      : U32;
@@ -493,10 +493,10 @@ is
          bfReserved2 : U16 := 0;
          bfOffBits   : U32;
       end record;
-   pragma pack (BITMAPFILEHEADER);
-   for          BITMAPFILEHEADER'Size use 8 * 14;
+   pragma pack (BitMapFileHeader);
+   for          BitMapFileHeader'Size use 8 * 14;
 
-   type BITMAPINFOHEADER is
+   type BitMapInfoHeader is
       record
          biSize          : U32;
          biWidth         : I32;
@@ -510,24 +510,24 @@ is
          biClrUsed       : U32 := 0;
          biClrImportant  : U32 := 0;
       end record;
-   pragma pack (BITMAPINFOHEADER);
-   for          BITMAPINFOHEADER'Size use 8 * 40;
+   pragma pack (BitMapInfoHeader);
+   for          BitMapInfoHeader'Size use 8 * 40;
 
-   type BITMAPV4HEADER is
+   type BitMapV4Header is
       record
-         Core          : BITMAPINFOHEADER;
+         Core          : BitMapInfoHeader;
          bV4RedMask    : U32;
          bV4GreenMask  : U32;
          bV4BlueMask   : U32;
          bV4AlphaMask  : U32;
          bV4CSType     : U32;
-         bV4Endpoints  : CIEXYZTRIPLE;
+         bV4Endpoints  : CIExyzTriple;
          bV4GammaRed   : U32;
          bV4GammaGreen : U32;
          bV4GammaBlue  : U32;
       end record;
-   pragma pack (BITMAPV4HEADER);
-   for          BITMAPV4HEADER'Size use 8 * 108;
+   pragma pack (BitMapV4Header);
+   for          BitMapV4Header'Size use 8 * 108;
 
 
    procedure opaque_Screenshot (Filename : in String)
@@ -536,8 +536,8 @@ is
           GL.Binding;
 
       File       : ada.Streams.Stream_IO.File_Type;
-      FileInfo   : BITMAPINFOHEADER;
-      FileHeader : BITMAPFILEHEADER;
+      FileInfo   : BitMapInfoHeader;
+      FileHeader : BitMapFileHeader;
 
       Viewport   : array (0 .. 3) of aliased GLint;
    begin
@@ -548,10 +548,10 @@ is
       Errors.log;
 
       FileHeader.bfType    := 16#4D42#;     -- 'BM'
-      FileHeader.bfOffBits :=   BITMAPINFOHEADER'Size / 8
-                              + BITMAPFILEHEADER'Size / 8;
+      FileHeader.bfOffBits :=   BitMapInfoHeader'Size / 8
+                              + BitMapFileHeader'Size / 8;
 
-      FileInfo.biSize        := BITMAPINFOHEADER'Size / 8;
+      FileInfo.biSize        := BitMapInfoHeader'Size / 8;
       FileInfo.biWidth       := I32 (Viewport (2));
       FileInfo.biHeight      := I32 (Viewport (3));
       FileInfo.biPlanes      := 1;
@@ -609,8 +609,8 @@ is
 
       File        : ada.Streams.Stream_IO.File_type;
 
-      FileHeader  : BITMAPFILEHEADER;
-      FileInfo    : BITMAPV4HEADER;
+      FileHeader  : BitMapFileHeader;
+      FileInfo    : BitMapV4Header;
 
       Viewport    : array (0 .. 3) of aliased GLint;
 
@@ -622,10 +622,10 @@ is
       Errors.log;
 
       FileHeader.bfType    := 16#4D42#;     -- 'BM'
-      FileHeader.bfOffBits :=   BITMAPV4HEADER  'Size / 8
-                              + BITMAPFILEHEADER'Size / 8;
+      FileHeader.bfOffBits :=   BitMapV4Header  'Size / 8
+                              + BitMapFileHeader'Size / 8;
 
-      FileInfo.Core.biSize        := BITMAPV4HEADER'Size / 8;
+      FileInfo.Core.biSize        := BitMapV4Header'Size / 8;
       FileInfo.Core.biWidth       := I32 (Viewport (2));
       FileInfo.Core.biHeight      := I32 (Viewport (3));
       FileInfo.Core.biPlanes      :=  1;
