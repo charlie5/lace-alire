@@ -349,37 +349,9 @@ is
    end destroy;
 
 
-   --------------------------------
-   --- Screenshot and Video Capture
+   --------------------
+   --- Raw Image Frames
    --
-
-   type U8  is mod 2 **  8;   for U8 'Size use  8;
-   type U16 is mod 2 ** 16;   for U16'Size use 16;
-   type U32 is mod 2 ** 32;   for U32'Size use 32;
-
-   type I32 is range -2 ** 31 .. 2 ** 31 - 1;
-   for  I32'Size use 32;
-
-
-   generic
-      type Number is mod <>;
-      S : Stream_Access;
-   procedure write_Intel_x86_Number (N : in Number);
-
-
-   procedure write_Intel_x86_Number (N : in Number)
-   is
-      M     :          Number  := N;
-      Bytes : constant Integer := Number'Size / 8;
-   begin
-      for i in 1 .. bytes
-      loop
-         U8'write (S, U8 (M mod 256));
-         M := M / 256;
-      end loop;
-   end write_Intel_x86_Number;
-
-
 
    procedure write_raw_BGR_Frame (Stream        : Stream_Access;
                                   Width, Height : Natural)
@@ -539,6 +511,34 @@ is
    -------------
    -- Screenshot
    --
+
+   type U8  is mod 2 **  8;   for U8 'Size use  8;
+   type U16 is mod 2 ** 16;   for U16'Size use 16;
+   type U32 is mod 2 ** 32;   for U32'Size use 32;
+
+   type I32 is range -2 ** 31 .. 2 ** 31 - 1;
+   for  I32'Size use 32;
+
+
+
+   generic
+      type Number is mod <>;
+      S : Stream_Access;
+   procedure write_Intel_x86_Number (N : in Number);
+
+   procedure write_Intel_x86_Number (N : in Number)
+   is
+      M     :          Number  := N;
+      Bytes : constant Integer := Number'Size / 8;
+   begin
+      for i in 1 .. bytes
+      loop
+         U8'write (S, U8 (M mod 256));
+         M := M / 256;
+      end loop;
+   end write_Intel_x86_Number;
+
+
 
    subtype FXPT2DOT30 is U32;
 
