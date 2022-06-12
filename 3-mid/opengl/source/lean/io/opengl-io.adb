@@ -349,9 +349,93 @@ is
    end destroy;
 
 
+
    --------------------
    --- Raw Image Frames
    --
+
+   procedure write_raw_Frame (Stream        : in Stream_access;
+                              Width, Height : in Natural;
+                              Alpha         : in Boolean)
+   is
+      use GL,
+          GL.Binding,
+          Texture;
+
+      -- 4-byte padding for .bmp/.avi formats is the same as GL's default
+      -- padding: see glPixelStore, GL_[UN]PACK_ALIGNMENT = 4 as initial value.
+      -- http://www.openGL.org/sdk/docs/man/xhtml/glPixelStore.xml
+      --
+      padded_row_Size : constant Positive := (if Alpha then 4 * Integer (Float'Ceiling (Float (Width)))
+                                                       else 4 * Integer (Float'Ceiling (Float (Width) * 3.0 / 4.0)));
+      -- (in bytes)
+
+      type temp_Bitmap_type is array (Natural range <>) of aliased gl.GLUbyte;
+
+      PicData : temp_Bitmap_type (0 .. (padded_row_size + 4) * (height + 4) - 1);
+      --
+      -- No dynamic allocation needed!
+      -- The "+4" are there to avoid parity address problems when GL writes
+      -- to the buffer.
+
+      type Loc_pointer is new gl.safe.GLvoid_Pointer;
+
+      function convert is new ada.unchecked_Conversion (System.Address, Loc_pointer);
+      --
+      -- This method is functionally identical as GNAT's Unrestricted_Access
+      -- but has no type safety (cf GNAT Docs).
+
+      pragma no_strict_Aliasing (Loc_pointer); -- Recommended by GNAT 2005+.
+
+      pPicData :          Loc_pointer;
+      data_Max : constant Integer    := padded_row_Size * Height - 1;
+
+      -- Workaround for the severe xxx'Read xxx'Write performance
+      -- problems in the GNAT and ObjectAda compilers (as in 2009)
+      -- This is possible if and only if Byte = Stream_Element and
+      -- arrays types are both packed the same way.
+      --
+      type Byte_array is array (Integer range <>) of aliased GLUByte;
+
+      subtype Size_Test_a is Byte_Array (1..19);
+      subtype Size_Test_b is ada.Streams.Stream_Element_array (1 .. 19);
+
+      Workaround_possible: constant Boolean :=          Size_Test_a'Size      = Size_Test_b'Size
+                                               and then Size_Test_a'Alignment = Size_Test_b'Alignment;
+   begin
+      Tasks.check;
+
+      pPicData:= convert (PicData (0)'Address);
+
+      GLReadPixels (0, 0,
+                    GLSizei (width),
+                    GLSizei (height),
+                    (if Alpha then to_GL (openGL.Texture.BGRA)
+                              else to_GL (openGL.Texture.BGR)),
+                    GL.GL_UNSIGNED_BYTE,
+                    pPicData);
+      Errors.log;
+
+      if Workaround_possible
+      then
+         declare
+            use ada.Streams;
+
+            SE_Buffer : Stream_Element_array (0 .. Stream_Element_Offset (PicData'Last));
+
+            for SE_Buffer'Address use PicData'Address;
+            pragma Import (Ada, SE_Buffer);
+         begin
+            ada.Streams.write (Stream.all, SE_Buffer (0 .. Stream_Element_Offset (data_Max)));
+         end;
+
+      else
+         temp_Bitmap_type'write (Stream, PicData (0 .. data_Max));
+      end if;
+
+   end write_raw_Frame;
+
+
 
    procedure write_raw_BGR_Frame (Stream        : Stream_Access;
                                   Width, Height : Natural)
