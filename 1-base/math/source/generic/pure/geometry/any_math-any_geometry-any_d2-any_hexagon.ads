@@ -28,30 +28,31 @@ is
    --- Item
    --
 
-   type Item is
-      record
-         circumRadius : Real;     -- 'R'
-      end record;
+   type Item is private;
 
-   function R (Self : in Item) return Real;
+   function to_Hexagon (circumRadius : in Real) return Item;
+
+
+   function maximal_Diameter (Self : in Item) return Real;
+   function minimal_Diameter (Self : in Item) return Real;      -- 'd'
+
+   function circumRadius (Self : in Item) return Real;          -- 'r'
+   function inRadius     (Self : in Item) return Real;          -- 'r'
 
    function Area         (Self : in Item) return Real;
    function Perimeter    (Self : in Item) return Real;
 
+   function Width        (Self : in Item) return Real renames maximal_Diameter;
+   function Height       (Self : in Item) return Real renames minimal_Diameter;
+
+   function side_Length  (Self : in Item) return Real;
+
+   function Site         (Self : in Item;   of_Vertex : in vertex_Id) return any_d2.Site;
    function Angle        (Self : in Item;   at_Vertex : in vertex_Id) return Radians;
 
-   function minimal_Diameter (Self : in Item) return Real;     -- 'd'
-   function maximal_Diameter (Self : in Item) return Real;
-   function D                (Self : in Item) return Real renames maximal_Diameter;
-
-   function inRadius    (Self : in Item) return Real;          -- 'r'
-
-   function side_Length (Self : in Item) return Real;
-   function t           (Self : in Item) return Real renames side_Length;
-
-
-   function Site (Self : in Item;   Id : vertex_Id) return any_d2.Site;
-
+   function R (Self : in Item) return Real renames circumRadius;
+   function D (Self : in Item) return Real renames maximal_Diameter;
+   function t (Self : in Item) return Real renames side_Length;
 
 
    --------
@@ -85,6 +86,13 @@ is
 
 
 private
+
+   type Item is
+      record
+         circumRadius : Real;
+      end record;
+
+
 
    type Grid (Rows : Positive;
               Cols : Positive) is

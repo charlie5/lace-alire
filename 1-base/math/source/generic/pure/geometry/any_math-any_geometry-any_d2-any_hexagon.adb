@@ -27,15 +27,23 @@ is
 
 
 
-   --------
-   --- Item
+   -----------
+   --- Hexagon
    --
 
-   function R (Self : in Item) return Real
+   function to_Hexagon (circumRadius : in Real) return Item
+   is
+   begin
+      return (circumRadius => circumRadius);
+   end to_Hexagon;
+
+
+
+   function circumRadius (Self : in Item) return Real
    is
    begin
       return Self.circumRadius;
-   end R;
+   end circumRadius;
 
 
 
@@ -97,11 +105,11 @@ is
 
 
 
-   function Site (Self : in Item;   Id : vertex_Id) return any_d2.Site
+   function Site (Self : in Item;   of_Vertex : in vertex_Id) return any_d2.Site
    is
       use Functions;
 
-      Angle : constant Radians := to_Radians (60.0 * Degrees (Id - 1));
+      Angle : constant Radians := to_Radians (60.0 * Degrees (of_Vertex - 1));
    begin
       return any_d2.Site' (1 => Self.circumRadius * cos (Angle),
                            2 => Self.circumRadius * sin (Angle));
@@ -161,7 +169,7 @@ is
       Hex : constant Item := (circumRadius => Self.circumRadius);
    begin
       return   hex_Center (Self, hex_Id)
-             + Site (Hex, Id => Which);
+             + Site (Hex, of_Vertex => Which);
    end vertex_Site;
 
 
