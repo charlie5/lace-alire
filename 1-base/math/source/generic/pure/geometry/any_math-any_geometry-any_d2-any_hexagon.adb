@@ -117,6 +117,22 @@ is
 
 
 
+   function horizontal_Distance (Self : in Item) return Real
+   is
+   begin
+      return Width (Self) * 3.0 / 4.0;
+   end horizontal_Distance;
+
+
+
+   function vertical_Distance (Self : in Item) return Real
+   is
+   begin
+      return Height (Self);
+   end vertical_Distance;
+
+
+
    --------
    --- Grid
    --

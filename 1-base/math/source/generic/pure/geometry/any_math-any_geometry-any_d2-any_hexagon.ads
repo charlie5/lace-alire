@@ -54,6 +54,10 @@ is
    function D (Self : in Item) return Real renames maximal_Diameter;
    function t (Self : in Item) return Real renames side_Length;
 
+   function horizontal_Distance (Self : in Item) return Real;     -- The distance between adjacent
+   function   vertical_Distance (Self : in Item) return Real;     -- hexagon centers.
+
+
 
    --------
    --- Grid
