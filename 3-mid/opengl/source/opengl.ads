@@ -235,6 +235,9 @@ is
    default_Shine : constant := 0.05;
 
 
+   function to_Color (From : in rgb_Color) return Color;
+
+
    ----------
    --  Images
    --
@@ -399,7 +402,6 @@ private
    function to_color_Value (Self : in Primary)     return color_Value;
    function to_Primary     (Self : in color_Value) return Primary;
 
-   function       to_Color (From : in   rgb_Color) return       Color;
    function to_lucid_Color (From : in  rgba_Color) return lucid_Color;
    function  to_rgba_Color (From : in lucid_Color) return  rgba_Color;
    function   to_rgb_Color (From : in       Color) return   rgb_Color;
