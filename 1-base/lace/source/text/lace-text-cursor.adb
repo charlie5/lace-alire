@@ -176,6 +176,7 @@ is
    end skip_Token;
 
 
+
    function get_Integer (Self : in out Item) return Integer
    is
       use ada.Strings.fixed;
@@ -195,6 +196,29 @@ is
 
       return Integer'Value (Text (First .. Last));
    end get_Integer;
+
+
+
+   function get_Integer (Self : in out Item) return long_Integer
+   is
+      use ada.Strings.fixed;
+
+      Text  : String (1 .. Self.Length);
+      First : Positive;
+      Last  : Natural;
+   begin
+      Text := Self.Target.Data (Self.Current .. Self.Target.Length);
+      find_Token (Text, integer_Numerals, Inside, First, Last);
+
+      if Last = 0 then
+         raise No_Data_Error;
+      end if;
+
+      Self.Current := Self.Current + Last;
+
+      return long_Integer'Value (Text (First .. Last));
+   end get_Integer;
+
 
 
    function get_Real (Self : in out Item) return long_Float

@@ -42,7 +42,8 @@ is
    -- Sets Iterator to 0 if Delimiter is not found.
    -- Search is repeated 'Repeat' times.
 
-   function  get_Integer (Self : in out Item) return Integer;
+   function  get_Integer (Self : in out Item) return      Integer;
+   function  get_Integer (Self : in out Item) return long_Integer;
    --
    -- Skips whitespace and reads the next legal 'integer' value.
    -- Cursor is positioned at the next character following the integer.
