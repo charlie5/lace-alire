@@ -127,6 +127,10 @@ is
    function to_lucid_Image (image_Filename : in     asset_Name;
                             is_Lucid       : access Boolean)     return lucid_Image;
 
+   procedure save (image_Filename : in String;
+                   the_Image      : in Image);
+
+
    ------------
    --  Textures
    --

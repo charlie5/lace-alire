@@ -638,6 +638,57 @@ is
 
 
    -------------
+   -- Save Image
+   --
+
+   procedure save (image_Filename : in String;
+                   the_Image      : in Image)
+   is
+      use GL,
+          GL.Binding,
+          ada.Streams.Stream_IO;
+
+      File : ada.Streams.Stream_IO.File_type;
+      S    : ada.Streams.Stream_IO.Stream_access;
+
+      Size : Extent_2D := (Width  => the_Image'Length (2),
+                           Height => the_Image'Length (1));
+
+   begin
+      create (File, out_File, image_Filename);
+
+      S := Stream (File);
+
+      write_BMP_Header (to_Stream  => S,
+                        Width      => GLint (Size.Width),
+                        Height     => GLint (Size.Height),
+                        with_Alpha => True);
+
+      for r in 1 .. Index_t (Size.Height)
+      loop
+         for c in 1 .. Index_t (Size.Width)
+         loop
+            color_Value'write (S, the_Image (r, c).Blue);
+            color_Value'write (S, the_Image (r, c).Green);
+            color_Value'write (S, the_Image (r, c).Red);
+            color_Value'write (S, 255);
+         end loop;
+      end loop;
+
+      close (File);
+
+   exception
+      when others =>
+         if is_Open (File)
+         then
+            close (File);
+         end if;
+
+         raise;
+   end Save;
+
+
+   -------------
    -- Screenshot
    --
 
