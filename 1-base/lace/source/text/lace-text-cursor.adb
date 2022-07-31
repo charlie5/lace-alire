@@ -162,7 +162,7 @@ is
    is
       use ada.Characters;
    begin
-      return next_Token (Self, Delimiter => latin_1.CR & latin_1.LF,
+      return next_Token (Self, Delimiter => latin_1.LF,
                                Trim      => Trim);
    end next_Line;
 
