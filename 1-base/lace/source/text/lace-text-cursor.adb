@@ -126,8 +126,8 @@ is
    end next_Token;
 
 
-   function  next_Token  (Self : in out item;   Delimiter : in String    := " ";
-                                                Trim      : in Boolean   := False) return String
+   function  next_Token  (Self : in out item;   Delimiter : in String;
+                                                Trim      : in Boolean := False) return String
    is
    begin
       if at_End (Self)

@@ -23,7 +23,7 @@ is
 
    function  next_Token  (Self : in out item;   Delimiter : in Character := ' ';
                                                 Trim      : in Boolean   := False) return String;
-   function  next_Token  (Self : in out item;   Delimiter : in String    := " ";
+   function  next_Token  (Self : in out item;   Delimiter : in String;
                                                 Trim      : in Boolean   := False) return String;
 
    function  next_Line   (Self : in out item;   Trim      : in Boolean   := False) return String;
