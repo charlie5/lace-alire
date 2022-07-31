@@ -1,6 +1,7 @@
 with
      ada.Numerics.discrete_Random;
 
+
 package body openGL.Palette
 is
    package random_Colors is new ada.Numerics.discrete_Random (Color_Value);
@@ -23,9 +24,9 @@ is
    function Shade_of (Self : in Color;   Level : in Shade_Level) return Color
    is
    begin
-      return (self.Red   * Primary (Level),
-              self.Green * Primary (Level),
-              self.Blue  * Primary (Level));
+      return (Self.Red   * Primary (Level),
+              Self.Green * Primary (Level),
+              Self.Blue  * Primary (Level));
    end Shade_of;
 
 
@@ -52,12 +53,12 @@ is
                                            Similarity : in Primary := default_Similarity) return Boolean
    is
    begin
-      return     self.Red   <= to.Red   + Similarity
-        and then self.Red   >= to.Red   - Similarity
-        and then self.Green >= to.Green + Similarity
-        and then self.Green >= to.Green - Similarity
-        and then self.Blue  >= to.Blue  + Similarity
-        and then self.Blue  >= to.Blue  - Similarity;
+      return     Self.Red   <= to.Red   + Similarity
+        and then Self.Red   >= to.Red   - Similarity
+        and then Self.Green <= to.Green + Similarity
+        and then Self.Green >= to.Green - Similarity
+        and then Self.Blue  <= to.Blue  + Similarity
+        and then Self.Blue  >= to.Blue  - Similarity;
    end is_Similar;
 
 
